@@ -5,6 +5,7 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\User;
 
 class ConfinementClassroomController extends AbstractController
 {
@@ -35,4 +36,17 @@ class ConfinementClassroomController extends AbstractController
             'controller_name' => 'ConfinementClassroomControllerRegister',
         ]);
     }
+
+    /**
+     * @Route("/ConfinementClassroom/profil{id}", name="profil")
+     */
+    public function showProfil($id) {
+        $repo = $this->getDoctrine()->getRepository(User::class);
+
+        $user = $repo->find($id);
+        return $this->render( 'ConfinementClassroom/profil.html.twig', [
+            'user' => $user
+        ]);
+    }
+
 }
