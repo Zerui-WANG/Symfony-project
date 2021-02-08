@@ -12,7 +12,7 @@
         <tr>
             {% for answer in answers %}
                 <th>
-                    <a href="/{{ path('playerUpdate', {'id': '3'}) }}">
+                    <a href="{{ path('playerUpdate', {'idAnswer': answer.id}) }}">
                         <button type="button">
                             {{ answer.getDescriptionAnswer }}
                         </button>

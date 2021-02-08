@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Answer;
 use App\Entity\Player;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,10 +12,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerUpdateController extends AbstractController
 {
     /**
-     * @Route("/player/{id}", name="playerUpdate")
+     * @Route("/player/{idAnswer}", name="playerUpdate")
+     * @param int $idAnswer
+     * @return Response
+     * @throws Exception
      */
-    public function update(Player $player) :Response
+    public function update(int $idAnswer) :Response
     {
+        $player = $this->getDoctrine()
+            ->getRepository(Player::class)
+            ->find(4);
+
         $entityManager = $this->getDoctrine()->getManager();
 
         if (!$player) {
@@ -22,8 +31,34 @@ class PlayerUpdateController extends AbstractController
             );
         }
 
-        $player->setPedagogy($player->getPedagogy() + 5);
-        $entityManager->flush();
+        $answer = $this->getDoctrine()
+            ->getRepository(Answer::class)
+            ->find($idAnswer);
+
+        $effectPlayers = $answer->getEffectPlayers();
+
+        foreach ($effectPlayers as $effectPlayer){
+            switch ($effectPlayer->getCharacteristicPlayer()){
+                case 'mood':
+                    $player->setMood($player->getMood() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'sleep':
+                    $player->setSleep($player->getSleep() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'charisma':
+                    $player->setCharisma($player->getCharisma() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'pedagogy':
+                    $player->setPedagogy($player->getPedagogy() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                default:
+                    throw new Exception('Player Characteristic don\'t match');
+            }
+        }
 
         return $this->render('player/index.html.twig', [
             'player' => $player,
