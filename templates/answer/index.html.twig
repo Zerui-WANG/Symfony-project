@@ -21,9 +21,18 @@
             <tr>
                 <td>{{ answer.id }}</td>
                 <td>{{ answer.descriptionAnswer }}</td>
-                <td>{{ answer.question }}</td>
-                <td>{{ answer.effectPlayers }}</td>
-                <td>{{ answer.effectStudents }}</td>
+                <td>{{ answer.question.nameQuestion }}</td>
+
+                <td>
+                    {% for effectPlayer in answer.effectPlayers %}
+                        {{ effectPlayer.characteristicPlayer }}
+                    {%endfor%}
+                </td>
+
+                <td>{% for effectStudent in answer.effectStudents %}
+                    {{ answer.effectStudent.characteristicStudent }}
+                    {%endfor%}
+                </td>
                 <td>
                     <a href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
                     <a href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>

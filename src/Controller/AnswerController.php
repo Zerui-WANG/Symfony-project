@@ -31,12 +31,16 @@ class AnswerController extends AbstractController
     public function new(Request $request): Response
     {
         $answer = new Answer();
+
         $form = $this->createForm(AnswerType::class, $answer);
+
         $form->handleRequest($request);
+        if($form->getData())
+            dd($form->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            dd($answer);
+
             $entityManager->persist($answer);
             $entityManager->flush();
 

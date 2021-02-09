@@ -26,7 +26,9 @@ class EffectPlayerType extends AbstractType
                     ]
                 ]
             ])
-            ->add('answer', TextType::class)
+            ->add('answer', ChoiceType::class, [
+                'choices' => $answer = getValue(getAnswer()),
+            ])
         ;
     }
 
