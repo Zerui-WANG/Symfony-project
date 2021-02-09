@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EffectStudent index{% endblock %}
+
+{% block body %}
+    <h1>EffectStudent index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ValueEffectStudent</th>
+                <th>CharacteristicStudent</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for effect_student in effect_students %}
+            <tr>
+                <td>{{ effect_student.id }}</td>
+                <td>{{ effect_student.valueEffectStudent }}</td>
+                <td>{{ effect_student.characteristicStudent }}</td>
+                <td>
+                    <a href="{{ path('effect_student_show', {'id': effect_student.id}) }}">show</a>
+                    <a href="{{ path('effect_student_edit', {'id': effect_student.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('effect_student_new') }}">Create new</a>
+{% endblock %}

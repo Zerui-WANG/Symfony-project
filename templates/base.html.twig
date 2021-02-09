@@ -26,13 +26,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                 </li>
-                {%else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Jouer</a>
-                </li>
+                {%elseif app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
+                        <a class="nav-link" href="{{ path('app_logout') }}">Jouer</a>
                     </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des questions/réponses</a>
+                            <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ path('admin_action_index') }}">Gestion des actions</a>
+                                    <a class="dropdown-item" href="{{ path('admin_event_index') }}">Gestion des events</a>
+                                    <a class="dropdown-item" href="{{ path('answer_index') }}">Gestion des réponses</a>
+                                    <a class="dropdown-item" href="{{ path('effect_player_index') }}">Gestion des effets sur les Players</a>
+                                    <a class="dropdown-item" href="{{ path('effect_student_index') }}">Gestion des effets sur les Students</a>
+                            </div>
+                        </li>
+                    {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
@@ -41,8 +54,9 @@
         </div>
     </nav>
 
-    {% block body %}{% endblock %}
-
+    <div class="jumbotron">
+        {% block body %}{% endblock %}
+    </div>
 
 {% block javascripts %}{% endblock %}
 

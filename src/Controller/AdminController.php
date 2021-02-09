@@ -28,8 +28,8 @@ class AdminController extends AbstractController
     /**
      * @Route("/users", name="users")
      */
-    public function userList(UserRepository $user){
-        return $this->render("admin/users.html.twig",['users' => $user->findAll()
+    public function userList(UserRepository $users){
+        return $this->render("admin/users.html.twig",['users' => $users->findAll()
         ]);
 
     }
@@ -38,15 +38,13 @@ class AdminController extends AbstractController
      *
      * @Route("/users/edit/{id}", name="edit_user")
      */
-
-
     public function editUser (User $user, Request $request) {
         $form = $this->createForm(EditUserType::class, $user);
         $form->handleRequest($request);
 
         if($form ->isSubmitted() && $form ->isValid()){
             $entityManager = $this->getDoctrine()->getManagers();
-            $entityManager->persist($user);
+            dd($user);
             $entityManager->flush();
 
             $this->addFlash('message', 'L\'utilisateur a été modifié avec succès');
