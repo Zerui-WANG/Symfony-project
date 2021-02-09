@@ -14,8 +14,6 @@ class EffectStudentType extends AbstractType
         $builder
             ->add('valueEffectStudent')
             ->add('characteristicStudent')
-            ->add('answers')
-            ->add('students')
         ;
     }
 
