@@ -49,7 +49,7 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}", name="event")
+     * @Route("/event/{id}", name="event_show")
      * @param Event $event
      * @return Response
      */
