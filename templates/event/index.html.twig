@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Event index{% endblock %}
+
+{% block body %}
+    <br>
+    <h1>Event index</h1>
+    <br>
+    <center><a href="{{ path('admin_event_new') }}" class="btn btn-success">Create new</a></center>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NameQuestion</th>
+                <th>DescriptionQuestion</th>
+                <th>Cooldown</th>
+                <th>Frequency</th>
+                <th>CooldownMin</th>
+                <th>CooldownMax</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for event in events %}
+            <tr>
+                <td>{{ event.id }}</td>
+                <td>{{ event.nameQuestion }}</td>
+                <td>{{ event.descriptionQuestion }}</td>
+                <td>{{ event.cooldown }}</td>
+                <td>{{ event.frequency }}</td>
+                <td>{{ event.cooldownMin }}</td>
+                <td>{{ event.cooldownMax }}</td>
+                <td>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}", class="btn btn-info">show</a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}", class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}
