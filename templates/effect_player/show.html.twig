@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EffectPlayer{% endblock %}
+
+{% block body %}
+    <h1>EffectPlayer</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ effect_player.id }}</td>
+            </tr>
+            <tr>
+                <th>ValueEffectPlayer</th>
+                <td>{{ effect_player.valueEffectPlayer }}</td>
+            </tr>
+            <tr>
+                <th>CharacteristicPlayer</th>
+                <td>{{ effect_player.characteristicPlayer }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('effect_player_index') }}">back to list</a>
+
+    <a href="{{ path('effect_player_edit', {'id': effect_player.id}) }}">edit</a>
+
+    {{ include('effect_player/_delete_form.html.twig') }}
+{% endblock %}
