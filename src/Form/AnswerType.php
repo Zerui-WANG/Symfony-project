@@ -16,6 +16,7 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+        $effect = array();
         $builder
             ->add('descriptionAnswer')
             ->add('question', EntityType::class,
@@ -29,21 +30,13 @@ class AnswerType extends AbstractType
             ])
             ->add('effectStudents', EntityType::class,
                 [
-                    'class'=>EffectStudent::class,
-                    'choice_label'=>function(EffectStudent $effectStudent){
-
-                        return sprintf('%d (%s)', $effectStudent->getCharacteristicStudent(), $effectStudent->getValueEffectStudent());
-
-                    }
+                    'class'=>Answer::class,
+                    'choices'=>$effect->getEffectStudents(),
                 ])
             ->add('effectPlayers',EntityType::class,
                 [
-                    'class'=>EffectPlayer::class,
-                    'choice_label'=>function(EffectPlayer $effectPlayer){
-
-                        return sprintf('%d (%s)', $effectPlayer->getCharacteristicPlayer(), $effectPlayer->getValueEffectPlayer());
-
-                    }
+                    'class'=>Answer::class,
+                    'choices'=>$effect->getEffectPlayers(),
                 ])
         ;
 

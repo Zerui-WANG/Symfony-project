@@ -9,8 +9,11 @@
         <thead>
             <tr>
                 <th>Id</th>
-                <th>DescriptionAnswer</th>
-                <th>actions</th>
+                <th>Description de la réponse</th>
+                <th>Question liée</th>
+                <th>L'effet sur le Teacher</th>
+                <th>L'effet sur les Students</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +21,9 @@
             <tr>
                 <td>{{ answer.id }}</td>
                 <td>{{ answer.descriptionAnswer }}</td>
+                <td>{{ answer.question }}</td>
+                <td>{{ answer.effectPlayers }}</td>
+                <td>{{ answer.effectStudents }}</td>
                 <td>
                     <a href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
                     <a href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>

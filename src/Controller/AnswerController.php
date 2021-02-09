@@ -36,6 +36,7 @@ class AnswerController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            dd($answer);
             $entityManager->persist($answer);
             $entityManager->flush();
 
