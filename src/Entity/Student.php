@@ -49,6 +49,12 @@ class Student
      */
     private $effectStudents;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="students")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $game;
+
     public function __construct()
     {
         $this->effectStudents = new ArrayCollection();
@@ -139,6 +145,18 @@ class Student
     public function removeEffectStudent(EffectStudent $effectStudent): self
     {
         $this->effectStudents->removeElement($effectStudent);
+
+        return $this;
+    }
+
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
 
         return $this;
     }

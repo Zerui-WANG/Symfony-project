@@ -44,9 +44,21 @@ class Game
      */
     private $questions;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $player;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Student::class, mappedBy="game", orphanRemoval=true)
+     */
+    private $students;
+
     public function __construct()
     {
         $this->questions = new ArrayCollection();
+        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,6 +144,48 @@ class Game
     public function removeQuestion(Question $question): self
     {
         $this->questions->removeElement($question);
+
+        return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(Player $player): self
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Student[]
+     */
+    public function getStudents(): Collection
+    {
+        return $this->students;
+    }
+
+    public function addStudent(Student $student): self
+    {
+        if (!$this->students->contains($student)) {
+            $this->students[] = $student;
+            $student->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeStudent(Student $student): self
+    {
+        if ($this->students->removeElement($student)) {
+            // set the owning side to null (unless already changed)
+            if ($student->getGame() === $this) {
+                $student->setGame(null);
+            }
+        }
 
         return $this;
     }
