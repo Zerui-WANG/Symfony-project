@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Action{% endblock %}
+
+{% block body %}
+    <h1>Action</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ action.id }}</td>
+            </tr>
+            <tr>
+                <th>NameQuestion</th>
+                <td>{{ action.nameQuestion }}</td>
+            </tr>
+            <tr>
+                <th>DescriptionQuestion</th>
+                <td>{{ action.descriptionQuestion }}</td>
+            </tr>
+            <tr>
+                <th>Duration</th>
+                <td>{{ action.duration }}</td>
+            </tr>
+            <tr>
+                <th>ActionPeriod</th>
+                <td>{{ action.actionPeriod }}</td>
+            </tr>
+            <tr>
+                <th>IsAvailable</th>
+                <td>{{ action.isAvailable ? 'Yes' : 'No' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_action_index') }}", class="btn btn-primary">back to list</a>
+
+    <a href="{{ path('admin_action_edit', {'id': action.id}) }}", class="btn btn-warning">edit</a>
+
+    {{ include('action/_delete_form.html.twig') }}
+{% endblock %}

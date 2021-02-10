@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
     <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
-    <link href="https://bootswatch.com/4/cyborg/bootstrap.min.css" rel="stylesheet">
+    <link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
     {% block stylesheets %}{% endblock %}
 
 </head>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
         <a class="navbar-brand" href="/">ConfinementClassroom</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -26,10 +26,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
                 </li>
-                {%else %}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Jouer</a>
-                </li>
+                {%elseif app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('app_logout') }}">Jouer</a>
+                    </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des questions/réponses</a>
+                            <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ path('admin_action_index') }}">Gestion des actions</a>
+                                    <a class="dropdown-item" href="{{ path('admin_event_index') }}">Gestion des events</a>
+                                    <a class="dropdown-item" href="{{ path('answer_index') }}">Gestion des réponses</a>
+                                    <a class="dropdown-item" href="{{ path('effect_player_index') }}">Gestion des effets sur les Players</a>
+                                    <a class="dropdown-item" href="{{ path('effect_student_index') }}">Gestion des effets sur les Students</a>
+                            </div>
+                        </li>
+                    {% endif %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
@@ -38,8 +54,9 @@
         </div>
     </nav>
 
-    {% block body %}{% endblock %}
-
+    <div class="jumbotron">
+        {% block body %}{% endblock %}
+    </div>
 
 {% block javascripts %}{% endblock %}
 

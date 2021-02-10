@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit EffectPlayer{% endblock %}
+
+{% block body %}
+    <h1>Edit EffectPlayer</h1>
+
+    {{ include('effect_player/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('effect_player_index') }}">back to list</a>
+
+    {{ include('effect_player/_delete_form.html.twig') }}
+{% endblock %}

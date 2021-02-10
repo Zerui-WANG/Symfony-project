@@ -22,7 +22,7 @@ class Event extends Question
     private $frequency;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $cooldownMin;
 
@@ -55,12 +55,12 @@ class Event extends Question
         return $this;
     }
 
-    public function getCooldownMin(): ?string
+    public function getCooldownMin(): ?int
     {
         return $this->cooldownMin;
     }
 
-    public function setCooldownMin(string $cooldownMin): self
+    public function setCooldownMin(int $cooldownMin): self
     {
         $this->cooldownMin = $cooldownMin;
 
