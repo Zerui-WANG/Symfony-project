@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New EffectStudent{% endblock %}
+
+{% block body %}
+    <h1>Create new EffectStudent</h1>
+
+    {{ include('effect_student/_form.html.twig') }}
+
+    <a href="{{ path('effect_student_index') }}">back to list</a>
+{% endblock %}
