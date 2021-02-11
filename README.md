@@ -3,7 +3,16 @@
 
 ConfinementClassroom 
 
-Langages/technologies utilisés pour le développement : Symfony, Twig, Bootstrap, ORM Doctrine, Composer, GitHub.
+Langages utilisés : 
+- Symfony
+- PHP 7.2 (and above)
+
+Technologies utilisées : 
+- Bootstrap
+- Twig
+- ORM Doctrine
+- Composer
+- GitHub
 
 ![Alt text](./diagrammeDeClasse.svg)
 <img src="./diagrammeDeClasse.svg">
