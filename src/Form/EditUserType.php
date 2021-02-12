@@ -40,7 +40,7 @@ class EditUserType extends AbstractType
             ->add('Valider', SubmitType::class)
         ;
 
-
+/*
     // Data transformer
             $builder->get('roles')
                 ->addModelTransformer(new CallbackTransformer(
@@ -52,7 +52,7 @@ class EditUserType extends AbstractType
                         // transform the string back to an array
                         return [$rolesString];
                     }
-                ));
+                )); */
     }
 
     public function configureOptions(OptionsResolver $resolver)
