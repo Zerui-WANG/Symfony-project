@@ -12,11 +12,20 @@
 <div class="menu">
     <h1>Menu</h1>
 
-    <ul>
-        <li>Nouvelle partie </li>
-        <li>Sauvegarder la partie </li>
-        <li> Charger une partie partie </li>
-        <li> Quitter la partie </li>
-    </ul>
+    <table>
+        <tr>
+            <td><button><a href="{{ path('game_new', {'idUser': $this.user.id}) }}">Nouvelle partie</a></button></td>
+        </tr>
+        <tr>
+            <td><button><a href="">Sauvegarder la partie</a></button></td>
+        </tr>
+        <tr>
+            <td><button><a href="">Charger une partie partie</a></button></td>
+        </tr>
+        <tr>
+            <td><button><a href="">Quitter la partie</a></button></td>
+        </tr>
+
+    </table>
 </div>
 {% endblock %}
