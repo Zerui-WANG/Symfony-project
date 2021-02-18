@@ -23,8 +23,8 @@
                 <td>{{ game.dayTime }}</td>
                 <td>{{ game.createdAt ? game.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>
-                    <a href="{{ path('game_show', {'id': game.id}) }}">show</a>
-                    <a href="{{ path('game_edit', {'id': game.id}) }}">edit</a>
+                    <a href="{{ path('game_show', {'id': game.id}) }}" class="btn btn-warning">Reprendre</a>
+                    <a href="{{ path('game_delete', {'id': game.id}) }}" class="btn btn-danger">Supprimer</a>
                 </td>
             </tr>
         {% else %}

@@ -15,7 +15,6 @@ class GameType extends AbstractType
             ->add('turn')
             ->add('dayTime')
             ->add('createdAt')
-            ->add('user')
             ->add('questions')
         ;
     }
