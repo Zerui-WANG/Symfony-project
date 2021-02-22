@@ -43,8 +43,7 @@ class AdminController extends AbstractController
         $form->handleRequest($request);
 
         if($form ->isSubmitted() && $form ->isValid()){
-            $entityManager = $this->getDoctrine()->getManagers();
-            dd($user);
+            $entityManager = $this->getDoctrine()->getManager();
             $entityManager->flush();
 
             $this->addFlash('message', 'L\'utilisateur a été modifié avec succès');

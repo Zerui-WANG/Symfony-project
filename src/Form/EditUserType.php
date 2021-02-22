@@ -52,7 +52,9 @@ class EditUserType extends AbstractType
                         // transform the string back to an array
                         return [$rolesString];
                     }
-                )); */
+
+                ));*/
+
     }
 
     public function configureOptions(OptionsResolver $resolver)
