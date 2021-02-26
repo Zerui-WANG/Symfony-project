@@ -15,7 +15,7 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
         for($i = 0; $i < 2; $i++){
             $answer = new Answer();
             $answer->setDescriptionAnswer("Description answer n°$i")
-                ->setQuestion($this->getReference('event_'.($i - $i%2)));
+                    ->setQuestion($this->getReference('event_'.($i - $i%2)));
 
             $this->setReference('answer_'.$i, $answer);
 

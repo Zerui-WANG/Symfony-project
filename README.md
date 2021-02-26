@@ -16,3 +16,10 @@ Technologies utilisées :
 
 ![Alt text](./diagrammeDeClasse.svg)
 <img src="./diagrammeDeClasse.svg">
+
+images libres de droits et licences:
+
+© Stocklib / Laura Milena Guzman Lopez
+-badGrade.jpg
+-mediumgrade.jpg
+-goodGrade.jpg

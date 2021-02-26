@@ -47,9 +47,8 @@ class BoomController extends AbstractController
     {
         $students= $this->getDoctrine()
             ->getRepository('App:Student')
-            ->findByGame(1);
+            ->findByGame(14);
 
-        dd($students);
         return $this->render("boom/index.html.twig", array(
             'students' => $students,
         ));

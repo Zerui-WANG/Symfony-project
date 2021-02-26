@@ -8,9 +8,10 @@ use Doctrine\Persistence\ObjectManager;
 
 class PlayerFixtures extends Fixture
 {
+
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 2; $i++){
+        for($i = 0; $i < 3; $i++){
             $player = new Player();
             $player->setMood(100)
                 ->setSleep(100)
@@ -20,8 +21,11 @@ class PlayerFixtures extends Fixture
             $this->setReference('player_'.$i, $player);
 
             $manager->persist($player);
+
         }
 
         $manager->flush();
+
     }
+
 }
