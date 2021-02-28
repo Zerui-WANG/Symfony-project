@@ -52,4 +52,8 @@ final class Version20210128213048 extends AbstractMigration
         $this->addSql('DROP INDEX UNIQ_8D93D649E48FD905 ON user');
         $this->addSql('ALTER TABLE user DROP game_id');
     }
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
