@@ -1,13 +1,10 @@
-# Symfony-project
+# Symfony-project : ConfinementClassroom
 
-
-ConfinementClassroom 
-
-Langages utilisés : 
-- Symfony
+## System : 
 - PHP 7.2 (and above)
 
-Technologies utilisées : 
+## App : 
+- Symfony
 - Bootstrap
 - Twig
 - ORM Doctrine
