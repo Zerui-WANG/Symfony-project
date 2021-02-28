@@ -40,4 +40,8 @@ final class Version20210210194114 extends AbstractMigration
         $this->addSql('ALTER TABLE student DROP game_id');
         $this->addSql('ALTER TABLE user CHANGE is_validate is_validate TINYINT(1) NOT NULL');
     }
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

@@ -10,11 +10,11 @@ use App\Entity\User;
 class HomeController extends AbstractController
 {
     /**
-     * @Route("/ConfinementClassroom", name="ConfinementClassroom")
+     * @Route("/home", name="home")
      */
     public function index(): Response
     {
-        return $this->render('ConfinementClassroom/index.html.twig', [
+        return $this->render('home/index.html.twig', [
             'controller_name' => 'HomeController',
         ]);
     }
@@ -23,16 +23,16 @@ class HomeController extends AbstractController
      * @Route("/", name="home")
      */
     public function home() {
-        return $this->render( 'ConfinementClassroom/home.html.twig', [
+        return $this->render( 'home/home.html.twig', [
             'controller_name' => 'ConfinementClassroomControllerHome',
         ]);
     }
 
     /**
-     * @Route("/ConfinementClassroom/game", name="game")
+     * @Route("/home/game", name="game")
      */
     public function game() {
-        return $this->render( 'ConfinementClassroom/game.html.twig', [
+        return $this->render( 'home/game.html.twig', [
         ]);
     }
 }

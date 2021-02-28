@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 /**
- * @Route("/ConfinementClassroom")
+ * @Route("/home")
  */
 class SecurityController extends AbstractController
 {

@@ -2803,6 +2803,10 @@
             "support": {
                 "issues": "https://github.com/stof/StofDoctrineExtensionsBundle/issues",
                 "source": "https://github.com/stof/StofDoctrineExtensionsBundle/tree/master"
+<<<<<<< HEAD
+            },
+            "time": "2021-01-20T11:21:48+00:00"
+=======
             },
             "time": "2021-01-20T11:21:48+00:00"
         },
@@ -2880,6 +2884,7 @@
                 }
             ],
             "time": "2021-01-12T09:35:59+00:00"
+>>>>>>> feature/game_header
         },
         {
             "name": "symfony/asset",

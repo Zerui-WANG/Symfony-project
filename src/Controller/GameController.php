@@ -53,42 +53,13 @@ class GameController extends AbstractController
      */
     public function show(Game $game): Response
     {
+        $player =$game->getplayer();
+        $user = $game->getUser();
+
         return $this->render('game/show.html.twig', [
             'game' => $game,
+            'player' => $player,
+            'user' => $user,
         ]);
-    }
-
-    /**
-     * @Route("/{id}/edit", name="game_edit", methods={"GET","POST"})
-     */
-    public function edit(Request $request, Game $game): Response
-    {
-        $form = $this->createForm(GameType::class, $game);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('game_index');
-        }
-
-        return $this->render('game/edit.html.twig', [
-            'game' => $game,
-            'form' => $form->createView(),
-        ]);
-    }
-
-    /**
-     * @Route("/{id}", name="game_delete", methods={"DELETE"})
-     */
-    public function delete(Request $request, Game $game): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$game->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($game);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('game_index');
     }
 }

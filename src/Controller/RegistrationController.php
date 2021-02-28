@@ -12,7 +12,7 @@ use App\Form\RegistrationType;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
- * @Route("/ConfinementClassroom")
+ * @Route("/home")
  */
 class RegistrationController extends AbstractController
 {

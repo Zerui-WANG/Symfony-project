@@ -3,32 +3,25 @@
 {% block title %}Game{% endblock %}
 
 {% block body %}
-    <h1>Game</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ game.id }}</td>
-            </tr>
-            <tr>
-                <th>Turn</th>
-                <td>{{ game.turn }}</td>
-            </tr>
-            <tr>
-                <th>DayTime</th>
-                <td>{{ game.dayTime }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ game.createdAt ? game.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('game_index') }}">back to list</a>
-
-    <a href="{{ path('game_edit', {'id': game.id}) }}">edit</a>
-
-    {{ include('game/_delete_form.html.twig') }}
+    <div class="jumbotron">
+        <table class="table table-hover">
+            <tbody>
+                <thead>
+                    <tr>
+                        <th scope="col">Pseudo : {{user.pseudo}}</th>
+                        <th scope="col">ID du joueur : {{player.id}}</th>
+                        <th scope="col">ID Game: {{game.id}}</th>
+                        <th scope="col">Tour : {{game.turn}}</th>
+                        <th scope="col">DayTime : {{game.dayTime}}</th>
+                        <th scope="col">Humeur : {{player.mood}}</th>
+                        <th scope="col">Pédagogie : {{player.pedagogy}}</th>
+                        <th scope="col">Charisme :{{player.charisma}}</th>
+                    </tr>
+                </thead>
+            </tbody>
+        </table>
+        <hr class="my-4">
+        <p>On mettra ici le desktop</p>
+    </div>
 {% endblock %}

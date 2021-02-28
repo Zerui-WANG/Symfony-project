@@ -42,4 +42,8 @@ final class Version20210128215349 extends AbstractMigration
         $this->addSql('DROP TABLE player_effect_player');
         $this->addSql('DROP TABLE student_effect_student');
     }
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }

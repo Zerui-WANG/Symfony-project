@@ -30,4 +30,8 @@ final class Version20210201214005 extends AbstractMigration
         $this->addSql('ALTER TABLE event CHANGE cooldown_min cooldown_min VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
         $this->addSql('ALTER TABLE user CHANGE roles roles LONGTEXT CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_bin`');
     }
+    public function isTransactional(): bool
+    {
+        return false;
+    }
 }
