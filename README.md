@@ -1,18 +1,21 @@
-# Symfony-project
+# Symfony-project : ConfinementClassroom
 
+## Requirements :
 
-ConfinementClassroom 
-
-Langages utilisés : 
-- Symfony
+### System : 
 - PHP 7.2 (and above)
 
-Technologies utilisées : 
+### App : 
+- Symfony
 - Bootstrap
 - Twig
 - ORM Doctrine
 - Composer
 - GitHub
+- wamp/xamp
+
+## Get started
+- `symfony server:start -d`
 
 ![Alt text](./diagrammeDeClasse.svg)
 <img src="./diagrammeDeClasse.svg">
