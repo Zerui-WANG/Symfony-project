@@ -18,7 +18,6 @@
 - `symfony server:start -d`
 
 ![Alt text](./diagrammeDeClasse.svg)
-<img src="./diagrammeDeClasse.svg">
 
 images libres de droits et licences:
 
