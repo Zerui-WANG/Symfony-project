@@ -49,19 +49,6 @@ class EventController extends AbstractController
     }
 
     /**
-     * @Route("/event/{id}", name="event_show")
-     * @param Event $event
-     * @return Response
-     */
-    public function show(Event $event) :Response
-    {
-        return $this->render('event/show.html.twig', [
-            'event' => $event,
-            'answers' => $event->getAnswers()
-        ]);
-    }
-
-    /**
      * @Route("/{id}/edit", name="event_edit", methods={"GET","POST"})
      */
     public function edit(Request $request, Event $event): Response

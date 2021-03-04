@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Game;
+use App\Entity\Player;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * @method Game|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,6 +22,16 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
+    public function create(Player $player, User $user): Game
+    {
+        $game = new Game();
+        $game->setPlayer($player)
+            ->setUser($user)
+            ->setTurn(10)
+            ->setDayTime('matin')
+            ->setCreatedAt(new \datetime('now'));
+        return $game;
+    }
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

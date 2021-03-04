@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class PlayerUpdateController extends AbstractController
 {
     /**
-     * @Route("/player/{idAnswer}", name="playerUpdate")
+     * @Route("/player/update/{idAnswer}", name="playerUpdate")
      * @param int $idAnswer
      * @return Response
      * @throws Exception
@@ -21,7 +21,7 @@ class PlayerUpdateController extends AbstractController
     {
         $player = $this->getDoctrine()
             ->getRepository(Player::class)
-            ->find(4);
+            ->find($this->getUser()->getGame()->getPlayer());
 
         $entityManager = $this->getDoctrine()->getManager();
 
@@ -63,7 +63,5 @@ class PlayerUpdateController extends AbstractController
         return $this->render('player/index.html.twig', [
             'player' => $player,
         ]);
-
     }
-
 }
