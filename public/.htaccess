@@ -1,3 +1,13 @@
+# Based on http://stackoverflow.com/questions/17313023/symfony-2-2-1-url-rewrite-issue
+# Modified to use index.php as per symfony >= 4.0 installer
+
+# Use the front controller as index file. It serves as fallback solution when
+# every other rewrite/redirect fails (e.g. in an aliased environment without
+# mod_rewrite). Additionally, this reduces the matching process for the
+# startpage (path "/") because otherwise Apache will apply the rewritting rules
+# to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
+DirectoryIndex index.php
+
 RewriteEngine On
 
 # Redirect to URI without front controller to prevent duplicate content
@@ -39,3 +49,14 @@ RewriteRule ^(.*)$ index.php [QSA,L]
 RewriteCond %{REQUEST_URI}::$1 ^(/.+)(.+)::\2$
 RewriteRule ^(.*) - [E=BASE:%1]
 RewriteRule .? %{ENV:BASE}index.php [L]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+    <IfModule mod_alias.c>
+        # When mod_rewrite is not available, we instruct a temporary redirect of
+        # the startpage to the front controller explicitly so that the website
+        # and the generated links can still be used.
+        RedirectMatch 302 ^/$ /index.php/
+        # RedirectTemp cannot be used instead
+    </IfModule>
+</IfModule>
