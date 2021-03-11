@@ -62,4 +62,5 @@ class GameController extends AbstractController
             'user' => $user,
         ]);
     }
+
 }
