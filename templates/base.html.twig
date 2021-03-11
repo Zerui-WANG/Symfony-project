@@ -19,7 +19,7 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('home') }}">Mode d'emploi</a>
                 </li>
-                {% block %}
+                {% block nav%}
                 {% if not app.user %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
@@ -54,7 +54,7 @@
                     <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
                 </li>
                 {%endif%}
-                {% endblock %}
+                {% endblock nav%}
             </ul>
         </div>
     </nav>
