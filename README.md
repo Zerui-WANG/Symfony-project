@@ -17,8 +17,7 @@
 ## Get started
 - `symfony server:start -d`
 
-![Alt text](./diagrammeDeClasse.svg)
-<img src="./diagrammeDeClasse.svg">
+![Alt text](./diagrammeClasse.svg)
 
 images libres de droits et licences:
 

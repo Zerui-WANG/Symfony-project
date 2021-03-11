@@ -59,6 +59,7 @@ class Game
     {
         $this->questions = new ArrayCollection();
         $this->students = new ArrayCollection();
+
     }
 
     public function getId(): ?int

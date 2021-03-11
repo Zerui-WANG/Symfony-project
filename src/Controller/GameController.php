@@ -3,12 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Form\GameType;
+use App\Entity\Player;
+use App\Entity\User;
 use App\Repository\GameRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @Route("/game")
@@ -28,24 +31,20 @@ class GameController extends AbstractController
     /**
      * @Route("/new", name="game_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(UserInterface $user, EntityManagerInterface $manager)
     {
-        $game = new Game();
-        $form = $this->createForm(GameType::class, $game);
-        $form->handleRequest($request);
+        $userUser = $this->getDoctrine()->getRepository(User::class)->find($user->getId());
+        $player = $this->getDoctrine()->getRepository(Player::class)->create();
+        $game = $this->getDoctrine()->getRepository(Game::class)->create($player, $userUser);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($game);
-            $entityManager->flush();
+        $manager->persist($game);
+        $manager->flush();
 
-            return $this->redirectToRoute('game_index');
-        }
-
+        dd($game);
+        /*
         return $this->render('game/new.html.twig', [
             'game' => $game,
-            'form' => $form->createView(),
-        ]);
+        ]);*/
     }
 
     /**
