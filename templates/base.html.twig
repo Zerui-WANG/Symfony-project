@@ -22,10 +22,10 @@
                 {% block nav%}
                 {% if not app.user %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_register') }}">S'inscrire</a>
+                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Se connecter</a>
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
                 </li>
                 {%elseif app.user %}
                     <li class="nav-item">
@@ -37,7 +37,7 @@
                             <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion des questions/réponses</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion jeux</a>
                             <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ path('admin_action_index') }}">Gestion des actions</a>
                                     <a class="dropdown-item" href="{{ path('admin_event_index') }}">Gestion des events</a>
@@ -51,7 +51,7 @@
                     <a class="nav-link" href="{{ path('contact') }}">Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Se déconnecter</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
                 </li>
                 {%endif%}
                 {% endblock nav%}
