@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 
 /**
  * @method Player|null find($id, $lockMode = null, $lockVersion = null)
@@ -17,6 +18,17 @@ class PlayerRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Player::class);
+    }
+
+    public function create()
+    {
+        $player = new Player();
+        $player->setMood(100)
+            ->setSleep(100)
+            ->setCharisma(5)
+            ->setPedagogy(5);
+
+        return $player;
     }
 
     // /**
