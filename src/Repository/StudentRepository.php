@@ -19,6 +19,23 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
+    public function create()
+    {
+        $students = array();
+
+        for($i = 0; $i < 30; $i++) {
+            $student = new Student();
+            $student->setAttendance(mt_rand(1, 100))
+                ->setPersonality(mt_rand(1, 10))
+                ->setGrade(mt_rand(5, 15))
+                ->setIsFailure(false)
+                ->setIsPresent(true);
+            array_push($students, $student);
+        }
+
+        return $students;
+    }
+
     /**
      * @param int $value
      * @return Student[] Returns an array of Student objects

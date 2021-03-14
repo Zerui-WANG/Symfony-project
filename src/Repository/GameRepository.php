@@ -4,8 +4,10 @@ namespace App\Repository;
 
 use App\Entity\Game;
 use App\Entity\Player;
+use App\Entity\Student;
 use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
 
@@ -22,7 +24,7 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function create(Player $player, User $user): Game
+    public function create(Player $player, User $user, $students): Game
     {
         $game = new Game();
         $game->setPlayer($player)
@@ -30,6 +32,10 @@ class GameRepository extends ServiceEntityRepository
             ->setTurn(10)
             ->setDayTime('matin')
             ->setCreatedAt(new \datetime('now'));
+
+        foreach($students as $s ){
+            $game->addStudent($s);
+        }
         return $game;
     }
     // /**

@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class EventFixtures extends Fixture
+class EventFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -19,12 +20,17 @@ class EventFixtures extends Fixture
                 ->setNameQuestion("Nom de question n°$i")
                 ->setDescriptionQuestion("Description de question n°$i");
 
-            $this->setReference('event_'.$i, $event);
+            $this->setReference('question_'.$i, $event);
 
             $manager->persist($event);
         }
         $manager->flush();
+    }
 
-
+    public function getDependencies(): array
+    {
+        return array(
+            ActionFixtures::class,
+        );
     }
 }

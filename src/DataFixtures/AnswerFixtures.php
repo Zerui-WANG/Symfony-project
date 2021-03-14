@@ -12,12 +12,22 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 2; $i++){
+        for($i = 0; $i < 6; $i++){
             $answer = new Answer();
             $answer->setDescriptionAnswer("Description answer n°$i")
-                    ->setQuestion($this->getReference('event_'.($i - $i%2)));
+                    ->setQuestion($this->getReference('question_'.$i));
 
             $this->setReference('answer_'.$i, $answer);
+
+            $manager->persist($answer);
+        }
+
+        for($j = 6; $j < 12; $j++){
+            $answer = new Answer();
+            $answer->setDescriptionAnswer("Description answer n°$j")
+                ->setQuestion($this->getReference('question_'.($j - 6)));
+
+            $this->setReference('answer_'.$j, $answer);
 
             $manager->persist($answer);
         }

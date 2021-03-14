@@ -9,8 +9,6 @@ use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 
 class GameFixtures extends Fixture implements DependentFixtureInterface
 {
-  //  public const GAME_REFERENCE = 'game';
-
     public function load(ObjectManager $manager)
     {
         for($i = 0; $i < 3; $i++){
@@ -19,12 +17,10 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
                 ->setDayTime("matin")
                 ->setCreatedAt(new \DateTime())
                 ->setPlayer($this->getReference('player_'.($i)));
-              //  ->setPlayer($this->getReference(PlayerFixtures::PLAYER_REFERENCE));
 
             $this->setReference('game_'.$i, $game);
 
             $manager->persist($game);
-        //    $this->addReference(self::GAME_REFERENCE, $game);
         }
 
         $manager->flush();

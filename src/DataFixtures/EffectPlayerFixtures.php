@@ -19,14 +19,12 @@ class EffectPlayerFixtures extends Fixture implements DependentFixtureInterface
                         ->setValueEffectPlayer(10)
                         ->addAnswer($this->getReference('answer_' . ($i % 2)))
                         ->addPlayer($this->getReference(('player_'.($i % 2))));
-
                     break;
                 case 1:
                     $effectPlayer->setCharacteristicPlayer('sleep')
                         ->setValueEffectPlayer(10)
                         ->addAnswer($this->getReference('answer_' . $i % 2))
                         ->addPlayer($this->getReference(('player_'.($i % 2))));
-
                     break;
                 case 2:
                     $effectPlayer->setCharacteristicPlayer('charisma')

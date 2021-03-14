@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Entity\Player;
+use App\Entity\Student;
 use App\Entity\User;
 use App\Repository\GameRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -31,20 +32,28 @@ class GameController extends AbstractController
     /**
      * @Route("/new", name="game_new", methods={"GET","POST"})
      */
-    public function new(UserInterface $user, EntityManagerInterface $manager)
+    public function create(UserInterface $user, EntityManagerInterface $manager)
     {
         $userUser = $this->getDoctrine()->getRepository(User::class)->find($user->getId());
         $player = $this->getDoctrine()->getRepository(Player::class)->create();
-        $game = $this->getDoctrine()->getRepository(Game::class)->create($player, $userUser);
+        $students = $this->getDoctrine()->getRepository(Student::class)->create();
+
+        foreach ($students as $s) {
+            $manager->persist($s);
+        }
+
+
+
+        $game = $this->getDoctrine()->getRepository(Game::class)->create($player, $userUser, $students);
 
         $manager->persist($game);
         $manager->flush();
 
         dd($game);
-        /*
-        return $this->render('game/new.html.twig', [
+
+        return $this->render('desktop/index.html.twig', [
             'game' => $game,
-        ]);*/
+        ]);
     }
 
     /**
