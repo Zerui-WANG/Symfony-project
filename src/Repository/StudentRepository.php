@@ -21,7 +21,7 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
-    public function create(): array
+    public function create($manager): array
     {
         $students = array();
 
@@ -32,6 +32,7 @@ class StudentRepository extends ServiceEntityRepository
                 ->setGrade(mt_rand(5, 15))
                 ->setIsFailure(false)
                 ->setIsPresent(true);
+            $manager->persist($student);
             array_push($students, $student);
         }
 

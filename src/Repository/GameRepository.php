@@ -21,7 +21,7 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function create(Player $player, User $user, $students): Game
+    public function create(Player $player, User $user, $students, $actions, $events): Game
     {
         $game = new Game();
         $game->setPlayer($player)
@@ -30,8 +30,16 @@ class GameRepository extends ServiceEntityRepository
             ->setDayTime('matin')
             ->setCreatedAt(new \datetime('now'));
 
-        foreach($students as $s ){
-            $game->addStudent($s);
+        foreach($students as $student ){
+            $game->addStudent($student);
+        }
+
+        foreach($actions as $action ){
+            $game->addQuestion($action);
+        }
+
+        foreach($events as $event ){
+            $game->addQuestion($event);
         }
         return $game;
     }

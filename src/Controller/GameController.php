@@ -2,8 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Action;
+use App\Entity\Event;
 use App\Entity\Game;
 use App\Entity\Player;
+use App\Entity\Question;
 use App\Entity\Student;
 use App\Entity\User;
 use App\Repository\GameRepository;
@@ -36,15 +39,12 @@ class GameController extends AbstractController
     {
         $userUser = $this->getDoctrine()->getRepository(User::class)->find($user->getId());
         $player = $this->getDoctrine()->getRepository(Player::class)->create();
-        $students = $this->getDoctrine()->getRepository(Student::class)->create();
+        $students = $this->getDoctrine()->getRepository(Student::class)->create($manager);
+        $actions = $this->getDoctrine()->getRepository(Action::class)->create($manager);
+        $events = $this->getDoctrine()->getRepository(Event::class)->create($manager);
 
-        foreach ($students as $s) {
-            $manager->persist($s);
-        }
-
-
-
-        $game = $this->getDoctrine()->getRepository(Game::class)->create($player, $userUser, $students);
+        $game = $this->getDoctrine()->getRepository(Game::class)
+            ->create($player, $userUser, $students, $actions, $events);
 
         $manager->persist($game);
         $manager->flush();
