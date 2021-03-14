@@ -35,30 +35,8 @@ class PlayerUpdateController extends AbstractController
             ->getRepository(Answer::class)
             ->find($idAnswer);
 
-        $effectPlayers = $answer->getEffectPlayers();
-
-        foreach ($effectPlayers as $effectPlayer){
-            switch ($effectPlayer->getCharacteristicPlayer()){
-                case 'mood':
-                    $player->setMood($player->getMood() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
-                    break;
-                case 'sleep':
-                    $player->setSleep($player->getSleep() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
-                    break;
-                case 'charisma':
-                    $player->setCharisma($player->getCharisma() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
-                    break;
-                case 'pedagogy':
-                    $player->setPedagogy($player->getPedagogy() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
-                    break;
-                default:
-                    throw new Exception('Player Characteristic don\'t match');
-            }
-        }
+        $this->getDoctrine()->getRepository(Player::class)
+            ->update($player, $answer, $entityManager);
 
         return $this->render('player/index.html.twig', [
             'player' => $player,

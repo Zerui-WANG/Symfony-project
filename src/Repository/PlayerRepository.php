@@ -2,10 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Answer;
 use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Doctrine\Persistence\ObjectManager;
+use Exception;
 
 /**
  * @method Player|null find($id, $lockMode = null, $lockVersion = null)
@@ -20,7 +21,7 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
-    public function create()
+    public function create(): Player
     {
         $player = new Player();
         $player->setMood(100)
@@ -29,6 +30,40 @@ class PlayerRepository extends ServiceEntityRepository
             ->setPedagogy(5);
 
         return $player;
+    }
+
+    /**
+     * @param Player $player
+     * @param Answer $answer
+     * @param $entityManager
+     * @throws Exception
+     */
+    public function update(Player $player, Answer $answer, $entityManager)
+    {
+        $effectPlayers = $answer->getEffectPlayers();
+
+        foreach ($effectPlayers as $effectPlayer){
+            switch ($effectPlayer->getCharacteristicPlayer()){
+                case 'mood':
+                    $player->setMood($player->getMood() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'sleep':
+                    $player->setSleep($player->getSleep() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'charisma':
+                    $player->setCharisma($player->getCharisma() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                case 'pedagogy':
+                    $player->setPedagogy($player->getPedagogy() + $effectPlayer->getValueEffectPlayer());
+                    $entityManager->flush();
+                    break;
+                default:
+                    throw new Exception('Player Characteristic don\'t match');
+            }
+        }
     }
 
     // /**

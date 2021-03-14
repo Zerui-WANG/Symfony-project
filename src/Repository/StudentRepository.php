@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Entity\Answer;
 use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @method Student|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,7 +21,7 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
-    public function create()
+    public function create(): array
     {
         $students = array();
 
@@ -34,6 +36,44 @@ class StudentRepository extends ServiceEntityRepository
         }
 
         return $students;
+    }
+
+    /**
+     * @param Answer $answer
+     * @param $students
+     * @param $entityManager
+     * @throws Exception
+     */
+    public function update(Answer $answer, $students, $entityManager)
+    {
+        $effectStudents = $answer->getEffectStudents();
+
+        foreach ($effectStudents as $effectStudent){
+            foreach ($students as $student) {
+                switch ($effectStudent->getCharacteristicStudent()) {
+                    case 'attendance':
+                        $student->setAttendance($student->getAttendance() +
+                            $student->getPersonality() + $effectStudent->getValueEffectStudent());
+                        $entityManager->flush();
+                        break;
+                    case 'grade':
+                        $student->setGrade($student->getGrade() +
+                            $student->getPersonality() + $effectStudent->getValueEffectStudent());
+                        $entityManager->flush();
+                        break;
+                    case 'isPresent':
+                        $student->setIsPresent($effectStudent->getValueEffectStudent());
+                        $entityManager->flush();
+                        break;
+                    case 'isFailure':
+                        $student->setIsFailure($effectStudent->getValueEffectStudent());
+                        $entityManager->flush();
+                        break;
+                    default:
+                        throw new Exception('Student Characteristic don\'t match');
+                }
+            }
+        }
     }
 
     /**

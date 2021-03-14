@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Entity\Student;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -12,33 +13,35 @@ class StudentUpdateController extends AbstractController
 {
     /**
      * @Route("/student/update/{idAnswer}", name="student_update")
+     * @param int $idAnswer
+     * @return Response
+     * @throws Exception
      */
     public function update(int $idAnswer): Response
     {
-        $game = $this->getUser()->getGame();
-
         $students = $this->getDoctrine()
             ->getRepository(Student::class)
-            ->find($game->getStudents());
+            ->findBy(
+                ['game' => $this->getUser()->getGame()]);
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        if(!$students){
-            throw $this->createNotFoundException(
-                'No students found for game id '.$game->getId()
-            );
+        foreach ($students as $student) {
+            if (!$student) {
+                throw $this->createNotFoundException(
+                    'No player found for id ' . $student->getId()
+                );
+            }
         }
 
         $answer = $this->getDoctrine()
             ->getRepository(Answer::class)
             ->find($idAnswer);
 
-        $effectStudents = $answer->getEffectStudents();
+        $this->getDoctrine()->getRepository(Student::class)->update($answer, $students, $entityManager);
 
-
-
-        return $this->render('student_update/index.html.twig', [
-            'controller_name' => 'StudentUpdateController',
+        return $this->render('', [
+            'students' => $students,
         ]);
     }
 }
