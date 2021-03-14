@@ -4,28 +4,28 @@
 
 {% block body %}
 <style>
-    h1 {text-align: center}
-    .menu { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif}
-    .menu code { background: #F5F5F5; padding: 2px 6px; }
+
+    .menu { margin-left: auto; margin-right: auto; width: 6em}
+    .btn-link:hover {
+        color: white;
+        background-color: black;
+    }
+
+
 </style>
 
 <div class="menu">
-    <h1>Menu</h1>
 
-    <table>
-        <tr>
-            <td><button><a href="{{ path('game_new') }}">Nouvelle partie</a></button></td>
-        </tr>
-        <tr>
-            <td><button><a href="">Sauvegarder la partie</a></button></td>
-        </tr>
-        <tr>
-            <td><button><a href="">Charger une partie partie</a></button></td>
-        </tr>
-        <tr>
-            <td><button><a href="">Quitter la partie</a></button></td>
-        </tr>
 
-    </table>
+    <div class="btn-group-vertical">
+        <a type="button" class="btn btn-link" href="{{ path('game_new') }}">Nouvelle partie</a>
+
+        <a type="button" class="btn btn-link" href="{{ path('home') }}">Sauvegarder la partie</a>
+
+        <a type="button" class="btn btn-link" href="{{ path('game_index') }}">Charger une partie</a>
+
+        <a type="button" class="btn btn-link" href="{{ path('home') }}">Quitter la partie</a>
+
+    </div>
 </div>
 {% endblock %}

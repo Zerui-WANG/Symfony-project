@@ -187,7 +187,7 @@
         }
     },
     "swiftmailer/swiftmailer": {
-        "version": "v6.2.6"
+        "version": "v6.2.7"
     },
     "symfony/apache-pack": {
         "version": "1.0",
