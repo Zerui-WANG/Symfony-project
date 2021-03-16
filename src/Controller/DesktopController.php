@@ -28,19 +28,22 @@ class DesktopController extends AbstractController
 
     /**
      * @Route("/desktop/event", name="desktop_event")
+     * @param EntityManagerInterface $manager
+     * @param UserInterface $user
+     * @return Response
      */
-    public function eventActivation(EntityManagerInterface $manager, UserInterface $user)
+    public function eventActivation(EntityManagerInterface $manager, UserInterface $user): Response
     {
         $event = new eventService($manager);
+        $eventActivated = $event->eventActivation($user);
 
-        if(is_null($event->eventActivation($user))){
-            return $this->render('desktop/index.html.twig', [
-                'event' => $event->eventActivation($user),
-            ]);
+        if(is_null($eventActivated))
+        {
+            return $this->render('event/empty_event.html.twig');
         }
 
-        return $this->render('desktop/index.html.twig', [
-            'event' => $event->eventActivation($user),
+        return $this->forward('App\Controller\UserEventController::show',[
+            'event' => $eventActivated
         ]);
     }
 }
