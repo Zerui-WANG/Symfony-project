@@ -16,11 +16,6 @@ class UserEventController extends AbstractController
      */
     public function show(Event $event) :Response
     {
-        if(is_null($event))
-        {
-            return $this->render('event/empty_event.html.twig');
-        }
-
         return $this->render('event/show.html.twig', [
             'event' => $event,
             'answers' => $event->getAnswers()

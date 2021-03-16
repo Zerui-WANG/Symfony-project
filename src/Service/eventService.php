@@ -24,13 +24,12 @@ class eventService
         $currentTurn = $game->getTurn();
         $passedTurns = array();
 
-        if(in_array($currentTurn, $passedTurns))
-        {
+        if (!in_array($currentTurn, $passedTurns)) {
             $events = $this->em->getRepository(Event::class)->findBy([
                 'game' => $game,
             ]);
 
-            array_push($currentTurn, $passedTurns);
+            array_push($passedTurns, $currentTurn);
 
             return $events[array_rand($events, 1)];
         }
