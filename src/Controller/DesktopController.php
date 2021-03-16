@@ -2,8 +2,9 @@
 
 namespace App\Controller;
 
-use App\Entity\Event;
 use App\Entity\Game;
+use App\Service\eventService;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -28,11 +29,18 @@ class DesktopController extends AbstractController
     /**
      * @Route("/desktop/event", name="desktop_event")
      */
-    public function eventActivation()
+    public function eventActivation(EntityManagerInterface $manager, UserInterface $user)
     {
+        $event = new eventService($manager);
+
+        if(is_null($event->eventActivation($user))){
+            return $this->render('desktop/index.html.twig', [
+                'event' => $event->eventActivation($user),
+            ]);
+        }
 
         return $this->render('desktop/index.html.twig', [
-            'event' => $event,
+            'event' => $event->eventActivation($user),
         ]);
     }
 }
