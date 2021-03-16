@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Service\eventService;
+use App\Service\EventService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,7 +34,7 @@ class DesktopController extends AbstractController
      */
     public function eventActivation(EntityManagerInterface $manager, UserInterface $user): Response
     {
-        $event = new eventService($manager);
+        $event = new EventService($manager);
         $eventActivated = $event->eventActivation($user);
 
         if(is_null($eventActivated))

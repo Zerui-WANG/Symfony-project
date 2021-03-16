@@ -3,9 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Action;
-use App\Entity\Student;
 use App\Repository\StudentRepository;
-use Doctrine\ORM\Query\ResultSetMappingBuilder;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;

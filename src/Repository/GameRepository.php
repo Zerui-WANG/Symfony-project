@@ -21,28 +21,6 @@ class GameRepository extends ServiceEntityRepository
         parent::__construct($registry, Game::class);
     }
 
-    public function create(Player $player, User $user, $students, $actions, $events): Game
-    {
-        $game = new Game();
-        $game->setPlayer($player)
-            ->setUser($user)
-            ->setTurn(10)
-            ->setDayTime('matin')
-            ->setCreatedAt(new \datetime('now'));
-
-        foreach($students as $student ){
-            $game->addStudent($student);
-        }
-
-        foreach($actions as $action ){
-            $game->addQuestion($action);
-        }
-
-        foreach($events as $event ){
-            $game->addQuestion($event);
-        }
-        return $game;
-    }
     // /**
     //  * @return Game[] Returns an array of Game objects
     //  */

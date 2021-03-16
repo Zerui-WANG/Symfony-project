@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Entity\Student;
+use App\Service\StudentsService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,7 +39,8 @@ class StudentUpdateController extends AbstractController
             ->getRepository(Answer::class)
             ->find($idAnswer);
 
-        $this->getDoctrine()->getRepository(Student::class)->update($answer, $students, $entityManager);
+        $studentsService = new StudentsService();
+        $studentsService->update($answer, $students, $entityManager);
 
         return $this->render('', [
             'students' => $students,
