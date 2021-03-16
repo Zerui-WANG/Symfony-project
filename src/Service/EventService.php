@@ -50,14 +50,17 @@ class EventService
                 ->setNameQuestion("Nom de question n°$i")
                 ->setDescriptionQuestion("Description de question n°$i");
 
-            if((1 + $i * 2 + 3) < count($answers)){
-                $event->addAnswer($answers[$i*2 + 3])
-                    ->addAnswer($answers[1 + $i * 2 + 3]);
-            }
-
-
             $manager->persist($event);
             array_push($events, $event);
+        }
+
+        $counter = 0;
+        for($j = 0; $j < (count($events) * 2); $j++){
+            if($counter < count($events))
+            {
+                $events[$counter++]->addAnswer($answers[$j++])
+                    ->addAnswer($answers[$j]);
+            }
         }
 
         return $events;

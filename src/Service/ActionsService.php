@@ -5,10 +5,11 @@ namespace App\Service;
 
 
 use App\Entity\Action;
+use App\Entity\Event;
 
 class ActionsService
 {
-    public function create($manager, $answers): array
+    public function create($manager, $answers, $events): array
     {
         $actions = array();
 
@@ -32,13 +33,17 @@ class ActionsService
                 ->setNameQuestion("Nom de question n°" . ($i + 5))
                 ->setDescriptionQuestion("Description de question n°" . ($i + 5));
 
-            if((1 + $i * 2 + 3) < count($answers)){
-                $action->addAnswer($answers[$i*2 + 3])
-                    ->addAnswer($answers[1 + $i * 2 + 3]);
-            }
-
             $manager->persist($action);
             array_push($actions, $action);
+        }
+
+        $counter = 0;
+        for($j = (count($events) * 2); $j < count($answers); $j++){
+            if($counter < count($actions))
+            {
+                $actions[$counter++]->addAnswer($answers[$j++])
+                    ->addAnswer($answers[$j]);
+            }
         }
 
         return $actions;

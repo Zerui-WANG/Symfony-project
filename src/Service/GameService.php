@@ -31,11 +31,11 @@ class GameService
 
         $answers = $this->em->getRepository(Answer::class)->findAll();
 
-        $actionsService = new ActionsService();
-        $actions = $actionsService->create($manager, $answers);
-
         $eventsService = new EventService($manager);
         $events = $eventsService->create($manager, $answers);
+
+        $actionsService = new ActionsService();
+        $actions = $actionsService->create($manager, $answers, $events);
 
         $gameService = new GameService($manager);
         $game = $gameService->create($player, $userUser, $students, $actions, $events);
