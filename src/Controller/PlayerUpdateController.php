@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Answer;
 use App\Entity\Player;
+use App\Service\PlayerService;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -35,8 +36,8 @@ class PlayerUpdateController extends AbstractController
             ->getRepository(Answer::class)
             ->find($idAnswer);
 
-        $this->getDoctrine()->getRepository(Player::class)
-            ->update($player, $answer, $entityManager);
+        $playerService = new PlayerService();
+        $playerService->update($player, $answer, $entityManager);
 
         return $this->render('player/index.html.twig', [
             'player' => $player,

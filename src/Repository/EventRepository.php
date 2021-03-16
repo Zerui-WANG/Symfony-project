@@ -19,32 +19,6 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
-    public function create($manager, $answers) : array
-    {
-        $events = array();
-
-        for ($i = 0; $i < 5; $i++) {
-            $event = new Event();
-            $event->setCooldown($i)
-                ->setFrequency($i%2)
-                ->setCooldownMin($i + 1)
-                ->setCooldownMax($i + 5)
-                ->setNameQuestion("Nom de question n°$i")
-                ->setDescriptionQuestion("Description de question n°$i");
-
-            if((1 + $i * 2 + 3) < count($answers)){
-                $event->addAnswer($answers[$i*2 + 3])
-                    ->addAnswer($answers[1 + $i * 2 + 3]);
-            }
-
-
-            $manager->persist($event);
-            array_push($events, $event);
-        }
-
-        return $events;
-    }
-
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

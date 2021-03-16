@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Game;
 use App\Repository\GameRepository;
-use App\Service\createGameService;
+use App\Service\GameService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -36,7 +36,7 @@ class GameController extends AbstractController
      */
     public function new(EntityManagerInterface $manager, UserInterface $user): Response
     {
-        $game = new createGameService($manager);
+        $game = new GameService($manager);
 
         return $this->render('desktop/index.html.twig', [
             'game' => $game->createGameService($user, $manager),
