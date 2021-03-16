@@ -40,11 +40,6 @@ class Game
     private $user;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Question::class, inversedBy="games")
-     */
-    private $questions;
-
-    /**
      * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
@@ -54,6 +49,11 @@ class Game
      * @ORM\OneToMany(targetEntity=Student::class, mappedBy="game", orphanRemoval=true)
      */
     private $students;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="game")
+     */
+    private $questions;
 
     public function __construct()
     {
@@ -125,30 +125,6 @@ class Game
         return $this;
     }
 
-    /**
-     * @return Collection|Question[]
-     */
-    public function getQuestions(): Collection
-    {
-        return $this->questions;
-    }
-
-    public function addQuestion(Question $question): self
-    {
-        if (!$this->questions->contains($question)) {
-            $this->questions[] = $question;
-        }
-
-        return $this;
-    }
-
-    public function removeQuestion(Question $question): self
-    {
-        $this->questions->removeElement($question);
-
-        return $this;
-    }
-
     public function getPlayer(): ?Player
     {
         return $this->player;
@@ -185,6 +161,36 @@ class Game
             // set the owning side to null (unless already changed)
             if ($student->getGame() === $this) {
                 $student->setGame(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setGame($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getGame() === $this) {
+                $question->setGame(null);
             }
         }
 

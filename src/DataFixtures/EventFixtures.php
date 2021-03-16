@@ -18,7 +18,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
                 ->setCooldownMin($i + 1)
                 ->setCooldownMax($i + 5)
                 ->setNameQuestion("Nom de question n°$i")
-                ->setDescriptionQuestion("Description de question n°$i");
+                ->setDescriptionQuestion("Description de question n°$i")
+                ->setGame($this->getReference('game_2'));
 
             $this->setReference('question_'.$i, $event);
 
@@ -30,7 +31,7 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return array(
-            ActionFixtures::class,
+            GameFixtures::class
         );
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Action;
+use App\Entity\Answer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -19,7 +20,7 @@ class ActionRepository extends ServiceEntityRepository
         parent::__construct($registry, Action::class);
     }
 
-    public function create($manager): array
+    public function create($manager, $answers): array
     {
         $actions = array();
 
@@ -42,6 +43,11 @@ class ActionRepository extends ServiceEntityRepository
                 ->setIsAvailable(true)
                 ->setNameQuestion("Nom de question n°" . ($i + 5))
                 ->setDescriptionQuestion("Description de question n°" . ($i + 5));
+
+            if((1 + $i * 2 + 3) < count($answers)){
+                $action->addAnswer($answers[$i*2 + 3])
+                    ->addAnswer($answers[1 + $i * 2 + 3]);
+            }
 
             $manager->persist($action);
             array_push($actions, $action);

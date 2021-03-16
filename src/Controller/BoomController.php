@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Action;
 use App\Entity\Student;
 use App\Repository\StudentRepository;
 use Doctrine\ORM\Query\ResultSetMappingBuilder;
@@ -17,8 +18,29 @@ class BoomController extends AbstractController
   ///  # [Route("/boom", name: "boom")]
     public function index(): Response
     {
-        return $this->render('boom/index.html.twig', [
-            'controller_name' => 'BoomController',
+        $students= $this->getDoctrine()
+            ->getRepository('App:Student')
+            ->findBy(
+                ['game' => $this->getUser()->getGame()]
+            );
+
+        $actionsMatin = $this->getDoctrine()->getRepository(Action::class)
+            ->findBy([
+                'game' => $this->getUser()->getGame(),
+                'actionPeriod' => 'matin',
+            ]);
+        $actionsMidi = $this->getDoctrine()->getRepository(Action::class)
+            ->findBy([
+                'game' => $this->getUser()->getGame(),
+                'actionPeriod' => 'midi',
+            ]);
+        $dayTime = $this->getUser()->getGame()->getDayTime();
+
+        return $this->render("boom/index.html.twig", [
+            'students' => $students,
+            'dayTime' => $dayTime,
+            'actionsMatin' => $actionsMatin,
+            'actionsMidi' => $actionsMidi
         ]);
     }
 
@@ -33,6 +55,8 @@ class BoomController extends AbstractController
 */
     /**
      * @Route("/boom/1", name= "array")
+     * @param StudentRepository $repo
+     * @return Response
      */
     public function arrayStudent(StudentRepository $repo) :Response
     {
@@ -43,15 +67,17 @@ class BoomController extends AbstractController
     /**
      * @Route("/boom/2", name= "arrayvide")
      */
-    public function arrayS()
+    public function arrayS(): Response
     {
         $students= $this->getDoctrine()
             ->getRepository('App:Student')
-            ->findByGame(14);
+            ->findBy(
+                ['game' => $this->getUser()->getGame()]
+            );
 
-        return $this->render("boom/index.html.twig", array(
+        return $this->render("boom/index.html.twig", [
             'students' => $students,
-        ));
+        ]);
 
     }
 }

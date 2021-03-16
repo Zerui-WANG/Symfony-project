@@ -4,9 +4,10 @@ namespace App\DataFixtures;
 
 use App\Entity\Action;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class ActionFixtures extends Fixture
+class ActionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
@@ -31,7 +32,8 @@ class ActionFixtures extends Fixture
                 ->setActionPeriod($period)
                 ->setIsAvailable($available)
                 ->setNameQuestion("Nom de question n°".($i + 3))
-                ->setDescriptionQuestion("Description de question n°".($i + 3));
+                ->setDescriptionQuestion("Description de question n°".($i + 3))
+                ->setGame($this->getReference('game_2'));
 
             $this->setReference('question_'.($i + 3), $action);
 
@@ -39,5 +41,12 @@ class ActionFixtures extends Fixture
         }
 
         $manager->flush();
+    }
+
+    public function getDependencies(): array
+    {
+        return array(
+            GameFixtures::class
+        );
     }
 }

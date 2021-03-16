@@ -4,35 +4,59 @@
 
 {% block body %}
 
-<table class="table-bordered" style="margin-left:auto;margin-right: auto; width: 30%"; >
-    <thead>
-    <tr>
-        <th colspan="5" style="text-align: center">Boom</th>
-    </tr>
-    </thead>
-
-    <tbody>
-        {% for row in students|batch(5) %}
+    <table class="table-bordered" style="margin-left:auto;margin-right: auto; width: 30%">
+        <thead>
         <tr>
-            {% for student in row %}
-                <td>
-                    {% if student.isPresent == true %}
-                        {% if  student.grade  < 8 %}
-                            <img src="{{ asset('assets/img/badGrade.jpg') }}" alt="badGrade" width="100%"/>
-                        {% elseif student.grade  < 13 %}
-                            <img src="{{ asset('assets/img/mediumGrade.jpg') }}" alt="mediumGrade" width="100%"/>
-                        {% else %}
-                            <img src="{{ asset('assets/img/goodGrade.jpg') }}" alt="goodGrade" width=" 100%"/>
-                        {% endif %}
-                    {% else %}
-                        <img src="{{ asset('assets/img/isntPresent.jpg') }}" alt="goodGrade" width=" 100%"/>
-                    {% endif %}
-                </td>
-            {% endfor %}
+            <th colspan="5" style="text-align: center">Boom</th>
         </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+
+        <tbody>
+            {% for row in students|batch(5) %}
+            <tr>
+                {% for student in row %}
+                    <td>
+                        {% if student.isPresent == true %}
+                            {% if  student.grade  < 8 %}
+                                <img src="{{ asset('assets/img/badGrade.jpg') }}" alt="badGrade" width="100%"/>
+                            {% elseif student.grade  < 13 %}
+                                <img src="{{ asset('assets/img/mediumGrade.jpg') }}" alt="mediumGrade" width="100%"/>
+                            {% else %}
+                                <img src="{{ asset('assets/img/goodGrade.jpg') }}" alt="goodGrade" width=" 100%"/>
+                            {% endif %}
+                        {% else %}
+                            <img src="{{ asset('assets/img/isntPresent.jpg') }}" alt="goodGrade" width=" 100%"/>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <table>
+        <tr>
+            {% if dayTime == 'matin' %}
+                {% for action in actionsMatin %}
+                    <td>
+                        {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
+                        {% for answer in action.answers %}
+                            <a><button>{{ answer.descriptionAnswer }}</button></a>
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            {% elseif dayTime == 'midi' %}
+                {% for action in actionsMidi %}
+                    <td>
+                        {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
+                        {% for answer in action.answers %}
+                            <a><button>{{ answer.descriptionAnswer }}</button></a>
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            {% endif %}
+        </tr>
+    </table>
 
 
 
@@ -48,5 +72,4 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
     <!-- Core theme JS-->
     <script src="js/scripts.js"></script>
-    </body>
 {% endblock %}

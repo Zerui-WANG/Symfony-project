@@ -2,17 +2,11 @@
 
 namespace App\Controller;
 
-use App\Entity\Action;
-use App\Entity\Event;
 use App\Entity\Game;
-use App\Entity\Player;
-use App\Entity\Question;
-use App\Entity\Student;
-use App\Entity\User;
 use App\Repository\GameRepository;
+use App\Service\createGameService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -24,6 +18,8 @@ class GameController extends AbstractController
 {
     /**
      * @Route("/", name="game_index", methods={"GET"})
+     * @param GameRepository $gameRepository
+     * @return Response
      */
     public function index(GameRepository $gameRepository): Response
     {
@@ -33,26 +29,17 @@ class GameController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="game_new", methods={"GET","POST"})
+     * @Route("/new", name="game_new")
+     * @param EntityManagerInterface $manager
+     * @param UserInterface $user
+     * @return Response
      */
-    public function create(UserInterface $user, EntityManagerInterface $manager)
+    public function new(EntityManagerInterface $manager, UserInterface $user): Response
     {
-        $userUser = $this->getDoctrine()->getRepository(User::class)->find($user->getId());
-        $player = $this->getDoctrine()->getRepository(Player::class)->create();
-        $students = $this->getDoctrine()->getRepository(Student::class)->create($manager);
-        $actions = $this->getDoctrine()->getRepository(Action::class)->create($manager);
-        $events = $this->getDoctrine()->getRepository(Event::class)->create($manager);
-
-        $game = $this->getDoctrine()->getRepository(Game::class)
-            ->create($player, $userUser, $students, $actions, $events);
-
-        $manager->persist($game);
-        $manager->flush();
-
-        dd($game);
+        $game = new createGameService($manager);
 
         return $this->render('desktop/index.html.twig', [
-            'game' => $game,
+            'game' => $game->createGameService($user, $manager),
         ]);
     }
 

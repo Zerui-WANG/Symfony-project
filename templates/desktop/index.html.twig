@@ -1,20 +1,30 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Le Bureau{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+    <div class="jumbotron">
+        <table class="table table-hover">
+            <tr>
+                <td>Pseudo : {{game.user.pseudo}}</td>
+                <td>ID du joueur : {{game.player.id}}</td>
+                <td>ID Game : {{game.id}}</td>
+                <td>Tour : {{game.turn}}</td>
+                <td>DayTime : {{game.dayTime}}</td>
+                <td>Humeur : {{game.player.mood}}</td>
+                <td>Pédagogie : {{game.player.pedagogy}}</td>
+                <td>Charisme :{{game.player.charisma}}</td>
+            </tr>
+        </table>
+        <hr class="my-4">
+    </div>
+    <h1>ConfinementClassroom</h1>
 
-<div class="example-wrapper">
-    <h1>Hello {{ game.player.id }}! ✅</h1>
+    <a href="{{ path('desktop_event') }}"><button>Netflip</button></a>
+    <a href="{{ path('boom') }}"><button>Boom</button></a>
+    <button>What's Up</button>
+    <button>Mail</button>
+    <button>Arrêter</button>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/wamp64/www/ConfinementClassroom/src/Controller/DesktopController.php'|file_link(0) }}">src/Controller/DesktopController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/wamp64/www/ConfinementClassroom/templates/desktop/index.html.twig'|file_link(0) }}">templates/desktop/index.html.twig</a></code></li>
-    </ul>
-</div>
 {% endblock %}
