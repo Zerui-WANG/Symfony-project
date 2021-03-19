@@ -1,14 +1,23 @@
 <?php
 
-
 namespace App\Service;
 
-
 use App\Entity\Action;
-use App\Entity\Event;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class ActionsService
 {
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $em;
+
+    public function __construct(EntityManagerInterface $em)
+    {
+        $this->em = $em;
+    }
+
     public function create($manager, $answers, $events): array
     {
         $actions = array();
@@ -44,6 +53,31 @@ class ActionsService
                 $actions[$counter++]->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
+        }
+
+        return $actions;
+    }
+
+    public function actionActivation(UserInterface $user)
+    {
+        $game = $user->getGame();
+        $actions = array();
+
+        if($game->getDayTime() == 'matin')
+        {
+            $actions = $this->em->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 'matin',
+                ]);
+        }
+        elseif ($game->getDayTime() == 'midi')
+        {
+            $actions = $this->em->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 'midi',
+                ]);
         }
 
         return $actions;

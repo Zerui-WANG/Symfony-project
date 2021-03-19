@@ -13,6 +13,7 @@
                 <td>Tour : {{game.turn}}</td>
                 <td>DayTime : {{game.dayTime}}</td>
                 <td>Humeur : {{game.player.mood}}</td>
+                <td>Sommeil : {{ game.player.sleep }}</td>
                 <td>Pédagogie : {{game.player.pedagogy}}</td>
                 <td>Charisme :{{game.player.charisma}}</td>
             </tr>
@@ -21,7 +22,7 @@
     </div>
     <h1>ConfinementClassroom</h1>
 
-    <a href="{{ path('desktop_event') }}"><button>Netflip</button></a>
+    <a href="{{ path('netflip') }}"><button>Netflip</button></a>
     <a href="{{ path('boom') }}"><button>Boom</button></a>
     <a href="{{ path('desktop_event') }}"><button>What's Up</button></a>
     <a href="{{ path('desktop_event') }}"><button>Mail</button></a>

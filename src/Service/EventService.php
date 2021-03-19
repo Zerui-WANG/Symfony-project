@@ -18,25 +18,6 @@ class EventService
         $this->em = $em;
     }
 
-    public function eventActivation(UserInterface $user): ?object
-    {
-        $game = $user->getGame();
-        $currentTurn = $game->getTurn();
-        $passedTurns = array();
-
-        if (!in_array($currentTurn, $passedTurns)) {
-            $events = $this->em->getRepository(Event::class)->findBy([
-                'game' => $game,
-            ]);
-
-            array_push($passedTurns, $currentTurn);
-
-            return $events[array_rand($events, 1)];
-        }
-
-        return null;
-    }
-
     public function create($manager, $answers) : array
     {
         $events = array();

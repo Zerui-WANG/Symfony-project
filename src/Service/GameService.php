@@ -19,7 +19,7 @@ class GameService
         $this->em = $em;
     }
 
-    public function createGameService(UserInterface $user, EntityManagerInterface $manager)
+    public function createGameService(UserInterface $user, EntityManagerInterface $manager): Game
     {
         $userUser = $this->em->getRepository(User::class)->find($user->getId());
 

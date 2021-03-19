@@ -36,25 +36,14 @@
 
     <table>
         <tr>
-            {% if dayTime == 'matin' %}
-                {% for action in actionsMatin %}
-                    <td>
-                        {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
-                        {% for answer in action.answers %}
-                            <a><button>{{ answer.descriptionAnswer }}</button></a>
-                        {% endfor %}
-                    </td>
-                {% endfor %}
-            {% elseif dayTime == 'midi' %}
-                {% for action in actionsMidi %}
-                    <td>
-                        {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
-                        {% for answer in action.answers %}
-                            <a><button>{{ answer.descriptionAnswer }}</button></a>
-                        {% endfor %}
-                    </td>
-                {% endfor %}
-            {% endif %}
+            {% for action in actions %}
+                <td>
+                    {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
+                    {% for answer in action.answers %}
+                        <a><button>{{ answer.descriptionAnswer }}</button></a>
+                    {% endfor %}
+                </td>
+            {% endfor %}
         </tr>
     </table>
 
