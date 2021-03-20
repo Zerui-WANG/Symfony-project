@@ -39,6 +39,7 @@ class ActionsService
             $action->setDuration($i + 2)
                 ->setActionPeriod($period)
                 ->setIsAvailable(true)
+                ->setApplication("Boom")
                 ->setNameQuestion("Nom de l'action n°" . $i)
                 ->setDescriptionQuestion("Description de l'action n°" . $i);
 
