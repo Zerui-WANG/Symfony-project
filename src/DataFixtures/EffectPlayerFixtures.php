@@ -49,6 +49,7 @@ class EffectPlayerFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             AnswerFixtures::class,
+            PlayerFixtures::class,
         );
     }
 }

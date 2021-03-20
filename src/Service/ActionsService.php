@@ -18,11 +18,11 @@ class ActionsService
         $this->em = $em;
     }
 
-    public function create($manager, $answers, $events): array
+    public function create($manager, $answers): array
     {
         $actions = array();
 
-        for($i = 0; $i < 3; $i++) {
+        for($i = 0; $i < 10; $i++) {
             $action = new Action();
 
             switch ($i) {
@@ -39,18 +39,20 @@ class ActionsService
             $action->setDuration($i + 2)
                 ->setActionPeriod($period)
                 ->setIsAvailable(true)
-                ->setNameQuestion("Nom de question n°" . ($i + 5))
-                ->setDescriptionQuestion("Description de question n°" . ($i + 5));
+                ->setNameQuestion("Nom de l'action n°" . $i)
+                ->setDescriptionQuestion("Description de l'action n°" . $i);
 
             $manager->persist($action);
             array_push($actions, $action);
         }
 
         $counter = 0;
-        for($j = (count($events) * 2); $j < count($answers); $j++){
+
+        for($j = 0; $j < count($answers); $j++){
             if($counter < count($actions))
             {
                 $actions[$counter++]->addAnswer($answers[$j++])
+                    ->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
@@ -58,28 +60,16 @@ class ActionsService
         return $actions;
     }
 
-    public function actionActivation(UserInterface $user)
+    public function actionActivation(UserInterface $user) : Action
     {
         $game = $user->getGame();
-        $actions = array();
-
-        if($game->getDayTime() == 'matin')
-        {
-            $actions = $this->em->getRepository(Action::class)
-                ->findBy([
-                    'game' => $game,
-                    'actionPeriod' => 'matin',
-                ]);
-        }
-        elseif ($game->getDayTime() == 'midi')
-        {
-            $actions = $this->em->getRepository(Action::class)
-                ->findBy([
-                    'game' => $game,
-                    'actionPeriod' => 'midi',
-                ]);
-        }
-
-        return $actions;
+        $time = $game->getDayTime();
+        $actions = $this->em->getRepository(Action::class)
+            ->findBy([
+                'game' => $game,
+                'actionPeriod' => $time,
+            ]);
+        $counter = count($actions);
+        return $actions[mt_rand(0, $counter-1)];
     }
 }

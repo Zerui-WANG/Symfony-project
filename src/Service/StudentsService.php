@@ -12,7 +12,7 @@ class StudentsService
     {
         $students = array();
 
-        for($i = 0; $i < 30; $i++) {
+        for($i = 0; $i < 25; $i++) {
             $student = new Student();
             $student->setAttendance(mt_rand(1, 100))
                 ->setPersonality(mt_rand(1, 10))
