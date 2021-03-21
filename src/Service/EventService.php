@@ -28,7 +28,7 @@ class EventService
                 ->setFrequency($i%2)
                 ->setCooldownMin($i + 1)
                 ->setCooldownMax($i + 5)
-                ->setNameQuestion("Event n°$i")
+                ->setNameQuestion("Nom de l'event n°$i")
                 ->setDescriptionQuestion("Description de l'event n°$i");
 
             $manager->persist($event);

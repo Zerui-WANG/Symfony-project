@@ -35,7 +35,7 @@ class TurnSystemService
         }
 
         $events = $this->em->getRepository(Event::class)->findBy([
-            'game' => $game,
+    //        'game' => $game,
         ]);
         $this->session->set('passedTurn', $currentTurn);
         return $events[array_rand($events, 1)];

@@ -33,8 +33,7 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsAvailable($available)
                 ->setApplication("Boom")
                 ->setNameQuestion("Action n°".($i + 3))
-                ->setDescriptionQuestion("Description de l'action n°".($i + 3))
-                ->setGame($this->getReference('game_2'));
+                ->setDescriptionQuestion("Description de l'action n°".($i + 3));
 
             $this->setReference('question_'.($i + 3), $action);
 
@@ -47,7 +46,8 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return array(
-            GameFixtures::class
+            GameFixtures::class,
+            EventFixtures::class,
         );
     }
 }

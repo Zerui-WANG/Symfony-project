@@ -47,6 +47,12 @@ class StudentsService
                     case 'grade':
                         $student->setGrade($student->getGrade() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
+
+                        if($student->getGrade()>20)
+                            $student->setGrade(20);
+                        if($student->getGrade()<0)
+                            $student->setGrade(0);
+
                         $entityManager->flush();
                         break;
                     case 'isPresent':
