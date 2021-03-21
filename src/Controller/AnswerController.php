@@ -56,7 +56,7 @@ class AnswerController extends AbstractController
      */
     public function show(Answer $answer): Response
     {
-        return $this->render('answer/show.html.twig', [
+        return $this->render('answer/showInGame.html.twig', [
             'answer' => $answer,
         ]);
     }

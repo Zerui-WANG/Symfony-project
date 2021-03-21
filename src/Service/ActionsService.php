@@ -65,12 +65,24 @@ class ActionsService
     {
         $game = $user->getGame();
         $time = $game->getDayTime();
+     //   $appName = $this->em->getRepository(Action::class)
+      //      ->findbyApp('boom');
+
+        $appName = 'Boom';
+
         $actions = $this->em->getRepository(Action::class)
             ->findBy([
-                'game' => $game,
+              //  'game' => $game,
                 'actionPeriod' => $time,
-            ]);
+                'application' => $appName,
+        ]);
+     //   dd($game);
         $counter = count($actions);
         return $actions[mt_rand(0, $counter-1)];
+    }
+
+    public function loadAction()
+    {
+      //  $actions =$this->em->
     }
 }

@@ -16,8 +16,10 @@ class ActionType extends AbstractType
             ->add('descriptionQuestion')
             ->add('duration')
             ->add('actionPeriod')
+            ->add('application')
             ->add('isAvailable')
-            ->add('games')
+
+           // ->add('games')
         ;
     }
 
