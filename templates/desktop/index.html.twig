@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+
+{% block title %}Le Bureau{% endblock %}
+
+{% block body %}
+    <div class="jumbotron">
+        <table class="table table-hover">
+            <tr>
+                <td>Pseudo : {{game.user.pseudo}}</td>
+                <td>ID du joueur : {{game.player.id}}</td>
+                <td>ID Game : {{game.id}}</td>
+                <td>Tour : {{game.turn}}</td>
+                <td>DayTime : {{game.dayTime}}</td>
+                <td>Humeur : {{game.player.mood}}</td>
+                <td>Sommeil : {{ game.player.sleep }}</td>
+                <td>Pédagogie : {{game.player.pedagogy}}</td>
+                <td>Charisme :{{game.player.charisma}}</td>
+            </tr>
+        </table>
+        <hr class="my-4">
+    </div>
+    <h1>ConfinementClassroom</h1>
+
+    <a href="{{ path('netflip') }}"><button>Netflip</button></a>
+    <a href="{{ path('boom') }}"><button>Boom</button></a>
+    <a href="{{ path('desktop_event') }}"><button>What's Up</button></a>
+    <a href="{{ path('desktop_event') }}"><button>Mail</button></a>
+    <a href="{{ path('desktop_event') }}"><button>Arrêter</button></a>
+
+{% endblock %}

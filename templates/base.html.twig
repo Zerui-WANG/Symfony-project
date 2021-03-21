@@ -1,13 +1,78 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
+<html lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
+    <link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+    {% block stylesheets %}{% endblock %}
 
-        {% block javascripts %}{% endblock %}
-    </head>
-    <body>
+</head>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="/">ConfinementClassroom</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor02" aria-controls="navbarColor02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor02">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('home') }}">Mode d'emploi</a>
+                </li>
+                {% block nav%}
+                {% if not app.user %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                </li>
+                {%elseif app.user %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ path('menu') }}">Jouer</a>
+                    </li>
+
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion jeux</a>
+                            <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="{{ path('admin_action_index') }}">Gestion des actions</a>
+                                    <a class="dropdown-item" href="{{ path('admin_event_index') }}">Gestion des events</a>
+                                    <a class="dropdown-item" href="{{ path('answer_index') }}">Gestion des réponses</a>
+                                    <a class="dropdown-item" href="{{ path('effect_player_index') }}">Gestion des effets sur les Players</a>
+                                    <a class="dropdown-item" href="{{ path('effect_student_index') }}">Gestion des effets sur les Students</a>
+                            </div>
+                        </li>
+                    {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                </li>
+                {%endif%}
+                {% endblock nav%}
+            </ul>
+        </div>
+    </nav>
+
+    <div class="jumbotron">
         {% block body %}{% endblock %}
-    </body>
+    </div>
+
+{% block javascripts %}{% endblock %}
+
+<!-- Footer-->
+<footer class="footer bg-black small text-center text-white-50"><div class="container">Copyright © Confinement Classroom 2020-2021</div></footer>
+<!-- Bootstrap core JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Third party plugin JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+<!-- Core theme JS-->
+<script src="js/scripts.js"></script>
+
 </html>

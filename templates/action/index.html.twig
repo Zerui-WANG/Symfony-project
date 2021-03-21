@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Action index{% endblock %}
+
+{% block body %}
+    <br>
+    <h1>Action index</h1>
+    <br>
+    <center><a href="{{ path('admin_action_new') }}" class="btn btn-success">Create new</a></center>
+    <br>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NameQuestion</th>
+                <th>DescriptionQuestion</th>
+                <th>Duration</th>
+                <th>ActionPeriod</th>
+                <th>Application</th>
+                <th>IsAvailable</th>
+                <th>actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for action in actions %}
+            <tr>
+                <td>{{ action.id }}</td>
+                <td>{{ action.nameQuestion }}</td>
+                <td>{{ action.descriptionQuestion }}</td>
+                <td>{{ action.duration }}</td>
+                <td>{{ action.actionPeriod }}</td>
+                <td>{{ action.application}}</td>
+                <td>{{ action.isAvailable ? 'Yes' : 'No' }}</td>
+                <td>
+                    <a href="{{ path('admin_action_show', {'id': action.id}) }}", class="btn btn-info">show</a>
+                    <a href="{{ path('admin_action_edit', {'id': action.id}) }}", class="btn btn-warning">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+{% endblock %}

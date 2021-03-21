@@ -43,17 +43,7 @@ class Question
     private $answers;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="ques:wq
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *
-     *     tions")
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="question")
      */
     private $games;
 
