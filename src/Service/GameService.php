@@ -19,7 +19,7 @@ class GameService
         $this->em = $em;
     }
 
-    public function createGameService(UserInterface $user, EntityManagerInterface $manager)
+    public function createGameService(UserInterface $user, EntityManagerInterface $manager): Game
     {
         $userUser = $this->em->getRepository(User::class)->find($user->getId());
 
@@ -34,8 +34,8 @@ class GameService
         $eventsService = new EventService($manager);
         $events = $eventsService->create($manager, $answers);
 
-        $actionsService = new ActionsService();
-        $actions = $actionsService->create($manager, $answers, $events);
+        $actionsService = new ActionsService($manager);
+        $actions = $actionsService->create($manager, $answers);
 
         $gameService = new GameService($manager);
         $game = $gameService->create($player, $userUser, $students, $actions, $events);
@@ -51,7 +51,7 @@ class GameService
         $game = new Game();
         $game->setPlayer($player)
             ->setUser($user)
-            ->setTurn(10)
+            ->setTurn(1)
             ->setDayTime('matin')
             ->setCreatedAt(new \datetime('now'));
 

@@ -16,7 +16,7 @@ class UserEventController extends AbstractController
      */
     public function show(Event $event) :Response
     {
-        return $this->render('event/show.html.twig', [
+        return $this->render('event/showInGame.html.twig', [
             'event' => $event,
             'answers' => $event->getAnswers()
         ]);

@@ -53,7 +53,7 @@ class ActionController extends AbstractController
      */
     public function show(Action $action): Response
     {
-        return $this->render('action/show.html.twig', [
+        return $this->render('action/showInGame.html.twig', [
             'action' => $action,
         ]);
     }

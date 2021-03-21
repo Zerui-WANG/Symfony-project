@@ -51,7 +51,7 @@ class GameController extends AbstractController
         $player =$game->getplayer();
         $user = $game->getUser();
 
-        return $this->render('game/show.html.twig', [
+        return $this->render('game/showInGame.html.twig', [
             'game' => $game,
             'player' => $player,
             'user' => $user,

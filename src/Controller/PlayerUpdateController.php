@@ -20,10 +20,8 @@ class PlayerUpdateController extends AbstractController
      */
     public function update(int $idAnswer) :Response
     {
-        $player = $this->getDoctrine()
-            ->getRepository(Player::class)
-            ->find($this->getUser()->getGame()->getPlayer());
-
+        $game = $this->getUser()->getGame();
+        $player = $game->getPlayer();
         $entityManager = $this->getDoctrine()->getManager();
 
         if (!$player) {
@@ -39,8 +37,8 @@ class PlayerUpdateController extends AbstractController
         $playerService = new PlayerService();
         $playerService->update($player, $answer, $entityManager);
 
-        return $this->render('player/index.html.twig', [
-            'player' => $player,
+        return $this->render('desktop/index.html.twig', [
+            'game' => $game
         ]);
     }
 }

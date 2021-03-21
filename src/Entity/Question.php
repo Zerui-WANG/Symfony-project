@@ -43,10 +43,9 @@ class Question
     private $answers;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="questions")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="question")
      */
-    private $game;
+    private $games;
 
     public function __construct()
     {
@@ -113,14 +112,29 @@ class Question
         return $this;
     }
 
-    public function getGame(): ?Game
+    /**
+     * @return Collection|Game[]
+     */
+    public function getGames(): Collection
     {
-        return $this->game;
+        return $this->games;
     }
 
-    public function setGame(?Game $game): self
+    public function addGame(Game $game): self
     {
-        $this->game = $game;
+        if (!$this->games->contains($game)) {
+            $this->games[] = $game;
+            $game->addQuestion($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGame(Game $game): self
+    {
+        if ($this->games->removeElement($game)) {
+            $game->removeQuestion($this);
+        }
 
         return $this;
     }

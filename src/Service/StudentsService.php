@@ -12,7 +12,7 @@ class StudentsService
     {
         $students = array();
 
-        for($i = 0; $i < 30; $i++) {
+        for($i = 0; $i < 25; $i++) {
             $student = new Student();
             $student->setAttendance(mt_rand(1, 100))
                 ->setPersonality(mt_rand(1, 10))
@@ -47,6 +47,12 @@ class StudentsService
                     case 'grade':
                         $student->setGrade($student->getGrade() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
+
+                        if($student->getGrade()>20)
+                            $student->setGrade(20);
+                        if($student->getGrade()<0)
+                            $student->setGrade(0);
+
                         $entityManager->flush();
                         break;
                     case 'isPresent':

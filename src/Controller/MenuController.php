@@ -11,7 +11,6 @@ class MenuController extends AbstractController
     /**
      * @Route("/menu", name="menu")
      */
-
     public function index(): Response
     {
         return $this->render('menu/menu.html.twig', [

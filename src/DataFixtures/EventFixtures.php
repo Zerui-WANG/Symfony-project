@@ -17,9 +17,8 @@ class EventFixtures extends Fixture implements DependentFixtureInterface
                 ->setFrequency($i%2)
                 ->setCooldownMin($i + 1)
                 ->setCooldownMax($i + 5)
-                ->setNameQuestion("Nom de question n°$i")
-                ->setDescriptionQuestion("Description de question n°$i")
-                ->setGame($this->getReference('game_2'));
+                ->setNameQuestion("Event n°$i")
+                ->setDescriptionQuestion("Description de l'event n°$i");
 
             $this->setReference('question_'.$i, $event);
 
