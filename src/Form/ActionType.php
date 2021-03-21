@@ -18,8 +18,6 @@ class ActionType extends AbstractType
             ->add('actionPeriod')
             ->add('application')
             ->add('isAvailable')
-
-           // ->add('games')
         ;
     }
 

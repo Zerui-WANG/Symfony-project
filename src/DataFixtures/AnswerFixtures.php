@@ -12,7 +12,6 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $answers = array();
 
         for($i = 0; $i < 39; $i++){
             $answer = new Answer();
