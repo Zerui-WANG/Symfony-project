@@ -54,6 +54,7 @@ class EffectStudentFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             AnswerFixtures::class,
+            StudentFixtures::class,
         );
     }
 }
