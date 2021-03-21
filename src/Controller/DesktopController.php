@@ -45,7 +45,7 @@ class DesktopController extends AbstractController
         {
             return $this->render('event/empty_event.html.twig');
         }
-        dd($eventActivated);
+
         return $this->forward('App\Controller\UserEventController::show',[
             'event' => $eventActivated
         ]);

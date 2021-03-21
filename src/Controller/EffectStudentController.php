@@ -53,7 +53,7 @@ class EffectStudentController extends AbstractController
      */
     public function show(EffectStudent $effectStudent): Response
     {
-        return $this->render('effect_student/show.html.twig', [
+        return $this->render('effect_student/showInGame.html.twig', [
             'effect_student' => $effectStudent,
         ]);
     }

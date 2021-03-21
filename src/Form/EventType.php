@@ -18,7 +18,7 @@ class EventType extends AbstractType
             ->add('frequency')
             ->add('cooldownMin')
             ->add('cooldownMax')
-            ->add('games')
+        //    ->add('games')
         ;
     }
 
