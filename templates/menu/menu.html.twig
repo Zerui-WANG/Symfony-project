@@ -3,32 +3,23 @@
 {% block title %}Menu{% endblock %}
 
 {% block stylesheets %}
-    <link href="{{ asset('assets/css/lejeu.css') }}" rel="stylesheet" />
+    <link href="{{ asset('assets/css/menu.css') }}" rel="stylesheet" />
 {% endblock %}
 
 {% block body %}
-<style>
 
-    .menu { margin-left: auto; margin-right: auto; width: 6em}
-    .btn-link:hover {
-        color: white;
-        background-color: black;
-    }
+    <p class="introMenu">ConfinementClassroom, jeu de rôle édition spéciale confinement :</p>
+    <img class="imgLogo" src="{{ asset('assets/img/logo.png') }}" alt="logo" />
+    <div class="div menu">
+        <div class="btn-group-vertical">
+            <a type="button" class="btn btn-link" href="{{ path('game_new') }}">Nouvelle partie</a>
 
-</style>
+            <a type="button" class="btn btn-link" href="{{ path('home') }}">Sauvegarder la partie</a>
 
-<div class="menu">
+            <a type="button" class="btn btn-link" href="{{ path('desktop') }}">Charger une partie</a>
 
+            <a type="button" class="btn btn-link" href="{{ path('home') }}">Quitter la partie</a>
 
-    <div class="btn-group-vertical">
-        <a type="button" class="btn btn-link" href="{{ path('game_new') }}">Nouvelle partie</a>
-
-        <a type="button" class="btn btn-link" href="{{ path('home') }}">Sauvegarder la partie</a>
-
-        <a type="button" class="btn btn-link" href="{{ path('desktop') }}">Charger une partie</a>
-
-        <a type="button" class="btn btn-link" href="{{ path('home') }}">Quitter la partie</a>
-
+        </div>
     </div>
-</div>
 {% endblock %}

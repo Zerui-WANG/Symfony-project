@@ -6,6 +6,7 @@
     <link href="{{ asset('assets/css/styles.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/css/index.css') }}" rel="stylesheet">
     <link href="https://bootswatch.com/4/lux/bootstrap.min.css" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/316d042b66.js" crossorigin="anonymous"></script>
     {% block stylesheets %}{% endblock %}
 
 </head>
@@ -18,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarColor02">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('home') }}">Le jeu</a>
+                    <a class="nav-link" href="{{ path('home') }}"><i class="fas fa-gamepad"></i> Le jeu</a>
                 </li>
                 {% block nav%}
                 {% if not app.user %}
@@ -26,19 +27,19 @@
                     <a class="nav-link" href="{{ path('app_register') }}">Inscription</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">Connexion</a>
+                    <a class="nav-link" href="{{ path('app_login') }}"><i class="fas fa-sign-in-alt"></i> Connexion</a>
                 </li>
                 {%elseif app.user %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('menu') }}">Jouer</a>
+                        <a class="nav-link" href="{{ path('menu') }}"><i class="far fa-play-circle"></i> Jouer</a>
                     </li>
 
                     {% if is_granted('ROLE_ADMIN') %}
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ path('admin_users') }}">Gestion des droits</a>
+                            <a class="nav-link" href="{{ path('admin_users') }}"><i class="fas fa-user-cog"></i> Gestion des droits</a>
                         </li>
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Gestion jeux</a>
+                            <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"><i class="fas fa-cogs"></i> Gestion jeux</a>
                             <div class="dropdown-menu">
                                     <a class="dropdown-item" href="{{ path('admin_action_index') }}">Gestion des actions</a>
                                     <a class="dropdown-item" href="{{ path('admin_event_index') }}">Gestion des events</a>
@@ -49,10 +50,10 @@
                         </li>
                     {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('contact') }}">Contact</a>
+                    <a class="nav-link" href="{{ path('contact') }}"><i class="fas fa-envelope"></i> Contact</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a>
+                    <a class="nav-link" href="{{ path('app_logout') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
                 </li>
                 {%endif%}
                 {% endblock nav%}
