@@ -34,7 +34,7 @@ class GameService
         $eventsService = new EventService($manager);
         $events = $eventsService->create($manager, $answers);
 
-        $actionsService = new ActionsService();
+        $actionsService = new ActionsService($manager);
         $actions = $actionsService->create($manager, $answers, $events);
 
         $gameService = new GameService($manager);

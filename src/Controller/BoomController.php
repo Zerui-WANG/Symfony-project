@@ -31,12 +31,11 @@ class BoomController extends AbstractController
         $dayTime = $this->getUser()->getGame()->getDayTime();
 
         $actionService = new ActionsService($manager);
-        $actions = $actionService->actionActivation($user);
-
+        $action = $actionService->actionActivation($user);
         return $this->render("boom/index.html.twig", [
             'students' => $students,
             'dayTime' => $dayTime,
-            'actions' => $actions
+            'action' => $action
         ]);
     }
 
