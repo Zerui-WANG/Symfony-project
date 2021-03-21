@@ -1,7 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Bienvenue sur ConfinementClassroom! {% endblock %}
-
+{% block stylesheets %}
+    <link href="{{ asset('assets/css/lejeu.css') }}" rel="stylesheet" />
+{% endblock %}
 {% block body %}
-<p>Mode d'emploi du jeu</p>
+
+    <div class="div div-lejeu">
+        <p><h5>Bienvenue dans la ConfinementClassroom</h5></p>
+        <p><h1 class="display-3">Soyez professeur </h1></p>
+        <p><h2>à Paris 1 Panthéon Sorbonne</h2></p>
+        <p class="lead">Il y a beaucoup de choses à savoir sur l'univers de Tolbiac et plus particulièrement depuis que le confinement régit les lieux. Rejoignez-nous dès maintenant.</p>
+        <hr class="my-4">
+        <p>Interragissez avec vos élèves au sein des différentes applications mise à votre disposition.
+        <p>Influencez vous mutuellement par des bonnes ou mauvaises actions.</p>
+        <p class="lead">
+            <div class="btn btn-lets-start"><a  href="{{ path ("menu") }}">C'est parti</a></div>
+        </p>
+    </div>
+
 {% endblock %}
