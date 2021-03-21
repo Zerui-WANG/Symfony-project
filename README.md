@@ -16,6 +16,7 @@
 
 ## Get started
 - `symfony server:start -d`
+- use of a web development environment
 
 ![Alt text](./diagrammeClasse.svg)
 
