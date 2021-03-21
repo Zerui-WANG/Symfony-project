@@ -12,7 +12,7 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 16; $i++){
+        for($i = 0; $i < 6; $i++){
             $answer = new Answer();
             $answer->setDescriptionAnswer("Description answer n°$i")
                     ->setQuestion($this->getReference('question_'.$i));
