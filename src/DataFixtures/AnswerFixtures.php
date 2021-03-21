@@ -14,7 +14,7 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
     {
         $answers = array();
 
-        for($i = 0; $i < 10; $i++){
+        for($i = 0; $i < 15; $i++){
             $answer = new Answer();
             $answer->setDescriptionAnswer("Description answer n°$i");
 
