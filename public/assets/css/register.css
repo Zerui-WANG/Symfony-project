@@ -1,0 +1,68 @@
+.divRegister::before, .divRegister::after, .divRegister {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.divRegister {
+    width: 500px;
+    height: 500px;
+    margin: auto;
+    color: #69ca62;
+    box-shadow: inset 0 0 0 1px rgba(105, 202, 98, 0.5);
+}
+.divRegister::before, .divRegister::after {
+    content: "";
+    z-index: -1;
+    margin: -5%;
+    box-shadow: inset 0 0 0 2px;
+    animation: clipMe 8s linear infinite;
+}
+.divRegister::before {
+    animation-delay: -4s;
+}
+.divRegister:hover::after, .divRegister:hover::before {
+    background-color: whitesmoke;
+}
+
+@keyframes clipMe {
+    0%, 100% {
+        clip: rect(0px, 520px, 2px, 0px);
+    }
+    25% {
+        clip: rect(0px, 2px, 520px, 0px);
+    }
+    50% {
+        clip: rect(518px, 520px, 520px, 0px);
+    }
+    75% {
+        clip: rect(0px, 520px, 520px, 518px);
+    }
+}
+
+.divRegisterIn{
+    padding: 1em;
+}
+
+.btn{
+    margin: 10px;
+    padding: 15px ;
+    text-align: center;
+    text-transform: uppercase;
+    transition: 0.5s;
+    background-size: 200%;
+    color: white;
+    box-shadow: 0 0 20px #eee;
+    border-radius: 10px;
+    display: block;
+}
+.btn-register {
+    background-image: linear-gradient(to right, #34e89e 0%, #0f3443  51%, #34e89e  100%)
+}
+.btn-register:hover {
+    background-position: right center;
+    color: #fff;
+    text-decoration: none;
+}
