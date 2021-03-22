@@ -16,7 +16,7 @@ class UserController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('user/profile.html.twig', [
+        return $this->render('menu/menu.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }
