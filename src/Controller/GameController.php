@@ -8,6 +8,7 @@ use App\Service\GameService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -31,20 +32,23 @@ class GameController extends AbstractController
     /**
      * @Route("/new", name="game_new")
      * @param EntityManagerInterface $manager
+     * @param SessionInterface $session
      * @param UserInterface $user
      * @return Response
      */
-    public function new(EntityManagerInterface $manager, UserInterface $user): Response
+    public function new(EntityManagerInterface $manager, SessionInterface $session,UserInterface $user): Response
     {
-        $game = new GameService($manager);
+        $game = new GameService($manager, $session, $user);
 
         return $this->render('desktop/index.html.twig', [
-            'game' => $game->createGameService($user, $manager),
+            'game' => $game->createGameService(),
         ]);
     }
 
     /**
      * @Route("/{id}", name="game_show", methods={"GET"})
+     * @param Game $game
+     * @return Response
      */
     public function show(Game $game): Response
     {

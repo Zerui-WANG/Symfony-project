@@ -29,6 +29,8 @@ class AdminController extends AbstractController
 
     /**
      * @Route("/users", name="users")
+     * @param UserRepository $users
+     * @return Response
      */
     public function userList(UserRepository $users){
         return $this->render("admin/users.html.twig",['users' => $users->findAll()
@@ -39,6 +41,9 @@ class AdminController extends AbstractController
     /**
      *
      * @Route("/users/edit/{id}", name="edit_user")
+     * @param User $user
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function editUser (User $user, Request $request) {
         $form = $this->createForm(EditUserType::class, $user);

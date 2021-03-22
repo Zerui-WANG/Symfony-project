@@ -28,7 +28,7 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
         $count = 0;
         for( $j = 0; $j < count($answers); $j++){
             for($k = 0; $k < 3; $k++){
-                $answers[$j++]->setQuestion($this->getReference('question_' . $count));
+                $answers[$j++]->addQuestion($this->getReference('question_' . $count));
             }
             $count++;
         }

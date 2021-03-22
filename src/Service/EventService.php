@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Event;
+use App\Entity\Game;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class EventService
 {
@@ -12,27 +12,32 @@ class EventService
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $manager;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $manager)
     {
-        $this->em = $em;
+        $this->manager = $manager;
     }
 
-    public function create($manager, $answers) : array
+    public function create($answers) : array
     {
-        $events = array();
+        //Search events templates from the template game : id=3
+        $events = $this->manager->getRepository(Event::class)->findBy([
+            'game' => $this->manager->getRepository(Game::class)->find(3)
+        ]);
 
+        $eventAdded = array();
         for ($i = 0; $i < 5; $i++) {
-            $event = new Event();
-            $event->setCooldown($i)
-                ->setFrequency($i%2)
-                ->setCooldownMin($i + 1)
-                ->setCooldownMax($i + 5)
-                ->setNameQuestion("Nom de question n°$i")
-                ->setDescriptionQuestion("Description de question n°$i");
-
-            $manager->persist($event);
-            array_push($events, $event);
+            $keyToAdd = array_rand($events, 1);
+            while(in_array($keyToAdd, $eventAdded)){
+                $keyToAdd = array_rand($events, 1);
+            }
+            $event = $events[$keyToAdd];
+            array_push($eventAdded, $keyToAdd);
+            $this->manager->persist($event);
         }
 
         $counter = 0;

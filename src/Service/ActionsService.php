@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Action;
+use App\Entity\Game;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,39 +12,34 @@ class ActionsService
     /**
      * @var EntityManagerInterface
      */
-    private EntityManagerInterface $em;
+    private EntityManagerInterface $manager;
+    /**
+     * @var UserInterface
+     */
+    private UserInterface $user;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $manager, UserInterface $user)
     {
-        $this->em = $em;
+        $this->manager = $manager;
+        $this->user = $user;
     }
 
-    public function create($manager, $answers, $events): array
+    public function create($answers, $events): array
     {
-        $actions = array();
+        //Search actions templates from the template game : id=3
+        $actions = $this->manager->getRepository(Action::class)->findBy([
+            'game' => $this->manager->getRepository(Game::class)->find(3)
+        ]);
 
-        for($i = 0; $i < 3; $i++) {
-            $action = new Action();
-
-            switch ($i) {
-                case 1:
-                    $period = "midi";
-                    break;
-                case 2:
-                    $period = "soir";
-                    break;
-                default:
-                    $period = "matin";
+        $actionAdded = array();
+        for ($i = 0; $i < 3; $i++) {
+            $keyToAdd = array_rand($actions, 1);
+            while(in_array($keyToAdd, $actionAdded)){
+                $keyToAdd = array_rand($actions, 1);
             }
-
-            $action->setDuration($i + 2)
-                ->setActionPeriod($period)
-                ->setIsAvailable(true)
-                ->setNameQuestion("Nom de question n°" . ($i + 5))
-                ->setDescriptionQuestion("Description de question n°" . ($i + 5));
-
-            $manager->persist($action);
-            array_push($actions, $action);
+            $action = $actions[$keyToAdd];
+            array_push($actionAdded, $keyToAdd);
+            $this->manager->persist($action);
         }
 
         $counter = 0;
@@ -58,25 +54,36 @@ class ActionsService
         return $actions;
     }
 
-    public function actionActivation(UserInterface $user)
+    public function actionActivation(String $app): array
     {
-        $game = $user->getGame();
+        $game = $this->user->getGame();
         $actions = array();
 
-        if($game->getDayTime() == 'matin')
+        if($game->getDayTime() == 0)
         {
-            $actions = $this->em->getRepository(Action::class)
+            $actions = $this->manager->getRepository(Action::class)
                 ->findBy([
                     'game' => $game,
-                    'actionPeriod' => 'matin',
+                    'actionPeriod' => 0,
+                    'app' => $app
                 ]);
         }
-        elseif ($game->getDayTime() == 'midi')
+        elseif ($game->getDayTime() == 1)
         {
-            $actions = $this->em->getRepository(Action::class)
+            $actions = $this->manager->getRepository(Action::class)
                 ->findBy([
                     'game' => $game,
-                    'actionPeriod' => 'midi',
+                    'actionPeriod' => 1,
+                    'app' => $app
+                ]);
+        }
+        elseif ($game->getDayTime() == 2)
+        {
+            $actions = $this->manager->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 2,
+                    'app' => $app
                 ]);
         }
 

@@ -40,7 +40,9 @@
                 <td>
                     {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
                     {% for answer in action.answers %}
-                        <a><button>{{ answer.descriptionAnswer }}</button></a>
+                        <a href="{{ path('student_update', {'idAnswer': answer.id}) }}">
+                            <button>{{ answer.descriptionAnswer }}</button>
+                        </a>
                     {% endfor %}
                 </td>
             {% endfor %}

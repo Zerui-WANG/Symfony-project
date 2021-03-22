@@ -2,46 +2,58 @@
 
 namespace App\Service;
 
-use App\Entity\Action;
 use App\Entity\Answer;
-use App\Entity\Event;
 use App\Entity\Game;
 use App\Entity\Player;
-use App\Entity\Student;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class GameService
 {
-    public function __construct(EntityManagerInterface $em)
+    /**
+     * @var UserInterface
+     */
+    private UserInterface $user;
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $manager;
+    /**
+     * @var SessionInterface
+     */
+    private SessionInterface $session;
+
+    public function __construct(EntityManagerInterface $manager, SessionInterface $session, UserInterface $user)
     {
-        $this->em = $em;
+        $this->manager = $manager;
+        $this->user = $user;
+        $this->session = $session;
     }
 
-    public function createGameService(UserInterface $user, EntityManagerInterface $manager): Game
+    public function createGameService(): Game
     {
-        $userUser = $this->em->getRepository(User::class)->find($user->getId());
+        $userUser = $this->manager->getRepository(User::class)->find($this->user->getId());
 
-        $playerService = new PlayerService();
+        $playerService = new PlayerService($this->manager,$this->session, $this->user);
         $player = $playerService->create();
 
-        $studentsService = new StudentsService();
-        $students = $studentsService->create($manager);
+        $studentsService = new StudentsService($this->manager,$this->session, $this->user);
+        $students = $studentsService->create();
 
         $answers = $this->em->getRepository(Answer::class)->findAll();
 
-        $eventsService = new EventService($manager);
-        $events = $eventsService->create($manager, $answers);
+        $eventsService = new EventService($this->manager);
+        $events = $eventsService->create($this->manager, $answers);
 
-        $actionsService = new ActionsService();
-        $actions = $actionsService->create($manager, $answers, $events);
+        $actionsService = new ActionsService($this->manager);
+        $actions = $actionsService->create($this->manager, $answers, $events);
 
-        $gameService = new GameService($manager);
-        $game = $gameService->create($player, $userUser, $students, $actions, $events);
+        $game = $this->create($player, $userUser, $students, $actions, $events);
 
-        $manager->persist($game);
-        $manager->flush();
+        $this->manager->persist($game);
+        $this->manager->flush();
 
         return $game;
     }
@@ -52,7 +64,7 @@ class GameService
         $game->setPlayer($player)
             ->setUser($user)
             ->setTurn(10)
-            ->setDayTime('matin')
+            ->setDayTime(0)
             ->setCreatedAt(new \datetime('now'));
 
         foreach($students as $student ){

@@ -38,8 +38,8 @@ class DesktopController extends AbstractController
     public function eventActivation(EntityManagerInterface $manager, UserInterface $user,
                                     SessionInterface $session): Response
     {
-        $event = new TurnSystemService($manager, $session);
-        $eventActivated = $event->eventActivation($user);
+        $event = new TurnSystemService($manager, $session, $user);
+        $eventActivated = $event->eventActivation();
 
         if(is_null($eventActivated))
         {

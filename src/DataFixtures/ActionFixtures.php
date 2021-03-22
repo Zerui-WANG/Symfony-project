@@ -11,29 +11,37 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 3; $i++){
+        $apps = ['boom', 'netfilp', 'what\'s up'];
+
+        for($i = 0; $i < 5; $i++){
             $action = new Action();
 
             switch ($i){
                 case 1:
-                    $period = "midi";
-                    $available = false;
+                    $period = 1;
                     break;
                 case 2:
-                    $period = "soir";
-                    $available = false;
+                    $period = 2;
                     break;
                 default:
-                    $period = "matin";
-                    $available = true;
+                    $period = 0;
             }
 
             $action->setDuration($i + 2)
                 ->setActionPeriod($period)
-                ->setIsAvailable($available)
+                ->setIsAvailable(true)
                 ->setNameQuestion("Nom de question n°".($i + 3))
                 ->setDescriptionQuestion("Description de question n°".($i + 3))
                 ->setGame($this->getReference('game_2'));
+
+            //Need 3 for Boom and one for other app
+            if($i < 3){
+                $action->setApp($apps[0]);
+            }elseif ($i < 4){
+                $action->setApp($apps[1]);
+            }else{
+                $action->setApp($apps[2]);
+            }
 
             $this->setReference('question_'.($i + 3), $action);
 
