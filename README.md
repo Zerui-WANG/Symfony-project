@@ -1,13 +1,14 @@
 # Symfony-project : ConfinementClassroom
 
-## Requirements :
-
+## Project presentation :
 
 ### Project Kanban :
 [Click here](https://github.com/Zerui-WANG/Symfony-project/projects/1) to go to the project Kanban
 
 ### Presentation slides :
 [Click here](https://github.com/Zerui-WANG/Symfony-project/blob/develop/presentation_slides.pdf) to see the slides
+
+## Requirements :
 
 ### SQL file :
 
