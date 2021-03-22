@@ -51,16 +51,15 @@ class Game
     private $students;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Question::class, inversedBy="games")
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="game")
      */
-    private $question;
-
+    private $questions;
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->students = new ArrayCollection();
-        $this->question = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -171,15 +170,16 @@ class Game
     /**
      * @return Collection|Question[]
      */
-    public function getQuestion(): Collection
+    public function getQuestions(): Collection
     {
-        return $this->question;
+        return $this->questions;
     }
 
     public function addQuestion(Question $question): self
     {
-        if (!$this->question->contains($question)) {
-            $this->question[] = $question;
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setGame($this);
         }
 
         return $this;
@@ -187,7 +187,12 @@ class Game
 
     public function removeQuestion(Question $question): self
     {
-        $this->question->removeElement($question);
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getGame() === $this) {
+                $question->setGame(null);
+            }
+        }
 
         return $this;
     }
