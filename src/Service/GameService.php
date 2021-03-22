@@ -34,23 +34,25 @@ class GameService
 
     public function createGameService(): Game
     {
+        $game = new Game();
+
         $userUser = $this->manager->getRepository(User::class)->find($this->user->getId());
 
         $playerService = new PlayerService($this->manager,$this->session, $this->user);
         $player = $playerService->create();
 
-        $studentsService = new StudentsService($this->manager,$this->session, $this->user);
-        $students = $studentsService->create();
+        $students = new StudentsService($this->manager,$this->session, $this->user);
+        $students->create($game);
 
-        $answers = $this->em->getRepository(Answer::class)->findAll();
+        $answers = $this->manager->getRepository(Answer::class)->findAll();
 
         $eventsService = new EventService($this->manager);
-        $events = $eventsService->create($this->manager, $answers);
+        $events = $eventsService->create($game, $answers);
 
-        $actionsService = new ActionsService($this->manager);
-        $actions = $actionsService->create($this->manager, $answers, $events);
+        $actions = new ActionsService($this->manager, $this->user);
+        $actions->create($game, $answers, $events);
 
-        $game = $this->create($player, $userUser, $students, $actions, $events);
+        $game = $this->gameSet($game, $player, $userUser);
 
         $this->manager->persist($game);
         $this->manager->flush();
@@ -58,26 +60,14 @@ class GameService
         return $game;
     }
 
-    public function create(Player $player, User $user, $students, $actions, $events): Game
+    public function gameSet(Game $game, Player $player, User $user): Game
     {
-        $game = new Game();
         $game->setPlayer($player)
             ->setUser($user)
             ->setTurn(10)
             ->setDayTime(0)
             ->setCreatedAt(new \datetime('now'));
 
-        foreach($students as $student ){
-            $game->addStudent($student);
-        }
-
-        foreach($actions as $action ){
-            $game->addQuestion($action);
-        }
-
-        foreach($events as $event ){
-            $game->addQuestion($event);
-        }
         return $game;
     }
 }

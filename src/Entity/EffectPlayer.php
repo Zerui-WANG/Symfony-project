@@ -34,15 +34,9 @@ class EffectPlayer
      */
     private $answers;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Player::class, mappedBy="effectPlayers")
-     */
-    private $players;
-
     public function __construct()
     {
         $this->answers = new ArrayCollection();
-        $this->players = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,33 +90,6 @@ class EffectPlayer
     {
         if ($this->answers->removeElement($answer)) {
             $answer->removeEffectPlayer($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Player[]
-     */
-    public function getPlayers(): Collection
-    {
-        return $this->players;
-    }
-
-    public function addPlayer(Player $player): self
-    {
-        if (!$this->players->contains($player)) {
-            $this->players[] = $player;
-            $player->addEffectPlayer($this);
-        }
-
-        return $this;
-    }
-
-    public function removePlayer(Player $player): self
-    {
-        if ($this->players->removeElement($player)) {
-            $player->removeEffectPlayer($this);
         }
 
         return $this;

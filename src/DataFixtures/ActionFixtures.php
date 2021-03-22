@@ -11,7 +11,7 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        $apps = ['boom', 'netfilp', 'what\'s up'];
+        $apps = ['boom', 'netflip', 'what\'s up'];
 
         for($i = 0; $i < 5; $i++){
             $action = new Action();

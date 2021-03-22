@@ -47,17 +47,22 @@ class TurnSystemService
 
     public function turnSystem()
     {
+        $endGame = false;
         $dayTime = $this->user->getGame()->getDayTime();
+
         if($dayTime < 2){
             $this->user->getGame()->setDayTime($dayTime + 1);
         }else{
             $currentTurn = $this->user->getGame()->getTurn();
-            /*
-            if($currentTurn < 1){
-
-            }*/
             $this->user->getGame()->setTurn($currentTurn - 1);
             $this->user->getGame()->setDayTime(0);
+
+            if($currentTurn < 1){
+                $endGame = true;
+            }
+
         }
+
+        return $endGame;
     }
 }

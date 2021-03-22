@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Game;
-use App\Service\EventService;
 use App\Service\TurnSystemService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,11 +16,13 @@ class DesktopController extends AbstractController
     /**
      * @Route("/desktop", name="desktop")
      */
-    public function index(): Response
+    public function index(UserInterface $user): Response
     {
+        $game = $user->getGame();
+        /*
         $game = $this->getDoctrine()->getRepository(Game::class)->find(
             $this->getUser()->getGame()->getId()
-        );
+        );*/
 
         return $this->render('desktop/index.html.twig', [
             'game' => $game,

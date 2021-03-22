@@ -22,33 +22,39 @@ class EventService
         $this->manager = $manager;
     }
 
-    public function create($answers) : array
+    public function create(Game $game, $answers) : array
     {
+        $eventNumberToCreate = 3;
+        $templateGame = 12;
         //Search events templates from the template game : id=3
         $events = $this->manager->getRepository(Event::class)->findBy([
-            'game' => $this->manager->getRepository(Game::class)->find(3)
+            'game' => $this->manager->getRepository(Game::class)->find($templateGame)
         ]);
 
-        $eventAdded = array();
-        for ($i = 0; $i < 5; $i++) {
-            $keyToAdd = array_rand($events, 1);
-            while(in_array($keyToAdd, $eventAdded)){
-                $keyToAdd = array_rand($events, 1);
-            }
-            $event = $events[$keyToAdd];
-            array_push($eventAdded, $keyToAdd);
+        $selectedEvents = array();
+        $selectedIndex = array_rand($events, $eventNumberToCreate);
+        foreach ($selectedIndex as $index){
+            $event = new Event();
+            $event->setCooldown($events[$index]->getCooldown())
+                ->setFrequency($events[$index]->getFrequency())
+                ->setCooldownMin($events[$index]->getCooldownMin())
+                ->setCooldownMax($events[$index]->getCooldownMax())
+                ->setNameQuestion($events[$index]->getNameQuestion())
+                ->setDescriptionQuestion($events[$index]->getDescriptionQuestion())
+                ->setGame($game);
             $this->manager->persist($event);
+            array_push($selectedEvents, $event);
         }
 
         $counter = 0;
-        for($j = 0; $j < (count($events) * 2); $j++){
-            if($counter < count($events))
+        for($j = 0; $j < (count($selectedEvents) * 2); $j++){
+            if($counter < count($selectedEvents))
             {
-                $events[$counter++]->addAnswer($answers[$j++])
+                $selectedEvents[$counter++]->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
 
-        return $events;
+        return $selectedEvents;
     }
 }

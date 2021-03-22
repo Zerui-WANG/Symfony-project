@@ -50,7 +50,7 @@ class PlayerService
     public function update(Player $player, Answer $answer)
     {
         $turn = new TurnSystemService($this->manager,$this->session, $this->user);
-        $turn->turnSystem();
+        $endGame = $turn->turnSystem();
 
         $effectPlayers = $answer->getEffectPlayers();
 
@@ -76,5 +76,7 @@ class PlayerService
                     throw new Exception('Player Characteristic don\'t match');
             }
         }
+
+        return $endGame;
     }
 }

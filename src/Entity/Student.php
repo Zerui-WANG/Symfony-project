@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -45,20 +43,10 @@ class Student
     private $isPresent;
 
     /**
-     * @ORM\ManyToMany(targetEntity=EffectStudent::class, inversedBy="students")
-     */
-    private $effectStudents;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="students")
      * @ORM\JoinColumn(nullable=false)
      */
     private $game;
-
-    public function __construct()
-    {
-        $this->effectStudents = new ArrayCollection();
-    }
 
     public function getId(): ?int
     {
@@ -121,30 +109,6 @@ class Student
     public function setIsPresent(bool $isPresent): self
     {
         $this->isPresent = $isPresent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|EffectStudent[]
-     */
-    public function getEffectStudents(): Collection
-    {
-        return $this->effectStudents;
-    }
-
-    public function addEffectStudent(EffectStudent $effectStudent): self
-    {
-        if (!$this->effectStudents->contains($effectStudent)) {
-            $this->effectStudents[] = $effectStudent;
-        }
-
-        return $this;
-    }
-
-    public function removeEffectStudent(EffectStudent $effectStudent): self
-    {
-        $this->effectStudents->removeElement($effectStudent);
 
         return $this;
     }

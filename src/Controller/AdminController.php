@@ -32,7 +32,8 @@ class AdminController extends AbstractController
      * @param UserRepository $users
      * @return Response
      */
-    public function userList(UserRepository $users){
+    public function userList(UserRepository $users): Response
+    {
         return $this->render("admin/users.html.twig",['users' => $users->findAll()
         ]);
 

@@ -23,10 +23,21 @@
     </style>
     <h1>Bienvenue sur <span class="netflip"> Netflip</span>! </h1>
 
+    <h1>{{ action.nameQuestion }} :</h1>
+    <h2>{{ action.descriptionQuestion }}</h2>
+    <table>
+        <tr>
+            <td>
+                {% for answer in action.answers %}
+                    <a href="{{ path('update', {'idAnswer': answer.id}) }}">
+                        <button>{{ answer.descriptionAnswer }}</button>
+                    </a>
+                {% endfor %}
+            </td>
+        </tr>
+    </table>
+
     <div class="example-wrapper">
-
-
-
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>

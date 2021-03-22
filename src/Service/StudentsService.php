@@ -3,6 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Answer;
+use App\Entity\Game;
+use App\Entity\Player;
 use App\Entity\Student;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -31,7 +33,7 @@ class StudentsService
         $this->manager = $manager;
     }
 
-    public function create(): array
+    public function create(Game $game): array
     {
         $students = array();
 
@@ -41,7 +43,8 @@ class StudentsService
                 ->setPersonality(mt_rand(1, 10))
                 ->setGrade(mt_rand(5, 15))
                 ->setIsFailure(false)
-                ->setIsPresent(true);
+                ->setIsPresent(true)
+                ->setGame($game);
             $this->manager->persist($student);
             array_push($students, $student);
         }
@@ -56,7 +59,9 @@ class StudentsService
     public function update(Answer $answer, $students)
     {
         $turn = new TurnSystemService($this->manager,$this->session, $this->user);
-        $turn->turnSystem();
+        $endGame = $turn->turnSystem();
+
+        $player = $this->user->getGame()->getPlayer();
 
         $effectStudents = $answer->getEffectStudents();
 
@@ -64,12 +69,12 @@ class StudentsService
             foreach ($students as $student) {
                 switch ($effectStudent->getCharacteristicStudent()) {
                     case 'attendance':
-                        $student->setAttendance($student->getAttendance() +
+                        $student->setAttendance($student->getAttendance() + $player->getCharisma() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
                         $this->manager->flush();
                         break;
                     case 'grade':
-                        $student->setGrade($student->getGrade() +
+                        $student->setGrade($student->getGrade() + $player->getPedagogy() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
                         $this->manager->flush();
                         break;
@@ -86,5 +91,7 @@ class StudentsService
                 }
             }
         }
+
+        return $endGame;
     }
 }

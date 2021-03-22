@@ -24,34 +24,40 @@ class ActionsService
         $this->user = $user;
     }
 
-    public function create($answers, $events): array
+    public function create(Game $game, $answers, $events): array
     {
+        $actionsNumberToCreate = 5;
+        $templateGame = 12;
         //Search actions templates from the template game : id=3
         $actions = $this->manager->getRepository(Action::class)->findBy([
-            'game' => $this->manager->getRepository(Game::class)->find(3)
+            'game' => $this->manager->getRepository(Game::class)->find($templateGame)
         ]);
 
-        $actionAdded = array();
-        for ($i = 0; $i < 3; $i++) {
-            $keyToAdd = array_rand($actions, 1);
-            while(in_array($keyToAdd, $actionAdded)){
-                $keyToAdd = array_rand($actions, 1);
-            }
-            $action = $actions[$keyToAdd];
-            array_push($actionAdded, $keyToAdd);
+        $selectedActions = array();
+        $selectedIndex = array_rand($actions, $actionsNumberToCreate);
+        foreach ($selectedIndex as $index){
+            $action = new Action();
+            $action->setDuration($actions[$index]->getDuration())
+                ->setActionPeriod($actions[$index]->getActionPeriod())
+                ->setIsAvailable($actions[$index]->getIsAvailable())
+                ->setNameQuestion($actions[$index]->getNameQuestion())
+                ->setDescriptionQuestion($actions[$index]->getDescriptionQuestion())
+                ->setApp($actions[$index]->getApp())
+                ->setGame($game);
             $this->manager->persist($action);
+            array_push($selectedActions, $action);
         }
 
         $counter = 0;
         for($j = (count($events) * 2); $j < count($answers); $j++){
-            if($counter < count($actions))
+            if($counter < count($selectedActions))
             {
-                $actions[$counter++]->addAnswer($answers[$j++])
+                $selectedActions[$counter++]->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
 
-        return $actions;
+        return $selectedActions;
     }
 
     public function actionActivation(String $app): array

@@ -41,9 +41,14 @@ class PlayerUpdateController extends AbstractController
             ->find($idAnswer);
 
         $playerService = new PlayerService($manager, $session, $user);
-        $playerService->update($player, $answer);
+        $endGame = $playerService->update($player, $answer);
 
-        return $this->render('desktop/index.html.twig', [
+        if(!$endGame){
+            return $this->render('desktop/index.html.twig', [
+                'game' => $game
+            ]);
+        }
+        return $this->render('end_game/index.html.twig', [
             'game' => $game
         ]);
     }
