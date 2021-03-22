@@ -4,15 +4,20 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 
 class UserFixtures extends Fixture
 {
-    private $encode;
-
-    public function __construct(UserPasswordEncoderInterface $encoder) {
-        $this->encode = $encoder;
+    public function __construct(EntityManagerInterface $entityManager, UrlGeneratorInterface $urlGenerator, CsrfTokenManagerInterface $csrfTokenManager, UserPasswordEncoderInterface $passwordEncoder)
+    {
+        $this->entityManager = $entityManager;
+        $this->urlGenerator = $urlGenerator;
+        $this->csrfTokenManager = $csrfTokenManager;
+        $this->passwordEncoder = $passwordEncoder;
     }
 
     public function load(ObjectManager $manager)
@@ -21,9 +26,9 @@ class UserFixtures extends Fixture
         //Un utilisateur normal
         $user = new User();
         $plainPassword = 'ryanpass';
-        $encoded = $encode->encodePassword($user, $plainPassword);
+        $encoded = $passwordEncoder->encodePassword($user, $plainPassword);
         $user->setPassword($encoded);
-        $hash = $encode->encodePassword($user, $user->getPassword());
+        $hash = $passwordEncoder->encodePassword($user, $user->getPassword());
         $user->setEmail("userNormal@confinementClassroom.fr")
              ->setRoles(array("ROLE_USER"))
              ->setPseudo("User Normal")

@@ -4,6 +4,7 @@
 {% block stylesheets %}
     <link href="{{ asset('assets/css/lejeu.css') }}" rel="stylesheet" />
 {% endblock %}
+
 {% block body %}
 
     <div class="div div-lejeu">
@@ -15,8 +16,15 @@
         <p>Interragissez avec vos élèves au sein des différentes applications mise à votre disposition.
         <p>Influencez vous mutuellement par des bonnes ou mauvaises actions.</p>
         <p class="lead">
-            <div class="btn btn-lets-start"><a  href="{{ path ("menu") }}">C'est parti</a></div>
+            <div class="btn btn-lets-start">
+            {% if not app.user %}
+                <a  href="{{ path ("app_login") }}">C'est parti</a>
+
+            {% else %}
+                <a  href="{{ path ("menu") }}">C'est parti</a>
+            {% endif %}
+            </div>
         </p>
     </div>
 
-{% endblock %}
+{% endblock body %}
