@@ -20,22 +20,22 @@ class ActionRepository extends ServiceEntityRepository
         parent::__construct($registry, Action::class);
     }
 
-    /**
-     * @param string $value
-     * @return Action[] Returns an array of Action objects
-     */
-
-    public function findByApp(string $app) : array
+    // /**
+    //  * @return Action[] Returns an array of Action objects
+    //  */
+    /*
+    public function findByExampleField($value)
     {
         return $this->createQueryBuilder('a')
-            ->setParameter('val', $app)
-            ->andWhere('a.application like :val')
+            ->andWhere('a.exampleField = :val')
+            ->setParameter('val', $value)
             ->orderBy('a.id', 'ASC')
+            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-
+    */
 
     /*
     public function findOneBySomeField($value): ?Action

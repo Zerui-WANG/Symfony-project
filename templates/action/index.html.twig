@@ -16,10 +16,8 @@
                 <th>DescriptionQuestion</th>
                 <th>Duration</th>
                 <th>ActionPeriod</th>
-                <th>Application</th>
                 <th>IsAvailable</th>
                 <th>actions</th>
-
             </tr>
         </thead>
         <tbody>
@@ -30,7 +28,6 @@
                 <td>{{ action.descriptionQuestion }}</td>
                 <td>{{ action.duration }}</td>
                 <td>{{ action.actionPeriod }}</td>
-                <td>{{ action.application}}</td>
                 <td>{{ action.isAvailable ? 'Yes' : 'No' }}</td>
                 <td>
                     <a href="{{ path('admin_action_show', {'id': action.id}) }}", class="btn btn-info">show</a>

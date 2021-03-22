@@ -19,7 +19,7 @@ class BoomController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-
+  ///  # [Route("/boom", name: "boom")]
     public function index(UserInterface $user, EntityManagerInterface $manager): Response
     {
         $students= $this->getDoctrine()
@@ -29,14 +29,51 @@ class BoomController extends AbstractController
             );
 
         $dayTime = $this->getUser()->getGame()->getDayTime();
+
         $actionService = new ActionsService($manager);
-        $action = $actionService->actionActivation($user);
+        $actions = $actionService->actionActivation($user);
 
         return $this->render("boom/index.html.twig", [
             'students' => $students,
             'dayTime' => $dayTime,
-            'action' => $action
+            'actions' => $actions
         ]);
     }
 
+    /**
+     * Route("/test/{name?World}",name = "boomName")
+     */
+ /*   public function name($name):Response
+    {
+        return new Response("Hello ". $name);
+    }
+
+*/
+    /**
+     * @Route("/boom/1", name= "array")
+     * @param StudentRepository $repo
+     * @return Response
+     */
+    public function arrayStudent(StudentRepository $repo) :Response
+    {
+        return $this->render('boom/index.html.twig',[$repo->findAll()]);
+    }
+
+
+    /**
+     * @Route("/boom/2", name= "arrayvide")
+     */
+    public function arrayS(): Response
+    {
+        $students= $this->getDoctrine()
+            ->getRepository('App:Student')
+            ->findBy(
+                ['game' => $this->getUser()->getGame()]
+            );
+
+        return $this->render("boom/index.html.twig", [
+            'students' => $students,
+        ]);
+
+    }
 }

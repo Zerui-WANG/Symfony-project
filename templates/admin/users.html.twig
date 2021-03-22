@@ -13,6 +13,7 @@
             <th>Email</th>
             <th>Rôles</th>
             <th>Username</th>
+            <th>Game ID</th>
             <th>Actions</th>
             </tr>
         </thead>
@@ -29,7 +30,8 @@
                         {% endif %}
                     {% endfor %}
                 </td>
-               <td>{{ user.username }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.game }}</td>
                 <td><a href="{{ path('admin_edit_user',{'id' :user.id}) }}" class="btn btn-warning">Modifier</a></td>
                 </tr>
             {% else %}

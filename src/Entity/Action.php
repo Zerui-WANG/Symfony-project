@@ -25,11 +25,6 @@ class Action extends Question
      */
     private $isAvailable;
 
-    /**
-     * @ORM\Column(type="string", length=32)
-     */
-    private $application;
-
     public function getDuration(): ?int
     {
         return $this->duration;
@@ -62,18 +57,6 @@ class Action extends Question
     public function setIsAvailable(bool $isAvailable): self
     {
         $this->isAvailable = $isAvailable;
-
-        return $this;
-    }
-
-    public function getApplication(): ?string
-    {
-        return $this->application;
-    }
-
-    public function setApplication(string $application): self
-    {
-        $this->application = $application;
 
         return $this;
     }

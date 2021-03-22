@@ -12,10 +12,12 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
+        $answers = array();
 
-        for($i = 0; $i < 39; $i++){
+        for($i = 0; $i < 16; $i++){
             $answer = new Answer();
             $answer->setDescriptionAnswer("Description answer n°$i");
+
 
             array_push($answers, $answer);
             $this->setReference('answer_'.$i, $answer);
@@ -23,16 +25,12 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
             $manager->persist($answer);
         }
 
-        $counter = 0;
+        $count = 0;
         for( $j = 0; $j < count($answers); $j++){
-            for($k = 0; $k < 2; $k++){
-                $answers[$j++]->setQuestion($this->getReference('question_' . $counter));
+            for($k = 0; $k < 3; $k++){
+                $answers[$j++]->setQuestion($this->getReference('question_' . $count));
             }
-            $answers[$j]->setQuestion($this->getReference('question_' . $counter));
-            if($j==count($answers))
-                break;
-
-            $counter++;
+            $count++;
         }
 
         $manager->flush();
@@ -42,7 +40,6 @@ class AnswerFixtures extends Fixture implements DependentFixtureInterface
     {
         return array(
             EventFixtures::class,
-            ActionFixtures::class,
         );
     }
 }

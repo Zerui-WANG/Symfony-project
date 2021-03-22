@@ -53,7 +53,7 @@ class EffectPlayerController extends AbstractController
      */
     public function show(EffectPlayer $effectPlayer): Response
     {
-        return $this->render('effect_player/showInGame.html.twig', [
+        return $this->render('effect_player/show.html.twig', [
             'effect_player' => $effectPlayer,
         ]);
     }

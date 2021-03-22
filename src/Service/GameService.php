@@ -34,8 +34,8 @@ class GameService
         $eventsService = new EventService($manager);
         $events = $eventsService->create($manager, $answers);
 
-        $actionsService = new ActionsService($manager);
-        $actions = $actionsService->create($manager, $answers);
+        $actionsService = new ActionsService();
+        $actions = $actionsService->create($manager, $answers, $events);
 
         $gameService = new GameService($manager);
         $game = $gameService->create($player, $userUser, $students, $actions, $events);
@@ -51,7 +51,7 @@ class GameService
         $game = new Game();
         $game->setPlayer($player)
             ->setUser($user)
-            ->setTurn(1)
+            ->setTurn(10)
             ->setDayTime('matin')
             ->setCreatedAt(new \datetime('now'));
 

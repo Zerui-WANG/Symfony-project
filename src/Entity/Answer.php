@@ -25,12 +25,6 @@ class Answer
     private $descriptionAnswer;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Question::class, inversedBy="answers")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $question;
-
-    /**
      * @ORM\ManyToMany(targetEntity=EffectStudent::class, inversedBy="answers")
      */
     private $effectStudents;
@@ -40,10 +34,16 @@ class Answer
      */
     private $effectPlayers;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Question::class, inversedBy="answers")
+     */
+    private $questions;
+
     public function __construct()
     {
         $this->effectStudents = new ArrayCollection();
         $this->effectPlayers = new ArrayCollection();
+        $this->questions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -59,18 +59,6 @@ class Answer
     public function setDescriptionAnswer(string $descriptionAnswer): self
     {
         $this->descriptionAnswer = $descriptionAnswer;
-
-        return $this;
-    }
-
-    public function getQuestion(): ?Question
-    {
-        return $this->question;
-    }
-
-    public function setQuestion(?Question $question): self
-    {
-        $this->question = $question;
 
         return $this;
     }
@@ -119,6 +107,30 @@ class Answer
     public function removeEffectPlayer(EffectPlayer $effectPlayer): self
     {
         $this->effectPlayers->removeElement($effectPlayer);
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Question[]
+     */
+    public function getQuestions(): Collection
+    {
+        return $this->questions;
+    }
+
+    public function addQuestion(Question $question): self
+    {
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+        }
+
+        return $this;
+    }
+
+    public function removeQuestion(Question $question): self
+    {
+        $this->questions->removeElement($question);
 
         return $this;
     }

@@ -11,7 +11,7 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-        for($i = 0; $i < 10; $i++){
+        for($i = 0; $i < 3; $i++){
             $action = new Action();
 
             switch ($i){
@@ -31,9 +31,9 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
             $action->setDuration($i + 2)
                 ->setActionPeriod($period)
                 ->setIsAvailable($available)
-                ->setApplication("Boom")
-                ->setNameQuestion("Action n°".($i + 3))
-                ->setDescriptionQuestion("Description de l'action n°".($i + 3));
+                ->setNameQuestion("Nom de question n°".($i + 3))
+                ->setDescriptionQuestion("Description de question n°".($i + 3))
+                ->setGame($this->getReference('game_2'));
 
             $this->setReference('question_'.($i + 3), $action);
 
@@ -46,8 +46,7 @@ class ActionFixtures extends Fixture implements DependentFixtureInterface
     public function getDependencies(): array
     {
         return array(
-            GameFixtures::class,
-            EventFixtures::class,
+            GameFixtures::class
         );
     }
 }

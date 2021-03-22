@@ -13,15 +13,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class StudentUpdateController extends AbstractController
 {
     /**
-     * @Route("/student/update/{idAnswer}", name="studentUpdate")
+     * @Route("/student/update/{idAnswer}", name="student_update")
      * @param int $idAnswer
      * @return Response
      * @throws Exception
      */
     public function update(int $idAnswer): Response
     {
-
-        $game = $this->getUser()->getGame();
         $students = $this->getDoctrine()
             ->getRepository(Student::class)
             ->findBy(
@@ -44,9 +42,8 @@ class StudentUpdateController extends AbstractController
         $studentsService = new StudentsService();
         $studentsService->update($answer, $students, $entityManager);
 
-        return $this->render('desktop/index.html.twig', [
-          //  'students' => $students,
-            'game' => $game
+        return $this->render('', [
+            'students' => $students,
         ]);
     }
 }

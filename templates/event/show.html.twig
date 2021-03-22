@@ -1,46 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Event{% endblock %}
+{% block title %}{{ event.nameQuestion }}{% endblock %}
 
 {% block body %}
-    <h1>Event</h1>
 
-    <table class="table">
-        <tbody>
+    <h1>{{ event.nameQuestion }}</h1>
+
+    <p>{{ event.descriptionQuestion }}</p>
+
+    <table>
         <tr>
-            <th>Id</th>
-            <td>{{ event.id }}</td>
+            {% for answer in answers %}
+                <th>
+                    <a href="{{ path('playerUpdate', {'idAnswer': answer.id}) }}">
+                        <button type="button">
+                            {{ answer.getDescriptionAnswer }}
+                        </button>
+                    </a>
+                </th>
+            {% endfor %}
         </tr>
-        <tr>
-            <th>NameQuestion</th>
-            <td>{{ event.nameQuestion }}</td>
-        </tr>
-        <tr>
-            <th>DescriptionQuestion</th>
-            <td>{{ event.descriptionQuestion }}</td>
-        </tr>
-        <tr>
-            <th>Cooldown</th>
-            <td>{{ event.cooldown }}</td>
-        </tr>
-        <tr>
-            <th>Frequency</th>
-            <td>{{ event.frequency }}</td>
-        </tr>
-        <tr>
-            <th>CooldownMin</th>
-            <td>{{ event.cooldownMin }}</td>
-        </tr>
-        <tr>
-            <th>CooldownMax</th>
-            <td>{{ event.cooldownMax }}</td>
-        </tr>
-        </tbody>
     </table>
-
-    <a href="{{ path('admin_event_index') }}", class="btn btn-primary">back to list</a>
-
-    <a href="{{ path('admin_event_edit', {'id': event.id}) }}", class="btn btn-warning">edit</a>
-
-    {{ include('event/_delete_form.html.twig') }}
 {% endblock %}

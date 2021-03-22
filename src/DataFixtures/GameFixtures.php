@@ -17,6 +17,7 @@ class GameFixtures extends Fixture implements DependentFixtureInterface
                 ->setDayTime("matin")
                 ->setCreatedAt(new \DateTime())
                 ->setPlayer($this->getReference('player_'.($i)));
+
             $this->setReference('game_'.$i, $game);
 
             $manager->persist($game);

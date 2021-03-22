@@ -22,25 +22,24 @@ class EventService
     {
         $events = array();
 
-        for ($i = 0; $i < 3; $i++) {
+        for ($i = 0; $i < 5; $i++) {
             $event = new Event();
             $event->setCooldown($i)
                 ->setFrequency($i%2)
                 ->setCooldownMin($i + 1)
                 ->setCooldownMax($i + 5)
-                ->setNameQuestion("Nom de l'event n°$i")
-                ->setDescriptionQuestion("Description de l'event n°$i");
+                ->setNameQuestion("Nom de question n°$i")
+                ->setDescriptionQuestion("Description de question n°$i");
 
             $manager->persist($event);
             array_push($events, $event);
         }
 
         $counter = 0;
-        for($j = 0; $j < (count($events)*3); $j++){
+        for($j = 0; $j < (count($events) * 2); $j++){
             if($counter < count($events))
             {
                 $events[$counter++]->addAnswer($answers[$j++])
-                    ->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
