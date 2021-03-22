@@ -34,15 +34,9 @@ class EffectStudent
      */
     private $answers;
 
-    /**
-     * @ORM\ManyToMany(targetEntity=Student::class, mappedBy="effectStudents")
-     */
-    private $students;
-
     public function __construct()
     {
         $this->answers = new ArrayCollection();
-        $this->students = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -96,33 +90,6 @@ class EffectStudent
     {
         if ($this->answers->removeElement($answer)) {
             $answer->removeEffectStudent($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Student[]
-     */
-    public function getStudents(): Collection
-    {
-        return $this->students;
-    }
-
-    public function addStudent(Student $student): self
-    {
-        if (!$this->students->contains($student)) {
-            $this->students[] = $student;
-            $student->addEffectStudent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeStudent(Student $student): self
-    {
-        if ($this->students->removeElement($student)) {
-            $student->removeEffectStudent($this);
         }
 
         return $this;

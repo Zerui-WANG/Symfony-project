@@ -12,6 +12,9 @@ class ContactController extends AbstractController
 {
     /**
      * @Route("/home/contact", name="contact")
+     * @param Request $request
+     * @param \Swift_Mailer $mailer
+     * @return Response
      */
     public function index(Request $request, \Swift_Mailer $mailer): Response
     {

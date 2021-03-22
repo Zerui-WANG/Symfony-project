@@ -25,7 +25,7 @@ class Game
     private $turn;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $dayTime;
 

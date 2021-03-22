@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Action;
 use App\Repository\StudentRepository;
 use App\Service\ActionsService;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,9 +28,10 @@ class BoomController extends AbstractController
             );
 
         $dayTime = $this->getUser()->getGame()->getDayTime();
+        $app = 'boom';
 
-        $actionService = new ActionsService($manager);
-        $actions = $actionService->actionActivation($user);
+        $actionService = new ActionsService($manager, $user);
+        $actions = $actionService->actionActivation($app);
 
         return $this->render("boom/index.html.twig", [
             'students' => $students,

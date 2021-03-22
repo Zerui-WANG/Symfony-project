@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Entity\Event;
+use App\Entity\Game;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Security\Core\User\UserInterface;
 
 class EventService
 {
@@ -12,38 +12,49 @@ class EventService
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $em;
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $manager;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $manager)
     {
-        $this->em = $em;
+        $this->manager = $manager;
     }
 
-    public function create($manager, $answers) : array
+    public function create(Game $game, $answers) : array
     {
-        $events = array();
+        $eventNumberToCreate = 3;
+        $templateGame = 12;
+        //Search events templates from the template game : id=3
+        $events = $this->manager->getRepository(Event::class)->findBy([
+            'game' => $this->manager->getRepository(Game::class)->find($templateGame)
+        ]);
 
-        for ($i = 0; $i < 5; $i++) {
+        $selectedEvents = array();
+        $selectedIndex = array_rand($events, $eventNumberToCreate);
+        foreach ($selectedIndex as $index){
             $event = new Event();
-            $event->setCooldown($i)
-                ->setFrequency($i%2)
-                ->setCooldownMin($i + 1)
-                ->setCooldownMax($i + 5)
-                ->setNameQuestion("Nom de question n°$i")
-                ->setDescriptionQuestion("Description de question n°$i");
-
-            $manager->persist($event);
-            array_push($events, $event);
+            $event->setCooldown($events[$index]->getCooldown())
+                ->setFrequency($events[$index]->getFrequency())
+                ->setCooldownMin($events[$index]->getCooldownMin())
+                ->setCooldownMax($events[$index]->getCooldownMax())
+                ->setNameQuestion($events[$index]->getNameQuestion())
+                ->setDescriptionQuestion($events[$index]->getDescriptionQuestion())
+                ->setGame($game);
+            $this->manager->persist($event);
+            array_push($selectedEvents, $event);
         }
 
         $counter = 0;
-        for($j = 0; $j < (count($events) * 2); $j++){
-            if($counter < count($events))
+        for($j = 0; $j < (count($selectedEvents) * 2); $j++){
+            if($counter < count($selectedEvents))
             {
-                $events[$counter++]->addAnswer($answers[$j++])
+                $selectedEvents[$counter++]->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
 
-        return $events;
+        return $selectedEvents;
     }
 }

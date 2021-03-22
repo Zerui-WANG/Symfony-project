@@ -4,12 +4,31 @@ namespace App\Service;
 
 use App\Entity\Answer;
 use App\Entity\Player;
+use Doctrine\ORM\EntityManagerInterface;
 use Exception;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class PlayerService
 {
-    public function __construct()
+    /**
+     * @var UserInterface
+     */
+    private UserInterface $user;
+    /**
+     * @var SessionInterface
+     */
+    private SessionInterface $session;
+    /**
+     * @var EntityManagerInterface
+     */
+    private EntityManagerInterface $manager;
+
+    public function __construct(EntityManagerInterface $manager, SessionInterface $session, UserInterface $user)
     {
+        $this->user = $user;
+        $this->session = $session;
+        $this->manager = $manager;
     }
 
     public function create(): Player
@@ -26,34 +45,38 @@ class PlayerService
     /**
      * @param Player $player
      * @param Answer $answer
-     * @param $entityManager
      * @throws Exception
      */
-    public function update(Player $player, Answer $answer, $entityManager)
+    public function update(Player $player, Answer $answer)
     {
+        $turn = new TurnSystemService($this->manager,$this->session, $this->user);
+        $endGame = $turn->turnSystem();
+
         $effectPlayers = $answer->getEffectPlayers();
 
         foreach ($effectPlayers as $effectPlayer){
             switch ($effectPlayer->getCharacteristicPlayer()){
                 case 'mood':
                     $player->setMood($player->getMood() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
+                    $this->manager->flush();
                     break;
                 case 'sleep':
                     $player->setSleep($player->getSleep() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
+                    $this->manager->flush();
                     break;
                 case 'charisma':
                     $player->setCharisma($player->getCharisma() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
+                    $this->manager->flush();
                     break;
                 case 'pedagogy':
                     $player->setPedagogy($player->getPedagogy() + $effectPlayer->getValueEffectPlayer());
-                    $entityManager->flush();
+                    $this->manager->flush();
                     break;
                 default:
                     throw new Exception('Player Characteristic don\'t match');
             }
         }
+
+        return $endGame;
     }
 }

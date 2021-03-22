@@ -36,14 +36,23 @@
 
     <table>
         <tr>
-            {% for action in actions %}
-                <td>
-                    {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
-                    {% for answer in action.answers %}
-                        <a><button>{{ answer.descriptionAnswer }}</button></a>
-                    {% endfor %}
-                </td>
-            {% endfor %}
+            {% if dayTime != 2 %}
+                {% for action in actions %}
+                    <td>
+                        {{ action.nameQuestion }} : {{ action.descriptionQuestion }}
+                        {% for answer in action.answers %}
+                            <a href="{{ path('update', {'idAnswer': answer.id}) }}">
+                                <button>{{ answer.descriptionAnswer }}</button>
+                            </a>
+                        {% endfor %}
+                    </td>
+                {% endfor %}
+            {% else %}
+                Non vos étudiants refusent le cours le soir !
+                <a href="{{ path('desktop') }}">
+                    <button>Revenir</button>
+                </a>
+            {% endif %}
         </tr>
     </table>
 

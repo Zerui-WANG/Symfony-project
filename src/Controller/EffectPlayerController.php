@@ -17,6 +17,8 @@ class EffectPlayerController extends AbstractController
 {
     /**
      * @Route("/", name="effect_player_index", methods={"GET"})
+     * @param EffectPlayerRepository $effectPlayerRepository
+     * @return Response
      */
     public function index(EffectPlayerRepository $effectPlayerRepository): Response
     {
@@ -27,6 +29,8 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/new", name="effect_player_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -50,6 +54,8 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_player_show", methods={"GET"})
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function show(EffectPlayer $effectPlayer): Response
     {
@@ -60,6 +66,9 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="effect_player_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function edit(Request $request, EffectPlayer $effectPlayer): Response
     {
@@ -80,6 +89,9 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_player_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function delete(Request $request, EffectPlayer $effectPlayer): Response
     {

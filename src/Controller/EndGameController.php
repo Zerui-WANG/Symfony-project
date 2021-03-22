@@ -6,16 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class WhatsUpController extends AbstractController
+class EndGameController extends AbstractController
 {
     /**
-     * @Route("/whats/up", name="whats_up")
-     * @return Response
+     * @Route("/end/game", name="end_game")
      */
     public function index(): Response
     {
-        return $this->render('whats_up/index.html.twig', [
-            'controller_name' => 'WhatsUpController',
+        return $this->render('end_game/index.html.twig', [
+            'game' => $this->getUser()->getGame()
         ]);
     }
 }

@@ -16,7 +16,7 @@ class Action extends Question
     private $duration;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
     private $actionPeriod;
 
@@ -24,6 +24,11 @@ class Action extends Question
      * @ORM\Column(type="boolean")
      */
     private $isAvailable;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $app;
 
     public function getDuration(): ?int
     {
@@ -57,6 +62,18 @@ class Action extends Question
     public function setIsAvailable(bool $isAvailable): self
     {
         $this->isAvailable = $isAvailable;
+
+        return $this;
+    }
+
+    public function getApp(): ?string
+    {
+        return $this->app;
+    }
+
+    public function setApp(string $app): self
+    {
+        $this->app = $app;
 
         return $this;
     }
