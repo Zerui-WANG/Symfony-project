@@ -10341,5 +10341,8 @@ body {
 }
 
 .footer {
+  display: table-row;
   padding: 5rem 0;
+  position: absolute;
+  bottom: 0;
 }
