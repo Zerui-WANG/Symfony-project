@@ -11,10 +11,6 @@ class EventService
     /**
      * @var EntityManagerInterface
      */
-    private EntityManagerInterface $em;
-    /**
-     * @var EntityManagerInterface
-     */
     private EntityManagerInterface $manager;
 
     public function __construct(EntityManagerInterface $manager)
@@ -25,10 +21,10 @@ class EventService
     public function create(Game $game, $answers) : array
     {
         $eventNumberToCreate = 3;
-        $templateGame = 12;
+        $templateGameId = 6;
         //Search events templates from the template game : id=3
         $events = $this->manager->getRepository(Event::class)->findBy([
-            'game' => $this->manager->getRepository(Game::class)->find($templateGame)
+            'game' => $this->manager->getRepository(Game::class)->find($templateGameId)
         ]);
 
         $selectedEvents = array();

@@ -17,17 +17,17 @@ class EffectStudent
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $valueEffectStudent;
+    private ?int $valueEffectStudent;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $characteristicStudent;
+    private ?string $characteristicStudent;
 
     /**
      * @ORM\ManyToMany(targetEntity=Answer::class, mappedBy="effectStudents")

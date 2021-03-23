@@ -19,18 +19,18 @@ class User implements UserInterface
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
      * @Assert\Email()
      */
-    private $email;
+    private ?string $email;
 
     /**
      * @ORM\Column(type="json")
      */
-    private $roles = [];
+    private array $roles = [];
 
 
     /**
@@ -38,7 +38,7 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      * @Assert\Length(min="8", minMessage="Votre mot de passe doit faire minimum 8 caractères")
      */
-    private $password;
+    private string $password;
 
     /**
      * @Assert\EqualTo(propertyPath="password", message="Votre confirmation de mot de passe est différent du mot de passe")
@@ -48,17 +48,17 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=64)
      */
-    private $pseudo;
+    private ?string $pseudo;
 
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $isValidate;
+    private ?bool $isValidate;
 
     /**
      * @ORM\OneToOne(targetEntity=Game::class, inversedBy="user", cascade={"persist", "remove"})
      */
-    private $game;
+    private ?Game $game;
 
     public function getId(): ?int
     {

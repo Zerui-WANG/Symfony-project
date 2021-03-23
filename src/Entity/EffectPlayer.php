@@ -17,17 +17,17 @@ class EffectPlayer
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $valueEffectPlayer;
+    private ?int $valueEffectPlayer;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $characteristicPlayer;
+    private ?string $characteristicPlayer;
 
     /**
      * @ORM\ManyToMany(targetEntity=Answer::class, mappedBy="effectPlayers")

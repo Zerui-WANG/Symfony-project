@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Answer;
-use App\Entity\Player;
 use App\Service\PlayerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;

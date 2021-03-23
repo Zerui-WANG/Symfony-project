@@ -45,17 +45,18 @@ class TurnSystemService
         return $events[array_rand($events, 1)];
     }
 
-    public function turnSystem()
+    public function turnSystem(): bool
     {
         $endGame = false;
-        $dayTime = $this->user->getGame()->getDayTime();
+        $game = $this->user->getGame();
+        $dayTime = $game->getDayTime();
 
         if($dayTime < 2){
-            $this->user->getGame()->setDayTime($dayTime + 1);
+            $game->setDayTime($dayTime + 1);
         }else{
-            $currentTurn = $this->user->getGame()->getTurn();
-            $this->user->getGame()->setTurn($currentTurn - 1);
-            $this->user->getGame()->setDayTime(0);
+            $currentTurn = $game->getTurn();
+            $game->setTurn($currentTurn - 1);
+            $game->setDayTime(0);
 
             if($currentTurn < 1){
                 $endGame = true;

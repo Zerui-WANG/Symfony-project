@@ -38,9 +38,7 @@ class RegistrationController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getPassword());
 
             $user->setPassword($hash);
-            //Faire persister dans le temps
             $manager->persist($user);
-            //préparer toi base de donnée à le sauvegarder
             $manager->flush();
             return $this->redirectToRoute('app_login');
         }

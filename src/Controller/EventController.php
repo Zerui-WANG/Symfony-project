@@ -92,5 +92,16 @@ class EventController extends AbstractController
         return $this->redirectToRoute('admin_event_index');
     }
 
+    /**
+     * @Route("/{id}", name="event_show", methods={"GET"})
+     * @param Event $event
+     * @return Response
+     */
+    public function show(Event $event): Response
+    {
+        return $this->render('event/showAdmin.html.twig', [
+            'event' => $event,
+        ]);
+    }
 
 }

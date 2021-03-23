@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/effect/player")
+ * @Route("/admin/effect/player", name="admin_")
  */
 class EffectPlayerController extends AbstractController
 {
@@ -43,7 +43,7 @@ class EffectPlayerController extends AbstractController
             $entityManager->persist($effectPlayer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('effect_player_index');
+            return $this->redirectToRoute('admin_effect_player_index');
         }
 
         return $this->render('effect_player/new.html.twig', [
@@ -65,7 +65,7 @@ class EffectPlayerController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="effect_player_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="effect_player_edit", methods={"GET","POST"})
      * @param Request $request
      * @param EffectPlayer $effectPlayer
      * @return Response
@@ -78,7 +78,7 @@ class EffectPlayerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('effect_player_index');
+            return $this->redirectToRoute('admin_effect_player_index');
         }
 
         return $this->render('effect_player/edit.html.twig', [
@@ -101,6 +101,6 @@ class EffectPlayerController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('effect_player_index');
+        return $this->redirectToRoute('admin_effect_player_index');
     }
 }

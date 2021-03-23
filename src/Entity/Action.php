@@ -13,22 +13,22 @@ class Action extends Question
     /**
      * @ORM\Column(type="integer")
      */
-    private $duration;
+    private ?int $duration;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $actionPeriod;
+    private ?string $actionPeriod;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isAvailable;
+    private ?bool $isAvailable;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $app;
+    private ?string $app;
 
     public function getDuration(): ?int
     {

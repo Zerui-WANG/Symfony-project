@@ -4,7 +4,6 @@ namespace App\Service;
 
 use App\Entity\Answer;
 use App\Entity\Game;
-use App\Entity\Player;
 use App\Entity\Student;
 use Doctrine\ORM\EntityManagerInterface;
 use Exception;
@@ -54,9 +53,10 @@ class StudentsService
     /**
      * @param Answer $answer
      * @param $students
+     * @return bool
      * @throws Exception
      */
-    public function update(Answer $answer, $students)
+    public function update(Answer $answer, $students): bool
     {
         $turn = new TurnSystemService($this->manager,$this->session, $this->user);
         $endGame = $turn->turnSystem();

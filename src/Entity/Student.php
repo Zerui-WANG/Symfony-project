@@ -15,38 +15,38 @@ class Student
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attendance;
+    private ?int $attendance;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $personality;
+    private ?int $personality;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $grade;
+    private ?int $grade;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isFailure;
+    private ?bool $isFailure;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPresent;
+    private ?bool $isPresent;
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="students")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
+    private ?Game $game;
 
     public function getId(): ?int
     {

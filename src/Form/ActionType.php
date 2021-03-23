@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Action;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -16,8 +17,9 @@ class ActionType extends AbstractType
             ->add('descriptionQuestion')
             ->add('duration')
             ->add('actionPeriod')
+            ->add('app')
             ->add('isAvailable')
-            ->add('games')
+            ->add('game')
         ;
     }
 
@@ -25,6 +27,7 @@ class ActionType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Action::class,
+            'game' => Game::class,
         ]);
     }
 }

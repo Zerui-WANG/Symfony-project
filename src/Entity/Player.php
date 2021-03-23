@@ -15,27 +15,27 @@ class Player
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $mood;
+    private ?int $mood;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $sleep;
+    private ?int $sleep;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $pedagogy;
+    private ?int $pedagogy;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $charisma;
+    private ?int $charisma;
 
     public function getId(): ?int
     {

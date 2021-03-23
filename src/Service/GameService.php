@@ -6,6 +6,7 @@ use App\Entity\Answer;
 use App\Entity\Game;
 use App\Entity\Player;
 use App\Entity\User;
+use datetime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -66,7 +67,7 @@ class GameService
             ->setUser($user)
             ->setTurn(10)
             ->setDayTime(0)
-            ->setCreatedAt(new \datetime('now'));
+            ->setCreatedAt(new datetime('now'));
 
         return $game;
     }

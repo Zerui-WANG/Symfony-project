@@ -25,23 +25,23 @@ class Question
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nameQuestion;
+    private ?string $nameQuestion;
 
     /**
      * @ORM\Column(type="string", length=1024)
      */
-    private $descriptionQuestion;
+    private ?string $descriptionQuestion;
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="questions")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
+    private ?Game $game;
 
     /**
      * @ORM\ManyToMany(targetEntity=Answer::class, mappedBy="questions")
@@ -50,7 +50,6 @@ class Question
 
     public function __construct()
     {
-        $this->games = new ArrayCollection();
         $this->answers = new ArrayCollection();
     }
 

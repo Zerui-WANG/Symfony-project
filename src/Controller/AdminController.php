@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\EditUserType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
@@ -44,7 +45,7 @@ class AdminController extends AbstractController
      * @Route("/users/edit/{id}", name="edit_user")
      * @param User $user
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function editUser (User $user, Request $request) {
         $form = $this->createForm(EditUserType::class, $user);

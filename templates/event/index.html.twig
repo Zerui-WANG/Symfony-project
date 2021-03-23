@@ -18,6 +18,7 @@
                 <th>Frequency</th>
                 <th>CooldownMin</th>
                 <th>CooldownMax</th>
+                <th>Game</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -31,9 +32,10 @@
                 <td>{{ event.frequency }}</td>
                 <td>{{ event.cooldownMin }}</td>
                 <td>{{ event.cooldownMax }}</td>
+                <td>{{ event.game }}</td>
                 <td>
-                    <a href="{{ path('admin_event_show', {'id': event.id}) }}", class="btn btn-info">show</a>
-                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}", class="btn btn-warning">edit</a>
+                    <a href="{{ path('admin_event_show', {'id': event.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('admin_event_edit', {'id': event.id}) }}" class="btn btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}

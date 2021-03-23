@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/effect/student")
+ * @Route("/admin/effect/student", name="admin_")
  */
 class EffectStudentController extends AbstractController
 {
@@ -43,7 +43,7 @@ class EffectStudentController extends AbstractController
             $entityManager->persist($effectStudent);
             $entityManager->flush();
 
-            return $this->redirectToRoute('effect_student_index');
+            return $this->redirectToRoute('admin_effect_student_index');
         }
 
         return $this->render('effect_student/new.html.twig', [
@@ -78,7 +78,7 @@ class EffectStudentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('effect_student_index');
+            return $this->redirectToRoute('admin_effect_student_index');
         }
 
         return $this->render('effect_student/edit.html.twig', [
@@ -101,6 +101,6 @@ class EffectStudentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('effect_student_index');
+        return $this->redirectToRoute('admin_effect_student_index');
     }
 }

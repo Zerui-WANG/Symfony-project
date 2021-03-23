@@ -45,9 +45,10 @@ class PlayerService
     /**
      * @param Player $player
      * @param Answer $answer
+     * @return bool
      * @throws Exception
      */
-    public function update(Player $player, Answer $answer)
+    public function update(Player $player, Answer $answer): bool
     {
         $turn = new TurnSystemService($this->manager,$this->session, $this->user);
         $endGame = $turn->turnSystem();

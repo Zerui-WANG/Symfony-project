@@ -10,7 +10,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotBlank;
-use Symfony\Component\Form\CallbackTransformer;
 
 class EditUserType extends AbstractType
 {
@@ -37,24 +36,7 @@ class EditUserType extends AbstractType
                 'multiple' => true,
                 'label' => 'Rôles'
             ])
-            ->add('Valider', SubmitType::class)
-        ;
-
-/*
-    // Data transformer
-            $builder->get('roles')
-                ->addModelTransformer(new CallbackTransformer(
-                    function ($rolesArray) {
-                        // transform the array to a string
-                        return count($rolesArray)? $rolesArray[0]: null;
-                    },
-                    function ($rolesString) {
-                        // transform the string back to an array
-                        return [$rolesString];
-                    }
-
-                ));*/
-
+            ->add('Valider', SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

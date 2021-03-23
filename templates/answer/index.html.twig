@@ -21,16 +21,18 @@
             <tr>
                 <td>{{ answer.id }}</td>
                 <td>{{ answer.descriptionAnswer }}</td>
-                <td>{{ answer.question.nameQuestion }}</td>
-
+                <td>{% for question in answer.questions %}
+                        {{ question.nameQuestion }}<br/>
+                    {% endfor %}
+                </td>
                 <td>
                     {% for effectPlayer in answer.effectPlayers %}
-                        {{ effectPlayer.characteristicPlayer }}
+                        {{ effectPlayer.characteristicPlayer }}<br/>
                     {%endfor%}
                 </td>
 
                 <td>{% for effectStudent in answer.effectStudents %}
-                    {{ answer.effectStudent.characteristicStudent }}
+                        {{ effectStudent.characteristicStudent }}<br/>
                     {%endfor%}
                 </td>
                 <td>

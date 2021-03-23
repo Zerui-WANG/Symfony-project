@@ -6,7 +6,7 @@
     <br>
     <h1>Action index</h1>
     <br>
-    <center><a href="{{ path('admin_action_new') }}" class="btn btn-success">Create new</a></center>
+    <a href="{{ path('admin_action_new') }}" class="btn btn-success">Create new</a>
     <br>
     <table class="table">
         <thead>
@@ -16,6 +16,8 @@
                 <th>DescriptionQuestion</th>
                 <th>Duration</th>
                 <th>ActionPeriod</th>
+                <th>App</th>
+                <th>Game Id</th>
                 <th>IsAvailable</th>
                 <th>actions</th>
             </tr>
@@ -28,10 +30,12 @@
                 <td>{{ action.descriptionQuestion }}</td>
                 <td>{{ action.duration }}</td>
                 <td>{{ action.actionPeriod }}</td>
+                <td>{{ action.app }}</td>
+                <td>{{ action.game }}</td>
                 <td>{{ action.isAvailable ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('admin_action_show', {'id': action.id}) }}", class="btn btn-info">show</a>
-                    <a href="{{ path('admin_action_edit', {'id': action.id}) }}", class="btn btn-warning">edit</a>
+                    <a href="{{ path('admin_action_show', {'id': action.id}) }}" class="btn btn-info">show</a>
+                    <a href="{{ path('admin_action_edit', {'id': action.id}) }}" class="btn btn-warning">edit</a>
                 </td>
             </tr>
         {% else %}

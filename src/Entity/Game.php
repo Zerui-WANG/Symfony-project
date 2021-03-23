@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,33 +18,33 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $turn;
+    private ?int $turn;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $dayTime;
+    private ?string $dayTime;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?DateTimeInterface $createdAt;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="game", cascade={"persist", "remove"})
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
+    private ?Player $player;
 
     /**
      * @ORM\OneToMany(targetEntity=Student::class, mappedBy="game", orphanRemoval=true)
@@ -91,12 +92,12 @@ class Game
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -195,6 +196,12 @@ class Game
         }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        $res = $this->getId();
+        return (string) $res;
     }
 
 }

@@ -14,7 +14,7 @@ class UpdateController extends AbstractController
      * @param int $idAnswer
      * @return Response
      */
-    public function index(int $idAnswer)
+    public function index(int $idAnswer): Response
     {
         $answer = $this->getDoctrine()->getRepository(Answer::class)->find($idAnswer);
         $effects = $answer->getEffectPlayers()->getValues();

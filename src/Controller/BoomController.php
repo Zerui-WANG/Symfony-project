@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Repository\StudentRepository;
 use App\Service\ActionsService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -18,7 +17,6 @@ class BoomController extends AbstractController
      * @param EntityManagerInterface $manager
      * @return Response
      */
-  ///  # [Route("/boom", name: "boom")]
     public function index(UserInterface $user, EntityManagerInterface $manager): Response
     {
         $students= $this->getDoctrine()
@@ -38,42 +36,5 @@ class BoomController extends AbstractController
             'dayTime' => $dayTime,
             'actions' => $actions
         ]);
-    }
-
-    /**
-     * Route("/test/{name?World}",name = "boomName")
-     */
- /*   public function name($name):Response
-    {
-        return new Response("Hello ". $name);
-    }
-
-*/
-    /**
-     * @Route("/boom/1", name= "array")
-     * @param StudentRepository $repo
-     * @return Response
-     */
-    public function arrayStudent(StudentRepository $repo) :Response
-    {
-        return $this->render('boom/index.html.twig',[$repo->findAll()]);
-    }
-
-
-    /**
-     * @Route("/boom/2", name= "arrayvide")
-     */
-    public function arrayS(): Response
-    {
-        $students= $this->getDoctrine()
-            ->getRepository('App:Student')
-            ->findBy(
-                ['game' => $this->getUser()->getGame()]
-            );
-
-        return $this->render("boom/index.html.twig", [
-            'students' => $students,
-        ]);
-
     }
 }

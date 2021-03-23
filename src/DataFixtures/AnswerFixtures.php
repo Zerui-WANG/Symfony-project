@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use App\Entity\Answer;
-use App\Entity\Event;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;

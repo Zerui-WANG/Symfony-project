@@ -17,12 +17,12 @@ class Answer
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=1024)
      */
-    private $descriptionAnswer;
+    private ?string $descriptionAnswer;
 
     /**
      * @ORM\ManyToMany(targetEntity=EffectStudent::class, inversedBy="answers")
@@ -133,6 +133,12 @@ class Answer
         $this->questions->removeElement($question);
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        $res = $this->getId();
+        return (string) $res;
     }
 
 }
