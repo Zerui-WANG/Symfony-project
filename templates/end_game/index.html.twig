@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Result{% endblock %}
+
+{% block body %}
+    <h1>La partie est malencontreusement finit...</h1>
+    <h2>Voici le résultat de votre partie :</h2>
+    <table>
+        <tr>
+            <td>
+                Vous :
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Humeur :
+            </td>
+            <td>
+                {{ game.player.mood }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Sommeil :
+            </td>
+            <td>
+                {{ game.player.sleep }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Pédagogie :
+            </td>
+            <td>
+                {{ game.player.pedagogy }}
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Charisme :
+            </td>
+            <td>
+                {{ game.player.charisma }}
+            </td>
+        </tr>
+    </table>
+    <table>
+        <tr>
+            <td>
+                Vos élèves :
+            </td>
+        </tr>
+        {% for student in game.students %}
+            <tr>
+                <td>
+                    Assiduité :
+                </td>
+                <td>
+                    {{ student.attendance }}
+                </td>
+                <td>
+                    Notes :
+                </td>
+                <td>
+                    {{ student.grade }}
+                </td>
+                <td>
+                    Est en échec :
+                </td>
+                <td>
+                    {% if student.isFailure == 0 %}
+                        Non
+                    {% else %}
+                        Oui
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

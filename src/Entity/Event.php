@@ -14,22 +14,22 @@ class Event extends Question
     /**
      * @ORM\Column(type="integer")
      */
-    private $cooldown;
+    private ?int $cooldown;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $frequency;
+    private ?int $frequency;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $cooldownMin;
+    private ?int $cooldownMin;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $cooldownMax;
+    private ?int $cooldownMax;
 
     public function getCooldown(): ?int
     {

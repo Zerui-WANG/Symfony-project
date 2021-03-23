@@ -25,32 +25,32 @@ class Question
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $nameQuestion;
+    private ?string $nameQuestion;
 
     /**
      * @ORM\Column(type="string", length=1024)
      */
-    private $descriptionQuestion;
+    private ?string $descriptionQuestion;
 
     /**
-     * @ORM\OneToMany(targetEntity=Answer::class, mappedBy="question")
+     * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="questions")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private ?Game $game;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Answer::class, mappedBy="questions")
      */
     private $answers;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=Game::class, mappedBy="question")
-     */
-    private $games;
 
     public function __construct()
     {
         $this->answers = new ArrayCollection();
-        $this->games = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -82,6 +82,18 @@ class Question
         return $this;
     }
 
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    public function setGame(?Game $game): self
+    {
+        $this->game = $game;
+
+        return $this;
+    }
+
     /**
      * @return Collection|Answer[]
      */
@@ -94,7 +106,7 @@ class Question
     {
         if (!$this->answers->contains($answer)) {
             $this->answers[] = $answer;
-            $answer->setQuestion($this);
+            $answer->addQuestion($this);
         }
 
         return $this;
@@ -103,37 +115,7 @@ class Question
     public function removeAnswer(Answer $answer): self
     {
         if ($this->answers->removeElement($answer)) {
-            // set the owning side to null (unless already changed)
-            if ($answer->getQuestion() === $this) {
-                $answer->setQuestion(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Game[]
-     */
-    public function getGames(): Collection
-    {
-        return $this->games;
-    }
-
-    public function addGame(Game $game): self
-    {
-        if (!$this->games->contains($game)) {
-            $this->games[] = $game;
-            $game->addQuestion($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGame(Game $game): self
-    {
-        if ($this->games->removeElement($game)) {
-            $game->removeQuestion($this);
+            $answer->removeQuestion($this);
         }
 
         return $this;

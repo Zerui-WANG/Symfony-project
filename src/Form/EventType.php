@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\Game;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,7 +19,7 @@ class EventType extends AbstractType
             ->add('frequency')
             ->add('cooldownMin')
             ->add('cooldownMax')
-        //    ->add('games')
+            ->add('game')
         ;
     }
 
@@ -26,6 +27,7 @@ class EventType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Event::class,
+            'game' => Game::class,
         ]);
     }
 }

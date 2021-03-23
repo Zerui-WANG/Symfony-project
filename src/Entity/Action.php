@@ -13,22 +13,22 @@ class Action extends Question
     /**
      * @ORM\Column(type="integer")
      */
-    private $duration;
+    private ?int $duration;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $actionPeriod;
+    private ?string $actionPeriod;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isAvailable;
+    private ?bool $isAvailable;
 
     /**
-     * @ORM\Column(type="string", length=32)
+     * @ORM\Column(type="string", length=255)
      */
-    private $application;
+    private ?string $app;
 
     public function getDuration(): ?int
     {
@@ -66,14 +66,14 @@ class Action extends Question
         return $this;
     }
 
-    public function getApplication(): ?string
+    public function getApp(): ?string
     {
-        return $this->application;
+        return $this->app;
     }
 
-    public function setApplication(string $application): self
+    public function setApp(string $app): self
     {
-        $this->application = $application;
+        $this->app = $app;
 
         return $this;
     }

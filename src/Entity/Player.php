@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\PlayerRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,37 +15,27 @@ class Player
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $mood;
+    private ?int $mood;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $sleep;
+    private ?int $sleep;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $pedagogy;
+    private ?int $pedagogy;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $charisma;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=EffectPlayer::class, inversedBy="players")
-     */
-    private $effectPlayers;
-
-    public function __construct()
-    {
-        $this->effectPlayers = new ArrayCollection();
-    }
+    private ?int $charisma;
 
     public function getId(): ?int
     {
@@ -98,30 +86,6 @@ class Player
     public function setCharisma(int $charisma): self
     {
         $this->charisma = $charisma;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|EffectPlayer[]
-     */
-    public function getEffectPlayers(): Collection
-    {
-        return $this->effectPlayers;
-    }
-
-    public function addEffectPlayer(EffectPlayer $effectPlayer): self
-    {
-        if (!$this->effectPlayers->contains($effectPlayer)) {
-            $this->effectPlayers[] = $effectPlayer;
-        }
-
-        return $this;
-    }
-
-    public function removeEffectPlayer(EffectPlayer $effectPlayer): self
-    {
-        $this->effectPlayers->removeElement($effectPlayer);
 
         return $this;
     }

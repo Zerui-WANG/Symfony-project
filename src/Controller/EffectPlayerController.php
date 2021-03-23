@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/effect/player")
+ * @Route("/admin/effect/player", name="admin_")
  */
 class EffectPlayerController extends AbstractController
 {
     /**
      * @Route("/", name="effect_player_index", methods={"GET"})
+     * @param EffectPlayerRepository $effectPlayerRepository
+     * @return Response
      */
     public function index(EffectPlayerRepository $effectPlayerRepository): Response
     {
@@ -27,6 +29,8 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/new", name="effect_player_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -39,7 +43,7 @@ class EffectPlayerController extends AbstractController
             $entityManager->persist($effectPlayer);
             $entityManager->flush();
 
-            return $this->redirectToRoute('effect_player_index');
+            return $this->redirectToRoute('admin_effect_player_index');
         }
 
         return $this->render('effect_player/new.html.twig', [
@@ -50,16 +54,21 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_player_show", methods={"GET"})
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function show(EffectPlayer $effectPlayer): Response
     {
-        return $this->render('effect_player/showInGame.html.twig', [
+        return $this->render('effect_player/show.html.twig', [
             'effect_player' => $effectPlayer,
         ]);
     }
 
     /**
-     * @Route("/{id}/edit", name="effect_player_edit", methods={"GET","POST"})
+     * @Route("/edit/{id}", name="effect_player_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function edit(Request $request, EffectPlayer $effectPlayer): Response
     {
@@ -69,7 +78,7 @@ class EffectPlayerController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('effect_player_index');
+            return $this->redirectToRoute('admin_effect_player_index');
         }
 
         return $this->render('effect_player/edit.html.twig', [
@@ -80,6 +89,9 @@ class EffectPlayerController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_player_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param EffectPlayer $effectPlayer
+     * @return Response
      */
     public function delete(Request $request, EffectPlayer $effectPlayer): Response
     {
@@ -89,6 +101,6 @@ class EffectPlayerController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('effect_player_index');
+        return $this->redirectToRoute('admin_effect_player_index');
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\GameRepository;
+use DateTimeInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -17,33 +18,33 @@ class Game
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $turn;
+    private ?int $turn;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="integer")
      */
-    private $dayTime;
+    private ?string $dayTime;
 
     /**
      * @ORM\Column(type="datetime")
      */
-    private $createdAt;
+    private ?DateTimeInterface $createdAt;
 
     /**
      * @ORM\OneToOne(targetEntity=User::class, mappedBy="game", cascade={"persist", "remove"})
      */
-    private $user;
+    private ?User $user;
 
     /**
      * @ORM\OneToOne(targetEntity=Player::class, cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $player;
+    private ?Player $player;
 
     /**
      * @ORM\OneToMany(targetEntity=Student::class, mappedBy="game", orphanRemoval=true)
@@ -51,16 +52,15 @@ class Game
     private $students;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Question::class, inversedBy="games")
+     * @ORM\OneToMany(targetEntity=Question::class, mappedBy="game")
      */
-    private $question;
-
+    private $questions;
 
     public function __construct()
     {
         $this->questions = new ArrayCollection();
         $this->students = new ArrayCollection();
-        $this->question = new ArrayCollection();
+
     }
 
     public function getId(): ?int
@@ -92,12 +92,12 @@ class Game
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): ?DateTimeInterface
     {
         return $this->createdAt;
     }
 
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    public function setCreatedAt(DateTimeInterface $createdAt): self
     {
         $this->createdAt = $createdAt;
 
@@ -171,15 +171,16 @@ class Game
     /**
      * @return Collection|Question[]
      */
-    public function getQuestion(): Collection
+    public function getQuestions(): Collection
     {
-        return $this->question;
+        return $this->questions;
     }
 
     public function addQuestion(Question $question): self
     {
-        if (!$this->question->contains($question)) {
-            $this->question[] = $question;
+        if (!$this->questions->contains($question)) {
+            $this->questions[] = $question;
+            $question->setGame($this);
         }
 
         return $this;
@@ -187,9 +188,20 @@ class Game
 
     public function removeQuestion(Question $question): self
     {
-        $this->question->removeElement($question);
+        if ($this->questions->removeElement($question)) {
+            // set the owning side to null (unless already changed)
+            if ($question->getGame() === $this) {
+                $question->setGame(null);
+            }
+        }
 
         return $this;
+    }
+
+    public function __toString(): string
+    {
+        $res = $this->getId();
+        return (string) $res;
     }
 
 }

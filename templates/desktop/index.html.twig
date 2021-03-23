@@ -11,7 +11,15 @@
                 <td>ID du joueur : {{game.player.id}}</td>
                 <td>ID Game : {{game.id}}</td>
                 <td>Tour : {{game.turn}}</td>
-                <td>DayTime : {{game.dayTime}}</td>
+                <td>DayTime :
+                    {% if game.dayTime == 0 %}
+                        Matin
+                    {% elseif game.dayTime == 1 %}
+                        Midi
+                    {% else %}
+                        Soir
+                    {% endif %}
+                </td>
                 <td>Humeur : {{game.player.mood}}</td>
                 <td>Sommeil : {{ game.player.sleep }}</td>
                 <td>Pédagogie : {{game.player.pedagogy}}</td>

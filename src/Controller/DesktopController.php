@@ -2,8 +2,6 @@
 
 namespace App\Controller;
 
-use App\Entity\Game;
-use App\Service\EventService;
 use App\Service\TurnSystemService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -16,12 +14,12 @@ class DesktopController extends AbstractController
 {
     /**
      * @Route("/desktop", name="desktop")
+     * @param UserInterface $user
+     * @return Response
      */
-    public function index(): Response
+    public function index(UserInterface $user): Response
     {
-        $game = $this->getDoctrine()->getRepository(Game::class)->find(
-            $this->getUser()->getGame()->getId()
-        );
+        $game = $user->getGame();
 
         return $this->render('desktop/index.html.twig', [
             'game' => $game,
@@ -38,8 +36,8 @@ class DesktopController extends AbstractController
     public function eventActivation(EntityManagerInterface $manager, UserInterface $user,
                                     SessionInterface $session): Response
     {
-        $event = new TurnSystemService($manager, $session);
-        $eventActivated = $event->eventActivation($user);
+        $event = new TurnSystemService($manager, $session, $user);
+        $eventActivated = $event->eventActivation();
 
         if(is_null($eventActivated))
         {

@@ -11,6 +11,7 @@
                 <th>Id</th>
                 <th>ValueEffectPlayer</th>
                 <th>CharacteristicPlayer</th>
+                <th>Answers</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,8 +22,13 @@
                 <td>{{ effect_player.valueEffectPlayer }}</td>
                 <td>{{ effect_player.characteristicPlayer }}</td>
                 <td>
-                    <a href="{{ path('effect_player_show', {'id': effect_player.id}) }}">show</a>
-                    <a href="{{ path('effect_player_edit', {'id': effect_player.id}) }}">edit</a>
+                    {% for answer in effect_player.answers %}
+                        {{ answer }} <br/>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{{ path('admin_effect_player_show', {'id': effect_player.id}) }}">show</a>
+                    <a href="{{ path('admin_effect_player_edit', {'id': effect_player.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +39,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('effect_player_new') }}">Create new</a>
+    <a href="{{ path('admin_effect_player_new') }}">Create new</a>
 {% endblock %}

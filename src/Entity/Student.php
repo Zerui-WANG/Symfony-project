@@ -3,8 +3,6 @@
 namespace App\Entity;
 
 use App\Repository\StudentRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,48 +15,38 @@ class Student
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private $id;
+    private ?int $id;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $attendance;
+    private ?int $attendance;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $personality;
+    private ?int $personality;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $grade;
+    private ?int $grade;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isFailure;
+    private ?bool $isFailure;
 
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isPresent;
-
-    /**
-     * @ORM\ManyToMany(targetEntity=EffectStudent::class, inversedBy="students")
-     */
-    private $effectStudents;
+    private ?bool $isPresent;
 
     /**
      * @ORM\ManyToOne(targetEntity=Game::class, inversedBy="students")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $game;
-
-    public function __construct()
-    {
-        $this->effectStudents = new ArrayCollection();
-    }
+    private ?Game $game;
 
     public function getId(): ?int
     {
@@ -121,30 +109,6 @@ class Student
     public function setIsPresent(bool $isPresent): self
     {
         $this->isPresent = $isPresent;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|EffectStudent[]
-     */
-    public function getEffectStudents(): Collection
-    {
-        return $this->effectStudents;
-    }
-
-    public function addEffectStudent(EffectStudent $effectStudent): self
-    {
-        if (!$this->effectStudents->contains($effectStudent)) {
-            $this->effectStudents[] = $effectStudent;
-        }
-
-        return $this;
-    }
-
-    public function removeEffectStudent(EffectStudent $effectStudent): self
-    {
-        $this->effectStudents->removeElement($effectStudent);
 
         return $this;
     }

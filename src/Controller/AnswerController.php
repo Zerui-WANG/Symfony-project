@@ -17,6 +17,8 @@ class AnswerController extends AbstractController
 {
     /**
      * @Route("/", name="answer_index", methods={"GET"})
+     * @param AnswerRepository $answerRepository
+     * @return Response
      */
     public function index(AnswerRepository $answerRepository): Response
     {
@@ -27,6 +29,8 @@ class AnswerController extends AbstractController
 
     /**
      * @Route("/new", name="answer_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -53,16 +57,21 @@ class AnswerController extends AbstractController
 
     /**
      * @Route("/{id}", name="answer_show", methods={"GET"})
+     * @param Answer $answer
+     * @return Response
      */
     public function show(Answer $answer): Response
     {
-        return $this->render('answer/showInGame.html.twig', [
+        return $this->render('answer/show.html.twig', [
             'answer' => $answer,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="answer_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param Answer $answer
+     * @return Response
      */
     public function edit(Request $request, Answer $answer): Response
     {
@@ -70,8 +79,9 @@ class AnswerController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($answer);
+            $manager->flush();
             return $this->redirectToRoute('answer_index');
         }
 
@@ -83,6 +93,9 @@ class AnswerController extends AbstractController
 
     /**
      * @Route("/{id}", name="answer_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param Answer $answer
+     * @return Response
      */
     public function delete(Request $request, Answer $answer): Response
     {

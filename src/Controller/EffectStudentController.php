@@ -11,12 +11,14 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 /**
- * @Route("/effect/student")
+ * @Route("/admin/effect/student", name="admin_")
  */
 class EffectStudentController extends AbstractController
 {
     /**
      * @Route("/", name="effect_student_index", methods={"GET"})
+     * @param EffectStudentRepository $effectStudentRepository
+     * @return Response
      */
     public function index(EffectStudentRepository $effectStudentRepository): Response
     {
@@ -27,6 +29,8 @@ class EffectStudentController extends AbstractController
 
     /**
      * @Route("/new", name="effect_student_new", methods={"GET","POST"})
+     * @param Request $request
+     * @return Response
      */
     public function new(Request $request): Response
     {
@@ -39,7 +43,7 @@ class EffectStudentController extends AbstractController
             $entityManager->persist($effectStudent);
             $entityManager->flush();
 
-            return $this->redirectToRoute('effect_student_index');
+            return $this->redirectToRoute('admin_effect_student_index');
         }
 
         return $this->render('effect_student/new.html.twig', [
@@ -50,16 +54,21 @@ class EffectStudentController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_student_show", methods={"GET"})
+     * @param EffectStudent $effectStudent
+     * @return Response
      */
     public function show(EffectStudent $effectStudent): Response
     {
-        return $this->render('effect_student/showInGame.html.twig', [
+        return $this->render('effect_student/show.html.twig', [
             'effect_student' => $effectStudent,
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="effect_student_edit", methods={"GET","POST"})
+     * @param Request $request
+     * @param EffectStudent $effectStudent
+     * @return Response
      */
     public function edit(Request $request, EffectStudent $effectStudent): Response
     {
@@ -69,7 +78,7 @@ class EffectStudentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('effect_student_index');
+            return $this->redirectToRoute('admin_effect_student_index');
         }
 
         return $this->render('effect_student/edit.html.twig', [
@@ -80,6 +89,9 @@ class EffectStudentController extends AbstractController
 
     /**
      * @Route("/{id}", name="effect_student_delete", methods={"DELETE"})
+     * @param Request $request
+     * @param EffectStudent $effectStudent
+     * @return Response
      */
     public function delete(Request $request, EffectStudent $effectStudent): Response
     {
@@ -89,6 +101,6 @@ class EffectStudentController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('effect_student_index');
+        return $this->redirectToRoute('admin_effect_student_index');
     }
 }

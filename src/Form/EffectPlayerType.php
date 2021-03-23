@@ -2,8 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\Answer;
 use App\Entity\EffectPlayer;
-use App\Entity\Player;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -26,9 +27,16 @@ class EffectPlayerType extends AbstractType
                     ]
                 ]
             ])
-            ->add('answer', ChoiceType::class, [
-                'choices' => $answer = getValue(getAnswer()),
+            ->add('answers', EntityType::class, [
+                'class' => Answer::class,
+                'choice_label'=>function(Answer $answer){
+
+                    return $answer->getId();
+                },
+                'multiple' => true,
+                'required'=> false
             ])
+
         ;
     }
 
@@ -36,6 +44,7 @@ class EffectPlayerType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EffectPlayer::class,
+            'answers' => Answer::class,
         ]);
     }
 }

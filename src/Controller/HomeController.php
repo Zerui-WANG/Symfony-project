@@ -5,7 +5,6 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\User;
 
 class HomeController extends AbstractController
 {
@@ -14,15 +13,14 @@ class HomeController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('home/index.html.twig', [
-            'controller_name' => 'HomeController',
-        ]);
+        return $this->render('home/index.html.twig');
     }
 
     /**
      * @Route("/", name="home")
      */
-    public function home() {
+    public function home(): Response
+    {
         return $this->render( 'home/index.html.twig', [
             'controller_name' => 'ConfinementClassroomControllerHome',
         ]);
@@ -31,8 +29,8 @@ class HomeController extends AbstractController
     /**
      * @Route("/home/game", name="game")
      */
-    public function game() {
-        return $this->render( 'home/game.html.twig', [
-        ]);
+    public function game(): Response
+    {
+        return $this->render( 'home/game.html.twig');
     }
 }

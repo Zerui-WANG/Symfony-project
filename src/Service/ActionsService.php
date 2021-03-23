@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Entity\Action;
+use App\Entity\Game;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -11,78 +12,87 @@ class ActionsService
     /**
      * @var EntityManagerInterface
      */
-    private EntityManagerInterface $em;
+    private EntityManagerInterface $manager;
+    /**
+     * @var UserInterface
+     */
+    private UserInterface $user;
 
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $manager, UserInterface $user)
     {
-        $this->em = $em;
+        $this->manager = $manager;
+        $this->user = $user;
     }
 
-    public function create($manager, $answers): array
+    public function create(Game $game, $answers, $events): array
     {
-        $actions = array();
+        $actionsNumberToCreate = 5;
+        $templateGameId = 6;
+        //Search actions templates from the template game : id=3
+        $actions = $this->manager->getRepository(Action::class)->findBy([
+            'game' => $this->manager->getRepository(Game::class)->find($templateGameId)
+        ]);
 
-        for($i = 0; $i < 10; $i++) {
+        $selectedActions = array();
+        $selectedIndex = array_rand($actions, $actionsNumberToCreate);
+        foreach ($selectedIndex as $index){
             $action = new Action();
-
-            switch ($i) {
-                case 1:
-                    $period = "midi";
-                    break;
-                case 2:
-                    $period = "soir";
-                    break;
-                default:
-                    $period = "matin";
-            }
-
-            $action->setDuration($i + 2)
-                ->setActionPeriod($period)
-                ->setIsAvailable(true)
-                ->setApplication("Boom")
-                ->setNameQuestion("Nom de l'action n°" . $i)
-                ->setDescriptionQuestion("Description de l'action n°" . $i);
-
-            $manager->persist($action);
-            array_push($actions, $action);
+            $action->setDuration($actions[$index]->getDuration())
+                ->setActionPeriod($actions[$index]->getActionPeriod())
+                ->setIsAvailable($actions[$index]->getIsAvailable())
+                ->setNameQuestion($actions[$index]->getNameQuestion())
+                ->setDescriptionQuestion($actions[$index]->getDescriptionQuestion())
+                ->setApp($actions[$index]->getApp())
+                ->setGame($game);
+            $this->manager->persist($action);
+            array_push($selectedActions, $action);
         }
 
         $counter = 0;
-
-        for($j = 0; $j < count($answers); $j++){
-            if($counter < count($actions))
+        for($j = (count($events) * 2); $j < count($answers); $j++){
+            if($counter < count($selectedActions))
             {
-                $actions[$counter++]->addAnswer($answers[$j++])
-                    ->addAnswer($answers[$j++])
+                $selectedActions[$counter++]->addAnswer($answers[$j++])
                     ->addAnswer($answers[$j]);
             }
         }
 
+        return $selectedActions;
+    }
+
+    public function actionActivation(String $app): array
+    {
+        $game = $this->user->getGame();
+        $actions = array();
+
+        if($game->getDayTime() == 0)
+        {
+            $actions = $this->manager->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 0,
+                    'app' => $app
+                ]);
+        }
+        elseif ($game->getDayTime() == 1)
+        {
+            $actions = $this->manager->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 1,
+                    'app' => $app
+                ]);
+        }
+        elseif ($game->getDayTime() == 2)
+        {
+            $actions = $this->manager->getRepository(Action::class)
+                ->findBy([
+                    'game' => $game,
+                    'actionPeriod' => 2,
+                    'app' => $app
+                ]);
+        }
+
         return $actions;
-    }
-
-    public function actionActivation(UserInterface $user) : Action
-    {
-        $game = $user->getGame();
-        $time = $game->getDayTime();
-     //   $appName = $this->em->getRepository(Action::class)
-      //      ->findbyApp('boom');
-
-        $appName = 'Boom';
-
-        $actions = $this->em->getRepository(Action::class)
-            ->findBy([
-              //  'game' => $game,
-                'actionPeriod' => $time,
-                'application' => $appName,
-        ]);
-     //   dd($game);
-        $counter = count($actions);
-        return $actions[mt_rand(0, $counter-1)];
-    }
-
-    public function loadAction()
-    {
-      //  $actions =$this->em->
     }
 }
