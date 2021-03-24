@@ -71,11 +71,23 @@ class StudentsService
                     case 'attendance':
                         $student->setAttendance($student->getAttendance() + $player->getCharisma() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
+
+                        if($student->getAttendance()<0)
+                            $student->setAttendance(0);
+                        if($student->getAttendance()>100)
+                            $student->setAttendance(100);
+
                         $this->manager->flush();
                         break;
                     case 'grade':
                         $student->setGrade($student->getGrade() + $player->getPedagogy() +
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
+
+                        if($student->getGrade()<0)
+                            $student->setGrade(0);
+                        if($student->getGrade()>20)
+                            $student->setGrade(20);
+
                         $this->manager->flush();
                         break;
                     case 'isPresent':

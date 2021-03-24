@@ -59,18 +59,42 @@ class PlayerService
             switch ($effectPlayer->getCharacteristicPlayer()){
                 case 'mood':
                     $player->setMood($player->getMood() + $effectPlayer->getValueEffectPlayer());
+
+                    if($player->getMood()<0)
+                        $player->setMood(0);
+                    if($player->getMood()>100)
+                        $player->setMood(100);
+
                     $this->manager->flush();
                     break;
                 case 'sleep':
                     $player->setSleep($player->getSleep() + $effectPlayer->getValueEffectPlayer());
+
+                    if($player->getSleep()<0)
+                        $player->setSleep(0);
+                    if($player->getSleep()>100)
+                        $player->setSleep(100);
+
                     $this->manager->flush();
                     break;
                 case 'charisma':
                     $player->setCharisma($player->getCharisma() + $effectPlayer->getValueEffectPlayer());
+
+                    if($player->getCharisma()<0)
+                        $player->setCharisma(0);
+                    if($player->getCharisma()>10)
+                        $player->setCharisma(10);
+
                     $this->manager->flush();
                     break;
                 case 'pedagogy':
                     $player->setPedagogy($player->getPedagogy() + $effectPlayer->getValueEffectPlayer());
+
+                    if($player->getPedagogy()<0)
+                        $player->setPedagogy(0);
+                    if($player->getPedagogy()>10)
+                        $player->setPedagogy(10);
+
                     $this->manager->flush();
                     break;
                 default:
