@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Game;
 use App\Entity\Student;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,18 +20,17 @@ class StudentRepository extends ServiceEntityRepository
         parent::__construct($registry, Student::class);
     }
 
-    public function areFailing()
+    public function areFailing(Game $game)
     {
         $entityManager = $this->getEntityManager();
 
         $query = $entityManager->createQuery(
-            'SELECT p
-            FROM App\Entity\Product p
-            WHERE p.price > :price
-            ORDER BY p.price ASC'
-        )->setParameter('price', $price);
+            'SELECT s
+            FROM App\Entity\Student s
+            WHERE s.grade < 10 and s.game = :game
+            ORDER BY s.grade desc'
+        )->setParameter('game', $game);
 
-        // returns an array of Product objects
         return $query->getResult();
     }
 }
