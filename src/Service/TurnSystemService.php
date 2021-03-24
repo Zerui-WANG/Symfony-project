@@ -61,9 +61,7 @@ class TurnSystemService
             if($currentTurn < 1){
                 $endGame = true;
             }
-
         }
-
         return $endGame;
     }
 }

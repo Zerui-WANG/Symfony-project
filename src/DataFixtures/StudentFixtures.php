@@ -11,8 +11,6 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager)
     {
-
-
         for($i = 0; $i < 25; $i++){
             $student = new Student();
             $student->setAttendance(mt_rand(1, 100))
