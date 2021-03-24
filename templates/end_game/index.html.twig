@@ -5,12 +5,10 @@
 {% block body %}
     <h1>La partie est malencontreusement finit...</h1>
     <h2>Voici le résultat de votre partie :</h2>
+
+    <h3>Vous :</h3>
+
     <table>
-        <tr>
-            <td>
-                Vous :
-            </td>
-        </tr>
         <tr>
             <td>
                 Humeur :
@@ -44,14 +42,18 @@
             </td>
         </tr>
     </table>
+
+    <h3>Vos élèves :</h3>
+
     <table>
-        <tr>
-            <td>
-                Vos élèves :
-            </td>
-        </tr>
         {% for student in game.students %}
             <tr>
+                <td>
+                    Etudiant :
+                </td>
+                <td>
+                    {{ student.id }}
+                </td>
                 <td>
                     Assiduité :
                 </td>
@@ -76,11 +78,11 @@
                 </td>
             </tr>
         {% endfor %}
-        <tr>
-            <td>
-                <br/>Les étudiants en échec scolaire :
-            </td>
-        </tr>
+    </table>
+
+    <h3>Les étudiants en échec scolaire :</h3>
+
+    <table>
         {% for student in failed_students %}
             <tr>
                 <td>
