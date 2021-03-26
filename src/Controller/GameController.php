@@ -20,11 +20,13 @@ class GameController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param SessionInterface $session
      * @param UserInterface $user
+     * @param int $template_game_id
      * @return Response
      */
-    public function new(EntityManagerInterface $manager, SessionInterface $session,UserInterface $user): Response
+    public function new(EntityManagerInterface $manager, SessionInterface $session,UserInterface $user,
+                        int $template_game_id): Response
     {
-        $game = new GameService($manager, $session, $user);
+        $game = new GameService($manager, $session, $user, $template_game_id);
 
         return $this->render('desktop/index.html.twig', [
             'game' => $game->createGameService(),

@@ -15,9 +15,10 @@ class BoomController extends AbstractController
      * @Route("/boom", name= "boom")
      * @param UserInterface $user
      * @param EntityManagerInterface $manager
+     * @param int $template_game_id
      * @return Response
      */
-    public function index(UserInterface $user, EntityManagerInterface $manager): Response
+    public function index(UserInterface $user, EntityManagerInterface $manager, int $template_game_id): Response
     {
         $students= $this->getDoctrine()
             ->getRepository('App:Student')
@@ -28,7 +29,7 @@ class BoomController extends AbstractController
         $dayTime = $this->getUser()->getGame()->getDayTime();
         $app = 'boom';
 
-        $actionService = new ActionsService($manager, $user);
+        $actionService = new ActionsService($manager, $user, $template_game_id);
         $actions = $actionService->actionActivation($app);
 
         return $this->render("boom/index.html.twig", [
