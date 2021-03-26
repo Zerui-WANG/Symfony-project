@@ -1,7 +1,7 @@
 # Symfony-project : ConfinementClassroom
 
 ##
-<p style="text-align: center;">[Click here](http://magma-game.com/ConfinementClassroom/public/) to see the project</p>
+<p align="center">[Click here](http://magma-game.com/ConfinementClassroom/public/) to see the project</p>
 
 ## Project presentation :
 
