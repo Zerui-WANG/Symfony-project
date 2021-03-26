@@ -21,6 +21,11 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
                 ->setName('Student n°' . $i)
                 ->setGame($this->getReference('game_1'));
 
+            if($student->getGrade() < 10)
+            {
+                $student->setIsFailure(true);
+            }
+
             $this->setReference('student_'.$i, $student);
 
             $manager->persist($student);
@@ -35,6 +40,11 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
                 ->setIsPresent(true)
                 ->setName('Student n°' . $j)
                 ->setGame($this->getReference('game_2'));
+
+            if($student->getGrade() < 10)
+            {
+                $student->setIsFailure(true);
+            }
 
             $this->setReference('student_'.$j, $student);
 

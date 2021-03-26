@@ -32,8 +32,63 @@
 
     <a href="{{ path('netflip') }}"><button>Netflip</button></a>
     <a href="{{ path('boom') }}"><button>Boom</button></a>
-    <a href="{{ path('desktop_event') }}"><button>What's Up</button></a>
     <a href="{{ path('desktop_event') }}"><button>Mail</button></a>
-    <a href="{{ path('desktop_event') }}"><button>Arrêter</button></a>
+    <a href="{{ path('menu') }}"><button>Arrêter</button></a>
 
+    <table>
+        <tr>
+            <td>
+                Vos élèves :
+            </td>
+        </tr>
+        {% for student in game.students %}
+            <tr>
+                <td>
+                    {{ student.name }} :
+                </td>
+                <td>
+                    Assiduité :
+                </td>
+                <td>
+                    {{ student.attendance }}
+                </td>
+                <td>
+                    Notes :
+                </td>
+                <td>
+                    {{ student.grade }}
+                </td>
+                <td>
+                    Est en échec :
+                </td>
+                <td>
+                    {% if student.isFailure == 0 %}
+                        Non
+                    {% else %}
+                        Oui
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <br/>Les étudiants en échec scolaire :
+            </td>
+        </tr>
+        {% for student in game.students %}
+            {% if student.grade < 10 %}
+                <tr>
+                    <td>
+                        {{ student.name }} :
+                    </td>
+                    <td>
+                        Notes :
+                    </td>
+                    <td>
+                        {{ student.grade }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
 {% endblock %}

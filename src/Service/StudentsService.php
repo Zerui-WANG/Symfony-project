@@ -53,6 +53,12 @@ class StudentsService
                 ->setIsFailure(false)
                 ->setIsPresent(true)
                 ->setGame($game);
+
+            if($student->getGrade() < 10)
+            {
+                $student->setIsFailure(true);
+            }
+
             $this->manager->persist($student);
             array_push($students, $student);
         }
@@ -82,9 +88,13 @@ class StudentsService
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
 
                         if($student->getAttendance()<0)
+                        {
                             $student->setAttendance(0);
+                        }
                         if($student->getAttendance()>100)
+                        {
                             $student->setAttendance(100);
+                        }
 
                         $this->manager->flush();
                         break;
@@ -93,8 +103,14 @@ class StudentsService
                             $student->getPersonality() + $effectStudent->getValueEffectStudent());
 
                         if($student->getGrade()<0)
+                        {
                             $student->setGrade(0);
-                        if($student->getGrade()>20)
+                        }
+                        elseif($student->getGrade()<10)
+                        {
+                            $student->setIsFailure(true);
+                        }
+                        elseif($student->getGrade()>20)
                             $student->setGrade(20);
 
                         $this->manager->flush();
