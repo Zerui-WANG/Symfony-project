@@ -18,6 +18,7 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
                 ->setGrade(mt_rand(5, 15))
                 ->setIsFailure(false)
                 ->setIsPresent(true)
+                ->setName('Student n°' . $i)
                 ->setGame($this->getReference('game_1'));
 
             $this->setReference('student_'.$i, $student);
@@ -32,6 +33,7 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
                 ->setGrade(mt_rand(5, 15))
                 ->setIsFailure(false)
                 ->setIsPresent(true)
+                ->setName('Student n°' . $j)
                 ->setGame($this->getReference('game_2'));
 
             $this->setReference('student_'.$j, $student);
