@@ -53,6 +53,9 @@
         {% for student in game.students %}
             <tr>
                 <td>
+                    {{ student.name }} :
+                </td>
+                <td>
                     Assiduité :
                 </td>
                 <td>
@@ -73,6 +76,33 @@
                     {% else %}
                         Oui
                     {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <br/>Les étudiants en échec scolaire :
+            </td>
+        </tr>
+        {% for student in failed_students %}
+            <tr>
+                <td>
+                    Etudiant :
+                </td>
+                <td>
+                    {{ student.id }}
+                </td>
+                <td>
+                    Assiduité :
+                </td>
+                <td>
+                    {{ student.attendance }}
+                </td>
+                <td>
+                    Notes :
+                </td>
+                <td>
+                    {{ student.grade }}
                 </td>
             </tr>
         {% endfor %}

@@ -24,23 +24,32 @@ class StudentsService
      * @var EntityManagerInterface
      */
     private EntityManagerInterface $manager;
+    private int $template_game_id;
 
-    public function __construct(EntityManagerInterface $manager, SessionInterface $session, UserInterface $user)
+    public function __construct(EntityManagerInterface $manager, SessionInterface $session,
+                                UserInterface $user, int $template_game_id)
     {
         $this->user = $user;
         $this->session = $session;
         $this->manager = $manager;
+        $this->template_game_id = $template_game_id;
     }
 
     public function create(Game $game): array
     {
         $students = array();
 
-        for($i = 0; $i < 30; $i++) {
+        $game_template = $this->manager->getRepository(Game::class)->find($this->template_game_id);
+        $template_students = $this->manager->getRepository(Student::class)->findBy([
+            'game' => $game_template
+        ]);
+
+        for($i = 0; $i < 25; $i++) {
             $student = new Student();
             $student->setAttendance(mt_rand(1, 100))
                 ->setPersonality(mt_rand(1, 10))
                 ->setGrade(mt_rand(5, 15))
+                ->setName($template_students[$i]->getName())
                 ->setIsFailure(false)
                 ->setIsPresent(true)
                 ->setGame($game);
