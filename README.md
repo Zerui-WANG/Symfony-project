@@ -28,6 +28,8 @@
 
 ## Get started
 - `symfony server:start -d`
+- open a web development environment (such as wamp)
+- `symfony console app:students-name-load`
 
 ![Alt text](./diagrammeClasse.svg)
 
