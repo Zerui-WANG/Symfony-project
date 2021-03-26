@@ -13,6 +13,8 @@ class MenuController extends AbstractController
      */
     public function index(): Response
     {
-        return $this->render('menu/menu.html.twig');
+        return $this->render('menu/menu.html.twig',[
+           'user'=> $this->getUser(),
+        ]);
     }
 }
