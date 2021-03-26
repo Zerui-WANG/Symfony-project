@@ -30,9 +30,9 @@
 - `symfony server:start -d`
 - Open a web development environment such as Wamp
 - Do `php bin/console d:f:l`
-- Database is filled : the questions in the table question has the same game_id => these questions are the questions template
-- In src/service/EventService &  ActionService in create() : 
-    - set $templateGameId to the same value than game_id in the table question 
+- Database is filled : the questions in the table question has the same game_id => these questions are the question templates
+- In config/services.yaml : 
+    - set $template_game_id to the same value than game_id in the table question 
 
 ![Alt text](./diagrammeClasse.svg)
 
