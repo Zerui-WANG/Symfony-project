@@ -29,6 +29,8 @@
 ## Get started
 - `symfony server:start -d`
 - open a web development environment (such as wamp)
+- `symfony console doctrine:migration:migrate`
+- `symfony console doctrine:fixtures:load`
 - `symfony console app:students-name-load`
 
 ![Alt text](./diagrammeClasse.svg)
