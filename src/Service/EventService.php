@@ -21,7 +21,7 @@ class EventService
     public function create(Game $game, $answers) : array
     {
         $eventNumberToCreate = 3;
-        $templateGameId = 6;
+        $templateGameId = 3;
         //Search events templates from the template game : id=3
         $events = $this->manager->getRepository(Event::class)->findBy([
             'game' => $this->manager->getRepository(Game::class)->find($templateGameId)
