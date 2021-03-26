@@ -31,6 +31,9 @@
 - open a web development environment (such as wamp)
 - `symfony console doctrine:migration:migrate`
 - `symfony console doctrine:fixtures:load`
+- Database is filled : the questions in the table question has the same game_id => these questions are the question templates
+- In config/services.yaml : 
+    - set $template_game_id to the same value than game_id in the table question 
 - `symfony console app:students-name-load`
 
 ![Alt text](./diagrammeDeClasse.JPG)
