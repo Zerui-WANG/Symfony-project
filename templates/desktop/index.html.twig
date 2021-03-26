@@ -35,6 +35,33 @@
     <a href="{{ path('desktop_event') }}"><button>Mail</button></a>
     <a href="{{ path('menu') }}"><button>Arrêter</button></a>
 
+    <p>Cher journal : ... </p>
+    {% if answer is defined %}
+        {% if answer.effectPlayers|length > 1%}
+            {% for effectPlayer in answer.effectPlayers %}
+                <p>
+                    {{ effectPlayer.characteristicPlayer }}
+                    {% if effectPlayer.valueEffectPlayer > 0 %}
+                        + {{ effectPlayer.valueEffectPlayer }}
+                    {% else %}
+                        - {{ effectPlayer.valueEffectPlayer }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        {% elseif answer.effectStudents|length > 1%}
+            {% for effectStudent in answer.effectStudents %}
+                <p>
+                    {{ effectStudent.characteristicStudent }}
+                    {% if effectStudent.valueEffectStudent > 0 %}
+                        + {{ effectStudent.valueEffectStudent }}
+                    {% else %}
+                        - {{ effectStudent.valueEffectPlayer }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
     <table>
         <tr>
             <td>

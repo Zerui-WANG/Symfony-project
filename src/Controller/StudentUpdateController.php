@@ -40,7 +40,8 @@ class StudentUpdateController extends AbstractController
         if(!$endGame){
             return $this->render('desktop/index.html.twig', [
                 'students' => $students,
-                'game' => $this->getUser()->getGame()
+                'game' => $this->getUser()->getGame(),
+                'answer' => $answer
             ]);
         }
         return $this->render('end_game/index.html.twig', [
