@@ -33,7 +33,7 @@
 - `symfony console doctrine:fixtures:load`
 - `symfony console app:students-name-load`
 
-![Alt text](./diagrammeClasse.svg)
+![Alt text](./diagrammeDeClasse.JPG)
 
 images libres de droits et licences:
 
