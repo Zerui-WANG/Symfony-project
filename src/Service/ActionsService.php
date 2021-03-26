@@ -29,6 +29,9 @@ class ActionsService
     public function create(Game $game, $answers, $events): array
     {
         $actionsNumberToCreate = 5;
+
+        $templateGameId = 3;
+
         //Search actions templates from the template game : id=3
         $actions = $this->manager->getRepository(Action::class)->findBy([
             'game' => $this->manager->getRepository(Game::class)->find($this->template_game_id)

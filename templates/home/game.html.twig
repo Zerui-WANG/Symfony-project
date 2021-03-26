@@ -17,9 +17,9 @@
         <p>Interragissez avec vos élèves au sein des différentes applications mise à votre disposition.
         <p>Influencez vous mutuellement par des bonnes ou mauvaises actions.</p>
         <p class="lead">
-            <div class="btn btn-lets-start">
+            <div>
             {% if not app.user %}
-                <a  href="{{ path ("app_login") }}">C'est parti</a>
+                <a class="btn btn-lets-start" href="{{ path ("app_login") }}">C'est parti</a>
 
             {% else %}
                 <a  href="{{ path ("menu") }}">C'est parti</a>
