@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20210323174936 extends AbstractMigration
+final class Version20210326170814 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -31,7 +31,7 @@ final class Version20210323174936 extends AbstractMigration
         $this->addSql('CREATE TABLE game (id INT AUTO_INCREMENT NOT NULL, player_id INT NOT NULL, turn INT NOT NULL, day_time INT NOT NULL, created_at DATETIME NOT NULL, UNIQUE INDEX UNIQ_232B318C99E6F5DF (player_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE player (id INT AUTO_INCREMENT NOT NULL, mood INT NOT NULL, sleep INT NOT NULL, pedagogy INT NOT NULL, charisma INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE `question` (id INT AUTO_INCREMENT NOT NULL, game_id INT NOT NULL, name_question VARCHAR(255) NOT NULL, description_question VARCHAR(1024) NOT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_B6F7494EE48FD905 (game_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE student (id INT AUTO_INCREMENT NOT NULL, game_id INT NOT NULL, attendance INT NOT NULL, personality INT NOT NULL, grade INT DEFAULT NULL, is_failure TINYINT(1) NOT NULL, is_present TINYINT(1) NOT NULL, INDEX IDX_B723AF33E48FD905 (game_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE student (id INT AUTO_INCREMENT NOT NULL, game_id INT NOT NULL, attendance INT NOT NULL, personality INT NOT NULL, grade INT DEFAULT NULL, is_failure TINYINT(1) NOT NULL, is_present TINYINT(1) NOT NULL, name VARCHAR(255) NOT NULL, INDEX IDX_B723AF33E48FD905 (game_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id INT AUTO_INCREMENT NOT NULL, game_id INT DEFAULT NULL, email VARCHAR(180) NOT NULL, roles LONGTEXT NOT NULL COMMENT \'(DC2Type:json)\', password VARCHAR(255) NOT NULL, pseudo VARCHAR(64) NOT NULL, is_validate TINYINT(1) DEFAULT NULL, UNIQUE INDEX UNIQ_8D93D649E7927C74 (email), UNIQUE INDEX UNIQ_8D93D649E48FD905 (game_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
         $this->addSql('ALTER TABLE action ADD CONSTRAINT FK_47CC8C92BF396750 FOREIGN KEY (id) REFERENCES `question` (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE answer_effect_student ADD CONSTRAINT FK_C1B8D7AAA334807 FOREIGN KEY (answer_id) REFERENCES answer (id) ON DELETE CASCADE');
