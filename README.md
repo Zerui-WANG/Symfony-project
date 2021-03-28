@@ -33,6 +33,7 @@
 - Database is filled : the questions in the table question has the same game_id => these questions are the question templates
 - In config/services.yaml : 
     - set $template_game_id to the same value than game_id in the table question 
+- If you want to access to an admin account, you should add ["ROLE_ADMIN"] into the database on role column of your user account
 
 ![Alt text](./diagrammeClasse.svg)
 
