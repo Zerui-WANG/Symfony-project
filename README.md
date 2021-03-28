@@ -34,6 +34,8 @@
 - In config/services.yaml : 
     - set $template_game_id to the same value than game_id in the table question 
 - If you want to access to an admin account, you should add ["ROLE_ADMIN"] into the database on role column of your user account
+    - an account has been created : 
+      login : admin@admin.ad  password : password
 
 ![Alt text](./diagrammeClasse.svg)
 
