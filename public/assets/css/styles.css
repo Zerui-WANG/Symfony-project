@@ -10343,3 +10343,53 @@ body {
 .footer {
   padding: 5rem 0;
 }
+
+.bouton{
+  margin-top: 10%;
+  padding-top: 10%;
+  padding-bottom: 10%;
+  border: 4mm ridge rgba(43, 63, 196, .6);
+  background-image: url("/assets/img/background.jpg");
+}
+.Netflip-button{
+  margin-left: 4%;
+  margin-bottom: 10%;
+
+}
+
+.Netflip-buttoncolor{
+  background-color: black;
+  color: red;
+  border-radius: 10px;
+
+}
+
+.Boom-button{
+  margin-left: 60%;
+}
+
+.Boom-buttoncolor{
+  background-color: #308AF8;
+  border-radius: 10px;
+
+
+}
+
+.Mail-buttoncolor, .Netflip-buttoncolor,.Boom-buttoncolor, .Mail-buttoncolor, .Arreter-buttoncolor, .Journal-buttoncolor{
+  padding: 1%;
+}
+
+.Mail-button{
+  margin-left: 5%;
+}
+
+.Journal-button{
+  margin-left: 3%;
+}
+
+.Arreter-button{
+  margin-left: 4%;
+}
+.fonctionnalité{
+  margin-bottom: 30%;
+}
