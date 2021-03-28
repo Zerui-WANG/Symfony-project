@@ -10360,7 +10360,7 @@ body {
 .Netflip-buttoncolor{
   background-color: black;
   color: red;
-  border-radius: 10px;
+
 
 }
 
@@ -10370,13 +10370,14 @@ body {
 
 .Boom-buttoncolor{
   background-color: #308AF8;
-  border-radius: 10px;
+
 
 
 }
 
 .Mail-buttoncolor, .Netflip-buttoncolor,.Boom-buttoncolor, .Mail-buttoncolor, .Arreter-buttoncolor, .Journal-buttoncolor{
   padding: 1%;
+  border-radius: 10px;
 }
 
 .Mail-button{
