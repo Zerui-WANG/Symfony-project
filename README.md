@@ -1,5 +1,8 @@
 # Symfony-project : ConfinementClassroom
 
+## Project :
+[Click here](http://magma-game.com/ConfinementClassroom/public/) to see the website online
+
 ## Project presentation :
 
 ### Project Kanban :
