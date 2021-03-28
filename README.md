@@ -30,7 +30,7 @@
     - an account has been created : 
       login : admin@admin.ad  password : password
 
-![Alt text](./diagrammeClasse.svg)
+![Alt text](./diagrammeClasse.JPG)
 
 images libres de droits et licences:
 © Stocklib / Laura Milena Guzman Lopez
