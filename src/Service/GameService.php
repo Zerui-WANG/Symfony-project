@@ -25,12 +25,15 @@ class GameService
      * @var SessionInterface
      */
     private SessionInterface $session;
+    private int $template_game_id;
 
-    public function __construct(EntityManagerInterface $manager, SessionInterface $session, UserInterface $user)
+    public function __construct(EntityManagerInterface $manager, SessionInterface $session,
+                                UserInterface $user, int $template_game_id)
     {
         $this->manager = $manager;
         $this->user = $user;
         $this->session = $session;
+        $this->template_game_id = $template_game_id;
     }
 
     public function createGameService(): Game
@@ -42,15 +45,15 @@ class GameService
         $playerService = new PlayerService($this->manager,$this->session, $this->user);
         $player = $playerService->create();
 
-        $students = new StudentsService($this->manager,$this->session, $this->user);
+        $students = new StudentsService($this->manager,$this->session, $this->user, $this->template_game_id);
         $students->create($game);
 
         $answers = $this->manager->getRepository(Answer::class)->findAll();
 
-        $eventsService = new EventService($this->manager);
+        $eventsService = new EventService($this->manager, $this->template_game_id);
         $events = $eventsService->create($game, $answers);
 
-        $actions = new ActionsService($this->manager, $this->user);
+        $actions = new ActionsService($this->manager, $this->user, $this->template_game_id);
         $actions->create($game, $answers, $events);
 
         $game = $this->gameSet($game, $player, $userUser);

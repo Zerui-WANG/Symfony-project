@@ -18,9 +18,30 @@
   }
 
 .netflip {
-  color: red;
+    color: red;
         }
+
 h1{
     margin: 1em 1em auto;
     color: white;
-        }
+    margin-bottom: 4%;
+}
+
+.question{
+    padding : 4% ;
+}
+h2{
+    color: white;
+    font-size: medium;
+
+}
+
+
+.©carouselExampleIndicators{
+    width: 50%;
+    height: auto;
+}
+
+body{
+    background-color: black;
+}

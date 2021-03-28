@@ -36,8 +36,10 @@
                     {%endfor%}
                 </td>
                 <td>
-                    <a href="{{ path('answer_show', {'id': answer.id}) }}">show</a>
-                    <a href="{{ path('answer_edit', {'id': answer.id}) }}">edit</a>
+                    <a href="{{ path('answer_show', {'id': answer.id}) }}"
+                       class="btn btn-warning">show</a>
+                    <a href="{{ path('answer_edit', {'id': answer.id}) }}"
+                       class="btn btn-info">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -48,5 +50,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('answer_new') }}">Create new</a>
+    <a href="{{ path('answer_new') }}" class="btn btn-success">Create new</a>
 {% endblock %}

@@ -21,10 +21,12 @@ class StudentUpdateController extends AbstractController
      * @param EntityManagerInterface $manager
      * @param UserInterface $user
      * @param SessionInterface $session
+     * @param int $template_game_id
      * @return Response
      * @throws Exception
      */
-    public function update(int $idAnswer, EntityManagerInterface $manager, UserInterface $user, SessionInterface $session): Response
+    public function update(int $idAnswer, EntityManagerInterface $manager, UserInterface $user,
+                           SessionInterface $session, int $template_game_id): Response
     {
         $students = $this->getDoctrine()->getRepository(Student::class)->findBy([
                 'game' => $this->getUser()->getGame()
@@ -32,13 +34,14 @@ class StudentUpdateController extends AbstractController
 
         $answer = $this->getDoctrine()->getRepository(Answer::class)->find($idAnswer);
 
-        $studentsService = new StudentsService($manager, $session, $user);
+        $studentsService = new StudentsService($manager, $session, $user, $template_game_id);
         $endGame = $studentsService->update($answer, $students);
 
         if(!$endGame){
             return $this->render('desktop/index.html.twig', [
                 'students' => $students,
-                'game' => $this->getUser()->getGame()
+                'game' => $this->getUser()->getGame(),
+                'answer' => $answer
             ]);
         }
         return $this->render('end_game/index.html.twig', [

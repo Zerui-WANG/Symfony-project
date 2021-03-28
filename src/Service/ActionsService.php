@@ -17,20 +17,24 @@ class ActionsService
      * @var UserInterface
      */
     private UserInterface $user;
+    private int $template_game_id;
 
-    public function __construct(EntityManagerInterface $manager, UserInterface $user)
+    public function __construct(EntityManagerInterface $manager, UserInterface $user, int $template_game_id)
     {
         $this->manager = $manager;
         $this->user = $user;
+        $this->template_game_id = $template_game_id;
     }
 
     public function create(Game $game, $answers, $events): array
     {
         $actionsNumberToCreate = 5;
-        $templateGameId = 6;
+
+        $templateGameId = 3;
+
         //Search actions templates from the template game : id=3
         $actions = $this->manager->getRepository(Action::class)->findBy([
-            'game' => $this->manager->getRepository(Game::class)->find($templateGameId)
+            'game' => $this->manager->getRepository(Game::class)->find($this->template_game_id)
         ]);
 
         $selectedActions = array();

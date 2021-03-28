@@ -13,8 +13,9 @@
     <div class="div menu">
         <div class="btn-group-vertical">
             <a type="button" class="btn btn-link" href="{{ path('game_new') }}">Nouvelle partie</a>
-
-            <a type="button" class="btn btn-link" href="{{ path('desktop') }}">Continuer la partie</a>
+            {% if user.game.id is defined %}
+                <a type="button" class="btn btn-link" href="{{ path('desktop') }}">Continuer la partie</a>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

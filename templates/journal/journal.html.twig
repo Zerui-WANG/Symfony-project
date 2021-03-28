@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Le Journal{% endblock %}
+
+{% block body %}
+
+
+    <p>Cher journal : ... </p>
+    {% if answer is defined %}
+        {% if answer.effectPlayers|length > 1%}
+            {% for effectPlayer in answer.effectPlayers %}
+                <p>
+                    {{ effectPlayer.characteristicPlayer }}
+                    {% if effectPlayer.valueEffectPlayer > 0 %}
+                        + {{ effectPlayer.valueEffectPlayer }}
+                    {% else %}
+                        - {{ effectPlayer.valueEffectPlayer }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        {% elseif answer.effectStudents|length > 1%}
+            {% for effectStudent in answer.effectStudents %}
+                <p>
+                    {{ effectStudent.characteristicStudent }}
+                    {% if effectStudent.valueEffectStudent > 0 %}
+                        + {{ effectStudent.valueEffectStudent }}
+                    {% else %}
+                        - {{ effectStudent.valueEffectPlayer }}
+                    {% endif %}
+                </p>
+            {% endfor %}
+        {% endif %}
+    {% endif %}
+
+    <table>
+        <tr>
+            <td>
+                Vos élèves :
+            </td>
+        </tr>
+        {% for student in game.students %}
+            <tr>
+                <td>
+                    {{ student.name }} :
+                </td>
+                <td>
+                    Assiduité :
+                </td>
+                <td>
+                    {{ student.attendance }}
+                </td>
+                <td>
+                    Moyenne :
+                </td>
+                <td>
+                    {{ student.grade }}
+                </td>
+                <td>
+                    Est en échec :
+                </td>
+                <td>
+                    {% if student.isFailure == 0 %}
+                        Non
+                    {% else %}
+                        Oui
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        <tr>
+            <td>
+                <br/>Les étudiants en échec scolaire :
+            </td>
+        </tr>
+        {% for student in game.students %}
+            {% if student.grade < 10 %}
+                <tr>
+                    <td>
+                        {{ student.name }} :
+                    </td>
+                    <td>
+                        Notes :
+                    </td>
+                    <td>
+                        {{ student.grade }}
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+
+
+{% endblock %}

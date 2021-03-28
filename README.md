@@ -1,5 +1,8 @@
 # Symfony-project : ConfinementClassroom
 
+##
+[Click here](http://magma-game.com/ConfinementClassroom/public/) to see the project
+
 ## Project presentation :
 
 ### Project Kanban :
@@ -28,16 +31,15 @@
 
 ## Get started
 - `symfony server:start -d`
-- Open a web development environment such as Wamp
-- Do `php bin/console d:f:l`
+- open a web development environment (such as wamp)
+- `symfony console doctrine:migration:migrate`
+- `symfony console doctrine:fixtures:load`
 - Database is filled : the questions in the table question has the same game_id => these questions are the question templates
 - In config/services.yaml : 
     - set $template_game_id to the same value than game_id in the table question 
-- If you want to access to an admin account, you should add ["ROLE_ADMIN"] into the database on role column of your user account
-    - an account has been created : 
-      login : admin@admin.ad  password : password
+- `symfony console app:students-name-load`
 
-![Alt text](./diagrammeClasse.svg)
+![Alt text](./diagrammeDeClasse.JPG)
 
 images libres de droits et licences:
 

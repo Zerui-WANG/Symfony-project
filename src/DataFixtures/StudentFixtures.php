@@ -13,12 +13,18 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
     {
         for($i = 0; $i < 25; $i++){
             $student = new Student();
-            $student->setAttendance(mt_rand(1, 100))
-                ->setPersonality(mt_rand(1, 10))
-                ->setGrade(mt_rand(5, 15))
+            $student->setAttendance(random_int(1, 100))
+                ->setPersonality(random_int(1, 10))
+                ->setGrade(random_int(5, 15))
                 ->setIsFailure(false)
                 ->setIsPresent(true)
+                ->setName('Student n°' . $i)
                 ->setGame($this->getReference('game_1'));
+
+            if($student->getGrade() < 10)
+            {
+                $student->setIsFailure(true);
+            }
 
             $this->setReference('student_'.$i, $student);
 
@@ -27,12 +33,18 @@ class StudentFixtures extends Fixture implements DependentFixtureInterface
 
         for($j = 25; $j < 50; $j++){
             $student = new Student();
-            $student->setAttendance(mt_rand(1, 100))
-                ->setPersonality(mt_rand(1, 10))
-                ->setGrade(mt_rand(5, 15))
+            $student->setAttendance(random_int(1, 100))
+                ->setPersonality(random_int(1, 10))
+                ->setGrade(random_int(5, 15))
                 ->setIsFailure(false)
                 ->setIsPresent(true)
+                ->setName('Student n°' . $j)
                 ->setGame($this->getReference('game_2'));
+
+            if($student->getGrade() < 10)
+            {
+                $student->setIsFailure(true);
+            }
 
             $this->setReference('student_'.$j, $student);
 

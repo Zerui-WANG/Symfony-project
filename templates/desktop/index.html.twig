@@ -29,11 +29,15 @@
         <hr class="my-4">
     </div>
     <h1>ConfinementClassroom</h1>
+    <div class="bouton">
+    <div class="fonctionnalité">
+    <a href="{{ path('netflip') }}" class="Netflip-button"><button class="Netflip-buttoncolor">Netflip</button></a>
+    <a href="{{ path('boom') }}" class="Boom-button"><button class="Boom-buttoncolor">Boom</button></a>
+    <a href="{{ path('desktop_event') }}" class="Mail-button"><button class="Mail-buttoncolor">Mail</button></a>
+    <a href="{{ path('journal') }}" class="Journal-button"><button class="Journal-buttoncolor">Journal</button></a>
+    </div>
 
-    <a href="{{ path('netflip') }}"><button>Netflip</button></a>
-    <a href="{{ path('boom') }}"><button>Boom</button></a>
-    <a href="{{ path('desktop_event') }}"><button>What's Up</button></a>
-    <a href="{{ path('desktop_event') }}"><button>Mail</button></a>
-    <a href="{{ path('desktop_event') }}"><button>Arrêter</button></a>
+    <a href="{{ path('menu') }}" class="Arreter-button"><button class="Arreter-buttoncolor">Arrêter</button></a>
+    </div>
 
 {% endblock %}

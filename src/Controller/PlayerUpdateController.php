@@ -44,7 +44,8 @@ class PlayerUpdateController extends AbstractController
 
         if(!$endGame){
             return $this->render('desktop/index.html.twig', [
-                'game' => $game
+                'game' => $game,
+                'answer' => $answer
             ]);
         }
         return $this->render('end_game/index.html.twig', [
