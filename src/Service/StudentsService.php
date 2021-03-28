@@ -46,9 +46,9 @@ class StudentsService
 
         for($i = 0; $i < 25; $i++) {
             $student = new Student();
-            $student->setAttendance(mt_rand(1, 100))
-                ->setPersonality(mt_rand(1, 10))
-                ->setGrade(mt_rand(5, 15))
+            $student->setAttendance(random_int(1, 100))
+                ->setPersonality(random_int(1, 10))
+                ->setGrade(random_int(5, 15))
                 ->setName($template_students[$i]->getName())
                 ->setIsFailure(false)
                 ->setIsPresent(true)

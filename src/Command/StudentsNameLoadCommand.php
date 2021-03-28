@@ -86,7 +86,7 @@ class StudentsNameLoadCommand extends Command
 
         foreach ($template_students as $student)
         {
-            $student->setName($names[rand(0,99)]['name']);
+            $student->setName($names[random_int(0,99)]['name']);
             $this->manager->persist($student);
         }
 
