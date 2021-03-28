@@ -3,11 +3,12 @@
 ## Project presentation :
 
 ### Project Kanban :
-[Click here](https://github.com/Zerui-WANG/Symfony-project/projects/1) to go to the project Kanban
+[Click here](https://github.com/Zerui-WANG/Symfony-project/projects/1) to go to the project Kanban.
 ### Presentation slides :
-[Click here](https://github.com/Zerui-WANG/Symfony-project/blob/develop/presentation_slides.pdf) to see the slides
+[Click here](https://github.com/Zerui-WANG/Symfony-project/blob/develop/presentation_slides.pdf) to see the slides.
 ## Requirements :
 ### SQL file :
+[Click here](https://github.com/Zerui-WANG/Symfony-project/blob/main/confinement_classroom.sql) to see the sql file.
 ### Accounts to connect on the website :
 ### System : 
 - PHP 7.2 (and above)
@@ -30,7 +31,7 @@
     - an account has been created : 
       login : admin@admin.ad  password : password
 
-![Alt text](./diagrammeClasse.JPG)
+![Alt text](./diagrammeDeClasse.JPG)
 
 images libres de droits et licences:
 © Stocklib / Laura Milena Guzman Lopez
