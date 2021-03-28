@@ -8,7 +8,7 @@
 [Click here](https://github.com/Zerui-WANG/Symfony-project/blob/develop/presentation_slides.pdf) to see the slides.
 ## Requirements :
 ### SQL file :
-[Click here](https://github.com/Zerui-WANG/Symfony-project/blob/main/confinement_classroom.sql) to see the sql file.
+[Click here](https://github.com/Zerui-WANG/Symfony-project/blob/main/confinementclassroom%20(1).sql) to see the sql file.
 ### Accounts to connect on the website :
 Username : admin@admin.ad   
 password : password
