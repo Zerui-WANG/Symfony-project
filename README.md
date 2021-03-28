@@ -10,6 +10,8 @@
 ### SQL file :
 [Click here](https://github.com/Zerui-WANG/Symfony-project/blob/main/confinement_classroom.sql) to see the sql file.
 ### Accounts to connect on the website :
+Username : admin@admin.ad   
+password : password
 ### System : 
 - PHP 7.2 (and above)
 ### App : 
